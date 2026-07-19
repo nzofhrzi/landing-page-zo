@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enzo Fahrezi · Portofolio Retro</title>
+
+    <!-- Google Fonts: Press Start 2P (pixel) + Inter (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <style>
+        /* ============================================================
+                   ROOT – Cream & Colorful palette
+                   ============================================================ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream-bg: #fcf8f0;
+            --cream-card: #f8f2e6;
+            --cream-sidebar: #f5efe0;
+            --border-dark: #2a2a2a;
+            --text-dark: #1e1e1e;
+            --text-muted: #5a5a5a;
+
+            /* Colorful accents */
+            --pixel-red: #ff4d6d;
+            --pixel-pink: #ff5e9e;
+            --pixel-cyan: #4dc9f6;
+            --pixel-blue: #4d7cf6;
+            --pixel-yellow: #f9d342;
+            --pixel-green: #4cda8a;
+            --pixel-orange: #ff8a5c;
+            --pixel-purple: #a37cff;
+            --pixel-teal: #4dc9c0;
+
+            --shadow-pixel: 4px 4px 0px rgba(0, 0, 0, 0.25);
+            --shadow-pixel-sm: 3px 3px 0px rgba(0, 0, 0, 0.2);
+            --border-width: 3px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #e8e0d0;
+            /* outer background */
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        /* ============================================================
+                   MAIN APP – retro container with thick border
+                   ============================================================ */
+        .app {
+            display: flex;
+            max-width: 1360px;
+            width: 100%;
+            min-height: 90vh;
+            max-height: 96vh;
+            background: var(--cream-bg);
+            border: var(--border-width) solid var(--border-dark);
+            box-shadow: var(--shadow-pixel), 0 20px 60px rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ============================================================
+                   SIDEBAR – cream with colorful accents
+                   ============================================================ */
+        .sidebar {
+            width: 240px;
+            min-width: 240px;
+            background: var(--cream-sidebar);
+            padding: 28px 20px 20px;
+            display: flex;
+            flex-direction: column;
+            border-right: var(--border-width) solid var(--border-dark);
+            position: relative;
+        }
+
+        .logo {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 22px;
+            letter-spacing: 2px;
+            color: var(--pixel-blue);
+            text-shadow: 3px 3px 0 var(--pixel-yellow);
+            padding-bottom: 24px;
+            border-bottom: 3px solid var(--border-dark);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--pixel-red);
+            font-size: 26px;
+            text-shadow: 2px 2px 0 var(--pixel-purple);
+        }
+
+        .logo span {
+            color: var(--pixel-pink);
+        }
+
+        /* navigation */
+        .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+        }
+
+        .nav a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            transition: all 0.15s ease;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .nav a i {
+            width: 22px;
+            font-size: 16px;
+            color: var(--text-muted);
+            transition: color 0.15s;
+        }
+
+        .nav a:hover {
+            background: rgba(0, 0, 0, 0.04);
+            color: var(--text-dark);
+            border-color: var(--border-dark);
+        }
+
+        .nav a:hover i {
+            color: var(--pixel-cyan);
+        }
+
+        .nav a.active {
+            background: rgba(77, 201, 246, 0.12);
+            color: var(--pixel-blue);
+            border-color: var(--pixel-blue);
+            box-shadow: 0 0 0 2px var(--pixel-blue);
+        }
+
+        .nav a.active i {
+            color: var(--pixel-blue);
+        }
+
+        /* logout button – pixel game style */
+        .logout-btn {
+            margin-top: 20px;
+            padding: 12px 18px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 11px;
+            color: var(--pixel-red);
+            background: transparent;
+            border: 3px solid var(--pixel-red);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-align: center;
+            box-shadow: var(--shadow-pixel-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: #fff5f0;
+        }
+
+        .logout-btn i {
+            font-size: 14px;
+        }
+
+        .logout-btn:hover {
+            background: var(--pixel-red);
+            color: #fff;
+            box-shadow: 0 0 0 3px var(--border-dark);
+            transform: scale(1.02);
+        }
+
+        /* ============================================================
+                   MAIN CONTENT – cream background
+                   ============================================================ */
+        .main {
+            flex: 1;
+            padding: 28px 32px 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            background: var(--cream-bg);
+        }
+
+        .main::-webkit-scrollbar {
+            width: 6px;
+        }
+        .main::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .main::-webkit-scrollbar-thumb {
+            background: var(--border-dark);
+            border-radius: 10px;
+        }
+
+        /* ============================================================
+                   TOP BAR – with search
+                   ============================================================ */
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding-bottom: 16px;
+            border-bottom: 3px solid var(--border-dark);
+        }
+
+        .topbar h1 {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 20px;
+            color: var(--text-dark);
+            letter-spacing: 1px;
+        }
+
+        .topbar h1 i {
+            color: var(--pixel-pink);
+            margin-right: 10px;
+        }
+
+        .topbar h1 small {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--text-muted);
+            letter-spacing: 0;
+            margin-left: 12px;
+        }
+
+        .search-wrap {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border: 3px solid var(--border-dark);
+            border-radius: 8px;
+            padding: 6px 14px;
+            gap: 10px;
+            transition: border-color 0.2s;
+            box-shadow: var(--shadow-pixel-sm);
+        }
+
+        .search-wrap:focus-within {
+            border-color: var(--pixel-cyan);
+            box-shadow: 0 0 0 3px var(--pixel-cyan);
+        }
+
+        .search-wrap i {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .search-wrap input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-dark);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            padding: 6px 0;
+            width: 200px;
+        }
+
+        .search-wrap input::placeholder {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* ============================================================
+                   SECTION TITLES (pixel style)
+                   ============================================================ */
+        .section-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 14px;
+            color: var(--pixel-blue);
+            text-shadow: 2px 2px 0 var(--pixel-yellow);
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .section-title i {
+            font-size: 18px;
+            color: var(--pixel-red);
+            text-shadow: none;
+        }
+
+        .section-title .badge {
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: #fff;
+            padding: 2px 12px;
+            border-radius: 20px;
+            border: 2px solid var(--border-dark);
+            letter-spacing: 0;
+        }
+
+        /* ============================================================
+                   PROFILE CARD
+                   ============================================================ */
+        .profile-card {
+            background: var(--cream-card);
+            border: 3px solid var(--border-dark);
+            border-radius: 12px;
+            padding: 24px 28px;
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            flex-wrap: wrap;
+            box-shadow: var(--shadow-pixel-sm);
+            transition: border-color 0.2s;
+        }
+
+        .profile-card:hover {
+            border-color: var(--pixel-cyan);
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--pixel-purple), var(--pixel-cyan));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 32px;
+            color: #fff;
+            border: 4px solid var(--pixel-yellow);
+            box-shadow: 0 0 0 4px var(--cream-card), 0 0 0 6px var(--border-dark);
+            flex-shrink: 0;
+        }
+
+        .profile-info h2 {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 22px;
+            color: var(--text-dark);
+            letter-spacing: 0.5px;
+        }
+
+        .profile-info h2 i {
+            color: var(--pixel-green);
+            font-size: 18px;
+            margin-left: 8px;
+        }
+
+        .profile-info .sub {
+            font-size: 15px;
+            color: var(--pixel-blue);
+            font-weight: 600;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .profile-info .sub i {
+            color: var(--pixel-orange);
+            font-size: 13px;
+        }
+
+        .profile-info .desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 8px;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+
+        .profile-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .profile-tags span {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 14px;
+            border-radius: 20px;
+            background: #fff;
+            border: 2px solid var(--border-dark);
+            color: var(--text-dark);
+        }
+
+        .profile-tags span i {
+            margin-right: 6px;
+            font-size: 10px;
+            color: var(--pixel-pink);
+        }
+
+        /* ============================================================
+                   GRID CARDS
+                   ============================================================ */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .card {
+            background: var(--cream-card);
+            border: 3px solid var(--border-dark);
+            border-radius: 10px;
+            padding: 18px 20px 16px;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-pixel-sm);
+            cursor: default;
+        }
+
+        .card:hover {
+            border-color: var(--pixel-cyan);
+            transform: translateY(-2px);
+            box-shadow: 4px 6px 0 rgba(0, 0, 0, 0.2);
+            background: #fcf6ed;
+        }
+
+        .card .card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 6px;
+        }
+
+        .card .card-header h3 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--text-dark);
+            line-height: 1.4;
+        }
+
+        .card .card-header h3 i {
+            color: var(--pixel-pink);
+            margin-right: 6px;
+            font-size: 13px;
+        }
+
+        .card .card-header .tag {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 9px;
+            padding: 3px 10px;
+            border-radius: 4px;
+            background: #fff;
+            border: 2px solid var(--border-dark);
+            color: var(--text-dark);
+            white-space: nowrap;
+            letter-spacing: 0.3px;
+        }
+
+        .card .card-body {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-top: 4px;
+        }
+
+        .card .card-body .meta {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+
+        .card .card-body .meta i {
+            color: var(--pixel-blue);
+            font-size: 12px;
+            margin-right: 3px;
+        }
+
+        .card .card-body .meta .pill {
+            background: #fff;
+            padding: 2px 12px;
+            border-radius: 20px;
+            border: 2px solid var(--border-dark);
+            font-size: 10px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .card .price {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 11px;
+            color: var(--pixel-green);
+            margin-top: 8px;
+            display: inline-block;
+            padding: 2px 12px;
+            border: 2px solid var(--pixel-green);
+            border-radius: 4px;
+            background: #fff;
+        }
+
+        /* ============================================================
+                   PIXEL BUTTONS (game UI style)
+                   ============================================================ */
+        .pixel-btn {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10px;
+            padding: 8px 18px;
+            border: 3px solid var(--border-dark);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.12s ease;
+            box-shadow: var(--shadow-pixel-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #fff;
+            color: var(--text-dark);
+        }
+
+        .pixel-btn i {
+            font-size: 12px;
+        }
+
+        .pixel-btn:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 0 3px var(--border-dark);
+        }
+
+        .pixel-btn.primary {
+            background: var(--pixel-cyan);
+            color: #fff;
+            border-color: var(--border-dark);
+        }
+        .pixel-btn.primary:hover {
+            background: #3ab8e6;
+        }
+
+        .pixel-btn.pink {
+            background: var(--pixel-pink);
+            color: #fff;
+            border-color: var(--border-dark);
+        }
+        .pixel-btn.pink:hover {
+            background: #e84e8a;
+        }
+
+        .pixel-btn.yellow {
+            background: var(--pixel-yellow);
+            color: var(--text-dark);
+            border-color: var(--border-dark);
+        }
+        .pixel-btn.yellow:hover {
+            background: #e6c23b;
+        }
+
+        .pixel-btn.green {
+            background: var(--pixel-green);
+            color: #fff;
+            border-color: var(--border-dark);
+        }
+        .pixel-btn.green:hover {
+            background: #3dbf7a;
+        }
+
+        .pixel-btn.purple {
+            background: var(--pixel-purple);
+            color: #fff;
+            border-color: var(--border-dark);
+        }
+        .pixel-btn.purple:hover {
+            background: #8f6be6;
+        }
+
+        .pixel-btn.orange {
+            background: var(--pixel-orange);
+            color: #fff;
+            border-color: var(--border-dark);
+        }
+        .pixel-btn.orange:hover {
+            background: #e67a4a;
+        }
+
+        .pixel-btn.red {
+            background: var(--pixel-red);
+            color: #fff;
+            border-color: var(--border-dark);
+        }
+        .pixel-btn.red:hover {
+            background: #e63d5e;
+        }
+
+        /* ============================================================
+                   SKILL CHIPS
+                   ============================================================ */
+        .skill-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .skill-chip {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 6px 16px;
+            border-radius: 20px;
+            background: #fff;
+            border: 2px solid var(--border-dark);
+            color: var(--text-dark);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.15s;
+        }
+
+        .skill-chip i {
+            font-size: 13px;
+            color: var(--pixel-blue);
+        }
+
+        .skill-chip:hover {
+            border-color: var(--pixel-cyan);
+            background: #f0f8ff;
+        }
+
+        .skill-chip.highlight {
+            border-color: var(--pixel-yellow);
+            background: #fffae0;
+        }
+        .skill-chip.highlight i {
+            color: var(--pixel-orange);
+        }
+
+        /* ============================================================
+                   PORTOFOLIO LIST (from screenshot)
+                   ============================================================ */
+        .portofolio-list {
+            background: var(--cream-card);
+            border: 3px solid var(--border-dark);
+            border-radius: 12px;
+            padding: 20px 24px;
+            box-shadow: var(--shadow-pixel-sm);
+        }
+
+        .portofolio-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 2px dashed var(--border-dark);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .portofolio-item:last-child {
+            border-bottom: none;
+        }
+
+        .portofolio-item .name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        .portofolio-item .name i {
+            color: var(--pixel-pink);
+            margin-right: 8px;
+        }
+
+        .portofolio-item .actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .portofolio-item .actions .pixel-btn {
+            font-size: 9px;
+            padding: 4px 14px;
+        }
+
+        /* ============================================================
+                   IKUTI (social follow)
+                   ============================================================ */
+        .ikuti-section {
+            background: var(--cream-card);
+            border: 3px solid var(--border-dark);
+            border-radius: 12px;
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            box-shadow: var(--shadow-pixel-sm);
+        }
+
+        .ikuti-section .label {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 13px;
+            color: var(--pixel-purple);
+        }
+
+        .ikuti-section .accounts {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .ikuti-section .accounts span {
+            font-weight: 600;
+            font-size: 14px;
+            background: #fff;
+            padding: 4px 14px;
+            border: 2px solid var(--border-dark);
+            border-radius: 20px;
+        }
+
+        .ikuti-section .accounts span i {
+            color: var(--pixel-pink);
+            margin-right: 6px;
+        }
+
+        /* ============================================================
+                   FOOTER
+                   ============================================================ */
+        .footer {
+            margin-top: 12px;
+            padding-top: 16px;
+            border-top: 3px solid var(--border-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .footer .links {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .footer .links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer .links a i {
+            font-size: 12px;
+            color: var(--pixel-blue);
+        }
+
+        .footer .links a:hover {
+            color: var(--text-dark);
+        }
+
+        .footer .version {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 9px;
+            color: var(--text-muted);
+            letter-spacing: 0.3px;
+            border: 2px solid var(--border-dark);
+            padding: 4px 12px;
+            border-radius: 4px;
+            background: #fff;
+        }
+
+        /* ============================================================
+                   RESPONSIVE
+                   ============================================================ */
+        @media (max-width: 1024px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .grid-3 {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 820px) {
+            .app {
+                flex-direction: column;
+                max-height: none;
+                min-height: auto;
+                border-radius: 12px;
+            }
+
+            .sidebar {
+                width: 100%;
+                min-width: unset;
+                border-right: none;
+                border-bottom: var(--border-width) solid var(--border-dark);
+                padding: 18px 20px 14px;
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .sidebar .logo {
+                padding-bottom: 0;
+                border-bottom: none;
+                margin-bottom: 0;
+                font-size: 18px;
+                flex: 1;
+            }
+
+            .sidebar .nav {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 4px;
+                flex: unset;
+            }
+
+            .sidebar .nav a {
+                padding: 8px 14px;
+                font-size: 12px;
+                gap: 8px;
+            }
+
+            .sidebar .nav a i {
+                font-size: 14px;
+                width: auto;
+            }
+
+            .logout-btn {
+                margin-top: 0;
+                padding: 8px 16px;
+                font-size: 10px;
+            }
+
+            .main {
+                padding: 18px 16px 16px;
+                max-height: none;
+                overflow-y: visible;
+            }
+
+            .profile-card {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+            }
+
+            .topbar h1 {
+                font-size: 16px;
+            }
+            .topbar h1 small {
+                display: block;
+                margin-left: 0;
+                margin-top: 4px;
+            }
+            .search-wrap input {
+                width: 120px;
+            }
+        }
+
+        @media (max-width: 540px) {
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            .topbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-wrap {
+                width: 100%;
+            }
+            .search-wrap input {
+                width: 100%;
+            }
+            .sidebar .nav a span {
+                display: none;
+            }
+            .sidebar .nav a {
+                padding: 8px 12px;
+            }
+            .footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .profile-avatar {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+            .profile-info h2 {
+                font-size: 18px;
+            }
+            .ikuti-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .portofolio-item {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+            .portofolio-item .actions {
+                justify-content: flex-start;
+            }
+        }
+
+        /* ============================================================
+                   PIXEL BORDER ANIMATION (subtle)
+                   ============================================================ */
+        @keyframes pulse-border {
+            0%,
+            100% {
+                border-color: var(--border-dark);
+            }
+            50% {
+                border-color: var(--pixel-cyan);
+            }
+        }
+
+        .card.highlight-card {
+            animation: pulse-border 3s ease-in-out infinite;
+        }
+
+        /* ============================================================
+                   SCROLLBAR
+                   ============================================================ */
+        .main {
+            scrollbar-width: thin;
+            scrollbar-color: var(--border-dark) transparent;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- ============================================================
+        SIDEBAR – cream & colorful
+        ============================================================ -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fas fa-gamepad"></i>
+                EN<span>ZO</span>
+            </div>
+
+            <nav class="nav">
+                <a href="#about" class="active">
+                    <i class="fas fa-user-astronaut"></i>
+                    <span>Tentang</span>
+                </a>
+                <a href="#experience">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Pengalaman</span>
+                </a>
+                <a href="#skills">
+                    <i class="fas fa-code"></i>
+                    <span>Keahlian</span>
+                </a>
+                <a href="#portofolio">
+                    <i class="fas fa-folder-open"></i>
+                    <span>Portofolio</span>
+                </a>
+                <a href="#contact">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>Kontak</span>
+                </a>
+            </nav>
+
+            <button class="logout-btn" onclick="alert('👋 Sampai jumpa!')">
+                <i class="fas fa-sign-out-alt"></i> Log out
+            </button>
+        </aside>
+
+        <!-- ============================================================
+        MAIN CONTENT
+        ============================================================ -->
+        <main class="main">
+
+            <!-- TOP BAR -->
+            <div class="topbar">
+                <h1>
+                    <i class="fas fa-terminal"></i> Portofolio
+                    <small>— Enzo Fahrezi</small>
+                </h1>
+                <div class="search-wrap">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Cari proyek, skill..." />
+                </div>
+            </div>
+
+            <!-- ============================================================
+            ABOUT / IDENTITY
+            ============================================================ -->
+            <section id="about">
+                <div class="section-title">
+                    <i class="fas fa-id-badge"></i> Identitas
+                    <span class="badge"># profil</span>
+                </div>
+
+                <div class="profile-card">
+                    <div class="profile-avatar">E</div>
+                    <div class="profile-info">
+                        <h2>
+                            Enzo Fahrezi
+                            <i class="fas fa-check-circle" style="color:var(--pixel-green);"></i>
+                        </h2>
+                        <div class="sub">
+                            <i class="fas fa-graduation-cap"></i> Mahasiswa Aktif
+                            <span style="color:var(--text-muted);font-weight:400;">·</span>
+                            Universitas Muhammadiyah Bangka Belitung
+                        </div>
+                        <div class="desc">
+                            Mahasiswa dengan dedikasi tinggi terhadap pengembangan diri dan teknologi.
+                            Memadukan keahlian visual, komunikasi, dan pemrograman untuk menciptakan
+                            solusi kreatif yang berdampak.
+                        </div>
+                        <div class="profile-tags">
+                            <span><i class="fas fa-calendar-alt"></i> 2021 – sekarang</span>
+                            <span><i class="fas fa-map-pin"></i> Bangka Belitung</span>
+                            <span><i class="fas fa-rocket"></i> Tech Enthusiast</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================
+            EXPERIENCE – organisasi & kerja
+            ============================================================ -->
+            <section id="experience">
+                <div class="section-title">
+                    <i class="fas fa-trophy"></i> Pengalaman
+                    <span class="badge"># organisasi & kerja</span>
+                </div>
+
+                <div class="grid-2">
+
+                    <!-- Organisasi -->
+                    <div class="card highlight-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-users"></i> OSIS · Ketua Divisi IT &amp; Sosmed</h3>
+                            <span class="tag">ORGANISASI</span>
+                        </div>
+                        <div class="card-body">
+                            Bertanggung jawab atas pengelolaan infrastruktur teknologi dan
+                            strategi media sosial organisasi.
+                            <div class="meta">
+                                <span><i class="fas fa-clock"></i> 2022 – 2023</span>
+                                <span class="pill"><i class="fas fa-hashtag"></i> IT</span>
+                                <span class="pill"><i class="fas fa-hashtag"></i> Sosmed</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-video"></i> Tim Kreatif · Konten &amp; Visual</h3>
+                            <span class="tag">ORGANISASI</span>
+                        </div>
+                        <div class="card-body">
+                            Pengelola konten video, videografer, fotografer, desain grafis,
+                            dan video editor.
+                            <div class="meta">
+                                <span><i class="fas fa-clock"></i> 2022 – 2024</span>
+                                <span class="pill"><i class="fas fa-hashtag"></i> Videografi</span>
+                                <span class="pill"><i class="fas fa-hashtag"></i> Desain</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-hashtag"></i> PIK-R · Media Sosial Management</h3>
+                            <span class="tag">ORGANISASI</span>
+                        </div>
+                        <div class="card-body">
+                            Mengelola strategi media sosial untuk meningkatkan engagement
+                            dan jangkauan organisasi.
+                            <div class="meta">
+                                <span><i class="fas fa-clock"></i> 2023 – 2024</span>
+                                <span class="pill"><i class="fas fa-hashtag"></i> Social Media</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-server"></i> Pustaka · Manajemen IT Support</h3>
+                            <span class="tag">ORGANISASI</span>
+                        </div>
+                        <div class="card-body">
+                            Bertanggung jawab sebagai manajemen IT support di perpustakaan
+                            sekolah, memastikan operasional sistem dan perangkat berjalan lancar.
+                            <div class="meta">
+                                <span><i class="fas fa-clock"></i> 2023 – 2024</span>
+                                <span class="pill"><i class="fas fa-hashtag"></i> IT Support</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kerja -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-building"></i> BUMDES · Pegawai</h3>
+                            <span class="tag" style="border-color:var(--pixel-green);color:var(--pixel-green);">KERJA</span>
+                        </div>
+                        <div class="card-body">
+                            Berkontribusi dalam operasional dan pengembangan usaha desa.
+                            Membantu mengelola administrasi, pelayanan, dan pengembangan produk.
+                            <div class="meta">
+                                <span><i class="fas fa-clock"></i> 2024 – 2025</span>
+                                <span class="pill"><i class="fas fa-hashtag"></i> BUMDES</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-file-signature"></i> BUMDES · Sekretaris</h3>
+                            <span class="tag" style="border-color:var(--pixel-green);color:var(--pixel-green);">KERJA</span>
+                        </div>
+                        <div class="card-body">
+                            Dipromosikan sebagai Sekretaris, mengelola administrasi,
+                            koordinasi internal, dan mendukung pengambilan keputusan strategis.
+                            <div class="meta">
+                                <span><i class="fas fa-clock"></i> 2025 – sekarang</span>
+                                <span class="pill"><i class="fas fa-hashtag"></i> Sekretaris</span>
+                                <span class="pill"><i class="fas fa-hashtag"></i> Administrasi</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ============================================================
+            SKILLS – soft & hard
+            ============================================================ -->
+            <section id="skills">
+                <div class="section-title">
+                    <i class="fas fa-brain"></i> Keahlian
+                    <span class="badge"># soft & hard skill</span>
+                </div>
+
+                <!-- Soft Skills -->
+                <div style="margin-bottom:18px;">
+                    <h4 style="font-family:'Press Start 2P',monospace;font-size:11px;color:var(--pixel-pink);margin-bottom:10px;letter-spacing:0.5px;">
+                        <i class="fas fa-hand-sparkles" style="margin-right:8px;"></i> Soft Skill
+                    </h4>
+                    <div class="skill-chips">
+                        <span class="skill-chip highlight"><i class="fas fa-microphone"></i> Tampil percaya diri</span>
+                        <span class="skill-chip highlight"><i class="fas fa-comments"></i> Berbicara dengan terampil</span>
+                        <span class="skill-chip"><i class="fas fa-users"></i> Kolaborasi tim</span>
+                        <span class="skill-chip"><i class="fas fa-lightbulb"></i> Pemecahan masalah</span>
+                        <span class="skill-chip"><i class="fas fa-clock"></i> Manajemen waktu</span>
+                    </div>
+                </div>
+
+                <!-- Hard Skills -->
+                <div>
+                    <h4 style="font-family:'Press Start 2P',monospace;font-size:11px;color:var(--pixel-blue);margin-bottom:10px;letter-spacing:0.5px;">
+                        <i class="fas fa-tools" style="margin-right:8px;"></i> Hard Skill
+                    </h4>
+                    <div class="grid-3" style="margin-top:0;">
+
+                        <div class="card" style="padding:14px 16px;">
+                            <div class="card-header" style="margin-bottom:2px;">
+                                <h3 style="font-size:13px;"><i class="fas fa-camera"></i> Fotografi &amp; Videografi</h3>
+                            </div>
+                            <div class="card-body" style="font-size:12px;">
+                                Menguasai kamera dan komputer dengan tingkat keahlian sangat baik.
+                                <div class="meta" style="margin-top:4px;">
+                                    <span class="pill"><i class="fas fa-hashtag"></i> Kamera</span>
+                                    <span class="pill"><i class="fas fa-hashtag"></i> Komputer</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card" style="padding:14px 16px;">
+                            <div class="card-header" style="margin-bottom:2px;">
+                                <h3 style="font-size:13px;"><i class="fas fa-film"></i> Editing &amp; Medsos</h3>
+                            </div>
+                            <div class="card-body" style="font-size:12px;">
+                                Keahlian dalam editing video dan manajemen media sosial.
+                                <div class="meta" style="margin-top:4px;">
+                                    <span class="pill"><i class="fas fa-hashtag"></i> Video Editor</span>
+                                    <span class="pill"><i class="fas fa-hashtag"></i> Sosmed</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card" style="padding:14px 16px;">
+                            <div class="card-header" style="margin-bottom:2px;">
+                                <h3 style="font-size:13px;"><i class="fas fa-file-alt"></i> MS Office &amp; Tools</h3>
+                            </div>
+                            <div class="card-body" style="font-size:12px;">
+                                Mahir menggunakan MS Word, Excel, PowerPoint, Canva, dan tools desain.
+                                <div class="meta" style="margin-top:4px;">
+                                    <span class="pill"><i class="fas fa-hashtag"></i> Word</span>
+                                    <span class="pill"><i class="fas fa-hashtag"></i> Excel</span>
+                                    <span class="pill"><i class="fas fa-hashtag"></i> Canva</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card" style="padding:14px 16px;">
+                            <div class="card-header" style="margin-bottom:2px;">
+                                <h3 style="font-size:13px;"><i class="fas fa-robot"></i> AI &amp; Editing Support</h3>
+                            </div>
+                            <div class="card-body" style="font-size:12px;">
+                                Mampu memanfaatkan AI sebagai support dalam proses editing dan produksi.
+                                <div class="meta" style="margin-top:4px;">
+                                    <span class="pill"><i class="fas fa-hashtag"></i> AI Tools</span>
+                                    <span class="pill"><i class="fas fa-hashtag"></i> Produksi</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card" style="padding:14px 16px;border-color:var(--pixel-yellow);">
+                            <div class="card-header" style="margin-bottom:2px;">
+                                <h3 style="font-size:13px;color:var(--pixel-yellow);">
+                                    <i class="fas fa-code" style="color:var(--pixel-yellow);"></i> Coding
+                                </h3>
+                            </div>
+                            <div class="card-body" style="font-size:12px;">
+                                Kemampuan coding sejak 2019. Menguasai berbagai bahasa dan pengembangan web.
+                                <div class="meta" style="margin-top:4px;">
+                                    <span class="pill" style="border-color:var(--pixel-yellow);color:var(--pixel-yellow);">
+                                        <i class="fas fa-hashtag"></i> 2019–sekarang
+                                    </span>
+                                    <span class="pill"><i class="fas fa-hashtag"></i> HTML</span>
+                                    <span class="pill"><i class="fas fa-hashtag"></i> CSS</span>
+                                    <span class="pill"><i class="fas fa-hashtag"></i> JS</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================
+            PORTOFOLIO (from screenshot)
+            ============================================================ -->
+            <section id="portofolio">
+                <div class="section-title">
+                    <i class="fas fa-folder-open"></i> Portofolio
+                    <span class="badge"># proyek</span>
+                </div>
+
+                <div class="portofolio-list">
+                    <div class="portofolio-item">
+                        <span class="name"><i class="fas fa-globe"></i> Web AcademyEJI</span>
+                        <div class="actions">
+                            <button class="pixel-btn primary" onclick="alert('Melihat AcademyEJI')">MELIHAT</button>
+                        </div>
+                    </div>
+                    <div class="portofolio-item">
+                        <span class="name"><i class="fas fa-graduation-cap"></i> Web Learning Management System</span>
+                        <div class="actions">
+                            <button class="pixel-btn green" onclick="alert('Melihat LMS')">MELIHAT</button>
+                        </div>
+                    </div>
+                    <div class="portofolio-item">
+                        <span class="name"><i class="fas fa-pencil-alt"></i> Web Exam Portal</span>
+                        <div class="actions">
+                            <button class="pixel-btn purple" onclick="alert('Melihat Exam Portal')">MELIHAT</button>
+                        </div>
+                    </div>
+                    <div class="portofolio-item">
+                        <span class="name"><i class="fas fa-futbol"></i> Web Klub Sepak Bola</span>
+                        <div class="actions">
+                            <button class="pixel-btn orange" onclick="alert('Melihat Klub Sepak Bola')">MELIHAT</button>
+                        </div>
+                    </div>
+                    <div class="portofolio-item">
+                        <span class="name"><i class="fas fa-film"></i> Web Monton Film Pendek Lokal</span>
+                        <div class="actions">
+                            <button class="pixel-btn pink" onclick="alert('Melihat Film Pendek')">MELIHAT</button>
+                        </div>
+                    </div>
+                    <div class="portofolio-item" style="border-bottom: none;">
+                        <span class="name"><i class="fas fa-eye"></i> Portofolio Enzo Fahrezi</span>
+                        <div class="actions">
+                            <button class="pixel-btn yellow" onclick="alert('Melihat portofolio utama')">MELIHAT</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================
+            IKUTI (social)
+            ============================================================ -->
+            <section id="ikuti">
+                <div class="ikuti-section">
+                    <span class="label"><i class="fas fa-share-alt" style="margin-right:8px;"></i> Ikuti</span>
+                    <div class="accounts">
+                        <span><i class="fab fa-instagram"></i> @nzoefhrizi</span>
+                        <span><i class="fab fa-tiktok"></i> atop.senpai_</span>
+                        <button class="pixel-btn red" onclick="alert('Melihat akun sosial')">MELIHAT</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================
+            CONTACT / CTA
+            ============================================================ -->
+            <section id="contact">
+                <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;background:var(--cream-card);border:3px solid var(--border-dark);border-radius:12px;padding:18px 24px;box-shadow:var(--shadow-pixel-sm);">
+                    <div>
+                        <div style="font-family:'Press Start 2P',monospace;font-size:13px;color:var(--pixel-pink);">
+                            <i class="fas fa-paper-plane" style="margin-right:10px;"></i> Kolaborasi?
+                        </div>
+                        <div style="font-size:14px;color:var(--text-muted);margin-top:4px;">
+                            Mari terhubung untuk proyek, diskusi, atau berbagi ide.
+                        </div>
+                    </div>
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                        <a href="#" class="pixel-btn pink"><i class="fab fa-instagram"></i> Instagram</a>
+                        <a href="#" class="pixel-btn primary"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                        <a href="#" class="pixel-btn purple"><i class="fab fa-github"></i> GitHub</a>
+                        <a href="#" class="pixel-btn yellow"><i class="fas fa-envelope"></i> Email</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================
+            FOOTER
+            ============================================================ -->
+            <footer class="footer">
+                <div class="links">
+                    <a href="#"><i class="fas fa-shield-alt"></i> Privasi</a>
+                    <a href="#"><i class="fas fa-file-contract"></i> Syarat</a>
+                    <a href="#"><i class="fas fa-life-ring"></i> Dukungan</a>
+                    <a href="#"><i class="fas fa-cog"></i> Pengaturan</a>
+                </div>
+                <div class="version">
+                    <i class="fas fa-code" style="margin-right:6px;"></i> v2.4.0.2026
+                </div>
+            </footer>
+
+        </main>
+    </div>
+
+    <!-- ============================================================
+    JAVASCRIPT – active nav, search, buttons
+    ============================================================ -->
+    <script>
+        (function() {
+            const navLinks = document.querySelectorAll('.nav a');
+            const sections = document.querySelectorAll('section[id]');
+
+            function setActive(link) {
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetEl = document.getElementById(targetId);
+                    if (targetEl) {
+                        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        setActive(this);
+                    }
+                });
+            });
+
+            // Intersection Observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        navLinks.forEach(link => {
+                            if (link.getAttribute('href') === '#' + id) {
+                                setActive(link);
+                            }
+                        });
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            sections.forEach(s => observer.observe(s));
+
+            // Logout
+            const logoutBtn = document.querySelector('.logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function() {
+                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Keluar...';
+                    setTimeout(() => {
+                        this.innerHTML = '<i class="fas fa-sign-out-alt"></i> Log out';
+                        alert('👋 Sampai jumpa, Enzo!');
+                    }, 800);
+                });
+            }
+
+            // Search
+            const searchInput = document.querySelector('.search-wrap input');
+            if (searchInput) {
+                searchInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' && this.value.trim()) {
+                        alert('🔍 Mencari: "' + this.value.trim() + '"');
+                        this.value = '';
+                    }
+                });
+            }
+
+            // All pixel buttons in portofolio & ikuti – already have onclick
+            // Additional smooth for contact buttons
+            document.querySelectorAll('.pixel-btn').forEach(btn => {
+                if (btn.closest('#contact') || btn.closest('.ikuti-section')) {
+                    btn.addEventListener('click', function(e) {
+                        if (this.getAttribute('href') === '#') {
+                            e.preventDefault();
+                            const label = this.textContent.trim();
+                            alert('📬 ' + label + ' — terhubung dengan Enzo!');
+                        }
+                    });
+                }
+            });
+
+        })();
+    </script>
+
+</body>
+</html>
