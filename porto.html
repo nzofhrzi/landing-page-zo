@@ -178,10 +178,11 @@
     <nav class="hidden md:flex items-center gap-8 text-sm">
       <a href="#about" class="nav-link">About</a>
       <a href="#experience" class="nav-link">Experience</a>
+      <a href="#certificates" class="nav-link">Certificates</a>
       <a href="#skills" class="nav-link">Skills</a>
       <a href="#contact" class="nav-link">Contact</a>
-      <a href="#" class="px-5 py-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 text-white text-xs transition-all btn-glow">
-        <i class="fa-solid fa-file-pdf mr-2"></i>Resume
+      <a href="#" download class="px-5 py-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 text-white text-xs transition-all btn-glow">
+        <i class="fa-solid fa-download mr-2"></i>Download CV
       </a>
     </nav>
     <!-- Mobile toggle -->
@@ -331,6 +332,64 @@
     </div>
   </section>
 
+  <!-- ===== CERTIFICATES ===== -->
+  <section id="certificates" class="px-6 py-24 md:py-32 max-w-6xl mx-auto z-10 relative">
+    <div class="text-center mb-16 fade-up">
+      <span class="text-xs uppercase tracking-[0.2em] text-zinc-500 font-semibold">Achievements</span>
+      <h2 class="text-3xl md:text-5xl font-bold mt-2">
+        Certificates &amp; <span class="bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">Training</span>
+      </h2>
+      <p class="text-zinc-400 mt-3 max-w-xl mx-auto">Kumpulan sertifikat pelatihan dan pencapaian yang pernah saya ikuti.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Certificate Card 1 -->
+      <div class="glass project-card rounded-2xl overflow-hidden">
+        <div class="aspect-video flex items-center justify-center bg-white/5 border-b border-white/10">
+          <i class="fa-solid fa-certificate text-4xl text-zinc-600"></i>
+        </div>
+        <div class="p-6">
+          <span class="text-xs uppercase tracking-wider text-zinc-500">Placeholder · 2025</span>
+          <h4 class="text-white font-semibold mt-1">Nama Sertifikat</h4>
+          <p class="text-sm text-zinc-400 mt-1">Diterbitkan oleh Penyelenggara / Lembaga.</p>
+          <a href="#" class="inline-flex items-center gap-2 mt-4 text-sm text-zinc-300 hover:text-white transition-all">
+            Lihat Sertifikat <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Certificate Card 2 -->
+      <div class="glass project-card rounded-2xl overflow-hidden">
+        <div class="aspect-video flex items-center justify-center bg-white/5 border-b border-white/10">
+          <i class="fa-solid fa-certificate text-4xl text-zinc-600"></i>
+        </div>
+        <div class="p-6">
+          <span class="text-xs uppercase tracking-wider text-zinc-500">Placeholder · 2025</span>
+          <h4 class="text-white font-semibold mt-1">Nama Sertifikat</h4>
+          <p class="text-sm text-zinc-400 mt-1">Diterbitkan oleh Penyelenggara / Lembaga.</p>
+          <a href="#" class="inline-flex items-center gap-2 mt-4 text-sm text-zinc-300 hover:text-white transition-all">
+            Lihat Sertifikat <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Certificate Card 3 -->
+      <div class="glass project-card rounded-2xl overflow-hidden">
+        <div class="aspect-video flex items-center justify-center bg-white/5 border-b border-white/10">
+          <i class="fa-solid fa-certificate text-4xl text-zinc-600"></i>
+        </div>
+        <div class="p-6">
+          <span class="text-xs uppercase tracking-wider text-zinc-500">Placeholder · 2025</span>
+          <h4 class="text-white font-semibold mt-1">Nama Sertifikat</h4>
+          <p class="text-sm text-zinc-400 mt-1">Diterbitkan oleh Penyelenggara / Lembaga.</p>
+          <a href="#" class="inline-flex items-center gap-2 mt-4 text-sm text-zinc-300 hover:text-white transition-all">
+            Lihat Sertifikat <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== SKILLS ===== -->
   <section id="skills" class="px-6 py-24 md:py-32 max-w-6xl mx-auto z-10 relative">
     <div class="text-center mb-16 fade-up">
@@ -450,18 +509,20 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
 
-      // ---------- 1. SCROLL FADE-UP (Intersection Observer) ----------
-      const fadeElements = document.querySelectorAll('.fade-up:not(.visible)');
+      // ---------- 1. SCROLL FADE-UP / FADE-OUT (Intersection Observer, dua arah) ----------
+      const fadeElements = document.querySelectorAll('.fade-up');
 
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
+          } else {
+            entry.target.classList.remove('visible');
           }
         });
       }, {
         threshold: 0.15,
-        rootMargin: '0px 0px -30px 0px'
+        rootMargin: '0px 0px -10% 0px'
       });
 
       fadeElements.forEach(el => observer.observe(el));
