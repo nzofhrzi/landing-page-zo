@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Novia Savira · Portfolio</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <style>
+    /* ----- RESET & BASE ----- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #fff8fa;
+      color: #3d2b36;
+      overflow-x: hidden;
+      line-height: 1.6;
+      position: relative;
+    }
+
+    /* ----- GRID BACKGROUND PATTERN ----- */
+    .bg-grid-pattern {
+      background-image:
+        linear-gradient(to right, rgba(236,72,153,0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(236,72,153,0.08) 1px, transparent 1px);
+      background-size: 44px 44px;
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+    }
+    /* subtle pink glow behind the grid, gives it depth */
+    .bg-radial-glow {
+      background: radial-gradient(circle at 50% 0%, rgba(244,114,182,0.16), transparent 55%);
+    }
+
+    /* ----- GLASS CARD ----- */
+    .glass {
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(20px) saturate(140%);
+      -webkit-backdrop-filter: blur(20px) saturate(140%);
+      border: 1px solid rgba(236, 72, 153, 0.14);
+      box-shadow: 0 8px 32px rgba(219, 39, 119, 0.08), inset 0 1px 0 rgba(255,255,255,0.6);
+    }
+    .glass-hover:hover {
+      background: rgba(255, 255, 255, 0.75);
+      border-color: rgba(236, 72, 153, 0.25);
+      transition: all 0.35s ease;
+    }
+
+    /* ----- PILL NAV / SEGMENTED GLASS ----- */
+    .glass-pill {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(22px) saturate(150%);
+      -webkit-backdrop-filter: blur(22px) saturate(150%);
+      border: 1px solid rgba(236, 72, 153, 0.16);
+      box-shadow: 0 10px 40px rgba(219,39,119,0.10), inset 0 1px 0 rgba(255,255,255,0.6);
+      border-radius: 9999px;
+    }
+
+    /* ----- SCROLL ANIMATIONS (fade-up) ----- */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-up.delay-1 { transition-delay: 0.10s; }
+    .fade-up.delay-2 { transition-delay: 0.20s; }
+    .fade-up.delay-3 { transition-delay: 0.30s; }
+    .fade-up.delay-4 { transition-delay: 0.40s; }
+    /* ----- NAVBAR LINK UNDERLINE ----- */
+    .nav-link {
+      position: relative;
+      font-weight: 500;
+      color: #a9788d;
+      transition: color 0.25s;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #ec4899;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover { color: #db2777; }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link.active {
+      color: #db2777;
+    }
+    .nav-link.active::after { width: 100%; }
+    /* ----- PROJECT CARD HOVER ----- */
+    .project-card {
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                  box-shadow 0.4s ease, background 0.4s ease;
+    }
+    .project-card:hover {
+      transform: translateY(-10px) scale(1.01);
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 30px 80px rgba(219,39,119,0.14), 0 0 0 1px rgba(236,72,153,0.16);
+    }
+    /* ----- TYPEWRITER CURSOR (hero subtitle) ----- */
+    .cursor-blink::after {
+      content: '|';
+      animation: blink 0.9s step-end infinite;
+      color: #ec4899;
+      margin-left: 2px;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    /* ----- BUTTON GLOW ----- */
+    .btn-glow {
+      transition: all 0.3s ease;
+    }
+    .btn-glow:hover {
+      box-shadow: 0 0 40px rgba(236,72,153,0.25);
+    }
+    /* ----- SKILL ITEM BADGE (glass pill) ----- */
+    .skill-badge {
+      display: inline-block;
+      padding: 0.5rem 1.25rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(236, 72, 153, 0.16);
+      font-size: 0.875rem;
+      color: #a9506f;
+      transition: all 0.25s ease;
+    }
+    .skill-badge:hover {
+      background: rgba(236, 72, 153, 0.12);
+      border-color: rgba(236, 72, 153, 0.3);
+      color: #be185d;
+      transform: scale(1.02);
+    }
+    /* ----- EXPERIENCE CARD ----- */
+    .exp-card {
+      border-left: 2px solid rgba(236, 72, 153, 0.18);
+      padding-left: 1.5rem;
+      transition: border-color 0.3s ease;
+    }
+    .exp-card:hover {
+      border-left-color: rgba(236, 72, 153, 0.5);
+    }
+    /* ----- RESPONSIVE ----- */
+    @media (max-width: 640px) {
+      .exp-card { padding-left: 1rem; }
+      .bg-grid-pattern { background-size: 32px 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== BACKGROUND LAYERS (grid + glow, fixed behind everything) ===== -->
+  <div class="fixed inset-0 bg-radial-glow pointer-events-none z-0"></div>
+  <div class="fixed inset-0 bg-grid-pattern pointer-events-none z-0"></div>
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="fixed top-0 left-0 right-0 z-50 px-6 py-4 md:px-12 flex justify-between items-center glass border-b border-pink-100">
+    <a href="#" class="text-xl font-bold tracking-tight bg-gradient-to-r from-pink-500 to-rose-300 bg-clip-text text-transparent">
+      <i class="fa-solid fa-heart mr-2"></i>Novia.
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-sm">
+      <a href="#about" class="nav-link">About</a>
+      <a href="#experience" class="nav-link">Experience</a>
+      <a href="#certificates" class="nav-link">Certificates</a>
+      <a href="#skills" class="nav-link">Skills</a>
+      <a href="#contact" class="nav-link">Contact</a>
+      <a href="#" download class="px-5 py-2 rounded-full bg-pink-500 hover:bg-pink-600 border border-pink-500 text-white text-xs transition-all btn-glow">
+        <i class="fa-solid fa-download mr-2"></i>Download CV
+      </a>
+    </nav>
+    <!-- Mobile toggle -->
+    <button id="menu-toggle" class="md:hidden text-pink-600 text-xl focus:outline-none">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="relative min-h-screen flex flex-col justify-center items-center text-center px-6 pt-28 pb-20 max-w-5xl mx-auto z-10">
+    <div class="fade-up visible">
+      <span class="inline-block px-4 py-1.5 mb-6 rounded-full glass-pill text-xs text-pink-600">
+        <i class="fa-solid fa-circle-check mr-2"></i>Available for opportunities
+      </span>
+      <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-[1.1] tracking-tight">
+        <span class="bg-gradient-to-r from-pink-500 via-rose-400 to-pink-300 bg-clip-text text-transparent">
+          Novia Savira
+        </span>
+      </h1>
+      <p class="mt-5 text-base sm:text-lg text-pink-400/80 max-w-xl mx-auto cursor-blink">
+        Mahasiswi · Multimedia &amp; IT Enthusiast
+      </p>
+      <div class="mt-10 flex flex-wrap justify-center gap-4">
+        <a href="#experience" class="px-8 py-3.5 rounded-full bg-pink-500 text-white font-semibold hover:bg-pink-600 transition-all btn-glow text-sm">
+          My Journey <i class="fa-solid fa-arrow-down ml-2"></i>
+        </a>
+        <a href="#contact" class="px-8 py-3.5 rounded-full glass-pill hover:bg-white/80 transition-all text-sm btn-glow text-pink-600">
+          Let's Connect
+        </a>
+      </div>
+    </div>
+    <!-- Scroll hint -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block text-pink-300 text-xs animate-bounce">
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about" class="px-6 py-24 md:py-32 max-w-6xl mx-auto z-10 relative">
+    <div class="grid md:grid-cols-5 gap-12 items-start">
+      <div class="md:col-span-2 fade-up">
+        <span class="text-xs uppercase tracking-[0.2em] text-pink-400 font-semibold">About</span>
+        <h2 class="text-3xl md:text-4xl font-bold mt-2 leading-[1.2] text-[#3d2b36]">
+          Multimedia &amp; IT<br/>
+          <span class="bg-gradient-to-r from-pink-500 to-rose-300 bg-clip-text text-transparent">with creative vision</span>
+        </h2>
+      </div>
+      <div class="md:col-span-3 space-y-5 text-[#5c4452] leading-relaxed fade-up delay-1 glass rounded-2xl p-6 md:p-8">
+        <p>
+          Saya <strong class="text-pink-600">Novia Savira</strong>, mahasiswi aktif di Universitas Muhammadiyah Bangka Belitung dengan minat mendalam di bidang multimedia, teknologi informasi, dan pengembangan kreatif digital.
+        </p>
+        <p>
+          Berpengalaman dalam pengelolaan konten, videografi, fotografi, desain grafis, serta manajemen media sosial. Saya percaya bahwa kolaborasi antara kreativitas dan teknologi mampu menciptakan dampak positif yang berkelanjutan.
+        </p>
+        <p class="text-pink-400 text-sm">
+          <i class="fa-solid fa-location-dot mr-2"></i> Bangka Belitung, Indonesia
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EXPERIENCE ===== -->
+  <section id="experience" class="px-6 py-24 md:py-32 max-w-6xl mx-auto z-10 relative">
+    <div class="text-center mb-16 fade-up">
+      <span class="text-xs uppercase tracking-[0.2em] text-pink-400 font-semibold">Experience</span>
+      <h2 class="text-3xl md:text-5xl font-bold mt-2 text-[#3d2b36]">
+        Organizational &amp; <span class="bg-gradient-to-r from-pink-500 to-rose-300 bg-clip-text text-transparent">Professional</span>
+      </h2>
+      <p class="text-[#a9788d] mt-3 max-w-xl mx-auto">Perjalanan saya dalam organisasi dan dunia kerja.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-10">
+      <!-- Organizational Experience -->
+      <div class="space-y-8 fade-up delay-1 glass rounded-2xl p-6 md:p-8 project-card">
+        <h3 class="text-lg font-semibold text-pink-600 border-b border-pink-100 pb-3">
+          <i class="fa-solid fa-users mr-3"></i>Organisasi
+        </h3>
+
+        <div class="exp-card">
+          <span class="text-xs uppercase tracking-wider text-pink-400">2024 — 2025</span>
+          <h4 class="text-[#3d2b36] font-semibold mt-1">OSIS · Ketua Divisi IT &amp; Sosial Media</h4>
+          <p class="text-sm text-[#a9788d] mt-1">
+            Memimpin pengelolaan sistem informasi dan strategi konten media sosial, meningkatkan engagement dan efisiensi komunikasi internal.
+          </p>
+        </div>
+
+        <div class="exp-card">
+          <span class="text-xs uppercase tracking-wider text-pink-400">2024 — 2025</span>
+          <h4 class="text-[#3d2b36] font-semibold mt-1">Tim Kreatif · Videografer &amp; Editor</h4>
+          <p class="text-sm text-[#a9788d] mt-1">
+            Bertanggung jawab dalam produksi konten video, fotografi, desain grafis, dan editing untuk berbagai kebutuhan kreatif organisasi.
+          </p>
+        </div>
+
+        <div class="exp-card">
+          <span class="text-xs uppercase tracking-wider text-pink-400">2024 — 2025</span>
+          <h4 class="text-[#3d2b36] font-semibold mt-1">PIK-R · Social Media Management</h4>
+          <p class="text-sm text-[#a9788d] mt-1">
+            Mengelola strategi konten dan publikasi media sosial untuk mendukung program-program Pusat Informasi dan Konseling Remaja.
+          </p>
+        </div>
+
+        <div class="exp-card">
+          <span class="text-xs uppercase tracking-wider text-pink-400">2024 — 2025</span>
+          <h4 class="text-[#3d2b36] font-semibold mt-1">Pustaka · IT Support Management</h4>
+          <p class="text-sm text-[#a9788d] mt-1">
+            Memberikan dukungan teknis dan manajemen sistem informasi di perpustakaan sekolah, memastikan operasional berjalan optimal.
+          </p>
+        </div>
+      </div>
+
+      <!-- Professional Experience -->
+      <div class="space-y-8 fade-up delay-2 glass rounded-2xl p-6 md:p-8 project-card">
+        <h3 class="text-lg font-semibold text-pink-600 border-b border-pink-100 pb-3">
+          <i class="fa-solid fa-briefcase mr-3"></i>Pengalaman Kerja
+        </h3>
+
+        <div class="exp-card">
+          <span class="text-xs uppercase tracking-wider text-pink-400">2025</span>
+          <h4 class="text-[#3d2b36] font-semibold mt-1">BUMDES · Sekretaris</h4>
+          <p class="text-sm text-[#a9788d] mt-1">
+            Mengelola administrasi, korespondensi, dan koordinasi internal untuk mendukung operasional Badan Usaha Milik Desa.
+          </p>
+        </div>
+
+        <div class="exp-card">
+          <span class="text-xs uppercase tracking-wider text-pink-400">2024 — 2025</span>
+          <h4 class="text-[#3d2b36] font-semibold mt-1">BUMDES · Pegawai</h4>
+          <p class="text-sm text-[#a9788d] mt-1">
+            Menjalankan tugas operasional dan administrasi, mendukung berbagai program pengembangan ekonomi desa.
+          </p>
+        </div>
+
+        <!-- Soft Skills -->
+        <div class="pt-6 border-t border-pink-100">
+          <h4 class="text-sm font-semibold text-pink-600 mb-3">
+            <i class="fa-solid fa-heart mr-2"></i>Soft Skills
+          </h4>
+          <div class="flex flex-wrap gap-3">
+            <span class="skill-badge">Public Speaking</span>
+            <span class="skill-badge">Confidence</span>
+            <span class="skill-badge">Communication</span>
+            <span class="skill-badge">Adaptability</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CERTIFICATES ===== -->
+  <section id="certificates" class="px-6 py-24 md:py-32 max-w-6xl mx-auto z-10 relative">
+    <div class="text-center mb-16 fade-up">
+      <span class="text-xs uppercase tracking-[0.2em] text-pink-400 font-semibold">Achievements</span>
+      <h2 class="text-3xl md:text-5xl font-bold mt-2 text-[#3d2b36]">
+        Certificates &amp; <span class="bg-gradient-to-r from-pink-500 to-rose-300 bg-clip-text text-transparent">Training</span>
+      </h2>
+      <p class="text-[#a9788d] mt-3 max-w-xl mx-auto">Kumpulan sertifikat pelatihan dan pencapaian yang pernah saya ikuti.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Certificate Card 1 -->
+      <div class="glass project-card rounded-2xl overflow-hidden">
+        <div class="aspect-video flex items-center justify-center bg-pink-50 border-b border-pink-100">
+          <i class="fa-solid fa-certificate text-4xl text-pink-200"></i>
+        </div>
+        <div class="p-6">
+          <span class="text-xs uppercase tracking-wider text-pink-400">Placeholder · 2025</span>
+          <h4 class="text-[#3d2b36] font-semibold mt-1">Nama Sertifikat</h4>
+          <p class="text-sm text-[#a9788d] mt-1">Diterbitkan oleh Penyelenggara / Lembaga.</p>
+          <a href="#" class="inline-flex items-center gap-2 mt-4 text-sm text-pink-500 hover:text-pink-700 transition-all">
+            Lihat Sertifikat <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Certificate Card 2 -->
+      <div class="glass project-card rounded-2xl overflow-hidden">
+        <div class="aspect-video flex items-center justify-center bg-pink-50 border-b border-pink-100">
+          <i class="fa-solid fa-certificate text-4xl text-pink-200"></i>
+        </div>
+        <div class="p-6">
+          <span class="text-xs uppercase tracking-wider text-pink-400">Placeholder · 2025</span>
+          <h4 class="text-[#3d2b36] font-semibold mt-1">Nama Sertifikat</h4>
+          <p class="text-sm text-[#a9788d] mt-1">Diterbitkan oleh Penyelenggara / Lembaga.</p>
+          <a href="#" class="inline-flex items-center gap-2 mt-4 text-sm text-pink-500 hover:text-pink-700 transition-all">
+            Lihat Sertifikat <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Certificate Card 3 -->
+      <div class="glass project-card rounded-2xl overflow-hidden">
+        <div class="aspect-video flex items-center justify-center bg-pink-50 border-b border-pink-100">
+          <i class="fa-solid fa-certificate text-4xl text-pink-200"></i>
+        </div>
+        <div class="p-6">
+          <span class="text-xs uppercase tracking-wider text-pink-400">Placeholder · 2025</span>
+          <h4 class="text-[#3d2b36] font-semibold mt-1">Nama Sertifikat</h4>
+          <p class="text-sm text-[#a9788d] mt-1">Diterbitkan oleh Penyelenggara / Lembaga.</p>
+          <a href="#" class="inline-flex items-center gap-2 mt-4 text-sm text-pink-500 hover:text-pink-700 transition-all">
+            Lihat Sertifikat <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SKILLS ===== -->
+  <section id="skills" class="px-6 py-24 md:py-32 max-w-6xl mx-auto z-10 relative">
+    <div class="text-center mb-16 fade-up">
+      <span class="text-xs uppercase tracking-[0.2em] text-pink-400 font-semibold">Expertise</span>
+      <h2 class="text-3xl md:text-5xl font-bold mt-2 text-[#3d2b36]">
+        Technical &amp; <span class="bg-gradient-to-r from-pink-500 to-rose-300 bg-clip-text text-transparent">Creative Skills</span>
+      </h2>
+      <p class="text-[#a9788d] mt-3 max-w-xl mx-auto">Kombinasi kemampuan teknis dan kreatif yang saya kuasai.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- Hard Skills -->
+      <div class="space-y-5 fade-up delay-1 glass rounded-2xl p-6 md:p-8">
+        <h3 class="text-lg font-semibold text-pink-600 border-b border-pink-100 pb-3">
+          <i class="fa-solid fa-code mr-3"></i>Hard Skills
+        </h3>
+        <div class="flex flex-wrap gap-3">
+          <span class="skill-badge"><i class="fa-solid fa-camera mr-2"></i>Videography</span>
+          <span class="skill-badge"><i class="fa-solid fa-image mr-2"></i>Photography</span>
+          <span class="skill-badge"><i class="fa-solid fa-pen-ruler mr-2"></i>Graphic Design</span>
+          <span class="skill-badge"><i class="fa-solid fa-video mr-2"></i>Video Editing</span>
+          <span class="skill-badge"><i class="fa-solid fa-computer mr-2"></i>IT Support</span>
+          <span class="skill-badge"><i class="fa-solid fa-hashtag mr-2"></i>Social Media Management</span>
+          <span class="skill-badge"><i class="fa-solid fa-file-word mr-2"></i>MS Word</span>
+          <span class="skill-badge"><i class="fa-solid fa-file-excel mr-2"></i>MS Excel</span>
+          <span class="skill-badge"><i class="fa-solid fa-file-powerpoint mr-2"></i>MS PowerPoint</span>
+          <span class="skill-badge"><i class="fa-solid fa-palette mr-2"></i>Canva</span>
+          <span class="skill-badge"><i class="fa-solid fa-robot mr-2"></i>AI Tools</span>
+          <span class="skill-badge"><i class="fa-solid fa-code mr-2"></i>Web Development</span>
+          <span class="skill-badge"><i class="fa-solid fa-cubes mr-2"></i>Adobe Suite</span>
+        </div>
+      </div>
+
+      <!-- Additional Expertise -->
+      <div class="space-y-5 fade-up delay-2 glass rounded-2xl p-6 md:p-8">
+        <h3 class="text-lg font-semibold text-pink-600 border-b border-pink-100 pb-3">
+          <i class="fa-solid fa-star mr-3"></i>Core Competencies
+        </h3>
+        <div class="space-y-4 text-[#5c4452]">
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-check-circle text-pink-400 mt-1"></i>
+            <div>
+              <span class="text-[#3d2b36] font-medium">Multimedia Production</span>
+              <p class="text-sm text-[#a9788d]">Menguasai produksi konten dari pra-produksi hingga pasca-produksi.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-check-circle text-pink-400 mt-1"></i>
+            <div>
+              <span class="text-[#3d2b36] font-medium">Digital Marketing</span>
+              <p class="text-sm text-[#a9788d]">Strategi konten, manajemen media sosial, dan analisis engagement.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-check-circle text-pink-400 mt-1"></i>
+            <div>
+              <span class="text-[#3d2b36] font-medium">Technical Support</span>
+              <p class="text-sm text-[#a9788d]">Pemecahan masalah teknis dan optimasi sistem informasi.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-check-circle text-pink-400 mt-1"></i>
+            <div>
+              <span class="text-[#3d2b36] font-medium">AI Integration</span>
+              <p class="text-sm text-[#a9788d]">Memanfaatkan kecerdasan buatan sebagai pendukung dalam proses kreatif dan editing.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact" class="px-6 py-24 md:py-32 max-w-4xl mx-auto text-center z-10 relative">
+    <div class="fade-up">
+      <span class="text-xs uppercase tracking-[0.2em] text-pink-400 font-semibold">Contact</span>
+      <h2 class="text-3xl md:text-5xl font-bold mt-2 text-[#3d2b36]">
+        Let's <span class="bg-gradient-to-r from-pink-500 to-rose-300 bg-clip-text text-transparent">Collaborate</span>
+      </h2>
+      <p class="text-[#a9788d] mt-3 max-w-md mx-auto">
+        Terbuka untuk peluang kerja, kolaborasi kreatif, atau sekadar berbagi ide.
+      </p>
+    </div>
+
+    <form class="mt-12 max-w-lg mx-auto text-left space-y-5 fade-up delay-1 glass rounded-2xl p-6 md:p-8">
+      <div class="relative">
+        <i class="fa-solid fa-user absolute left-4 top-3.5 text-pink-300"></i>
+        <input type="text" placeholder="Nama lengkap" class="w-full pl-11 pr-5 py-3.5 rounded-xl bg-white/70 border border-pink-100 focus:border-pink-400 outline-none text-[#3d2b36] placeholder-pink-300 transition-all focus:bg-white" />
+      </div>
+      <div class="relative">
+        <i class="fa-solid fa-envelope absolute left-4 top-3.5 text-pink-300"></i>
+        <input type="email" placeholder="Email aktif" class="w-full pl-11 pr-5 py-3.5 rounded-xl bg-white/70 border border-pink-100 focus:border-pink-400 outline-none text-[#3d2b36] placeholder-pink-300 transition-all focus:bg-white" />
+      </div>
+      <div class="relative">
+        <i class="fa-solid fa-message absolute left-4 top-3.5 text-pink-300"></i>
+        <textarea rows="4" placeholder="Tulis pesan Anda..." class="w-full pl-11 pr-5 py-3.5 rounded-xl bg-white/70 border border-pink-100 focus:border-pink-400 outline-none text-[#3d2b36] placeholder-pink-300 transition-all focus:bg-white resize-none"></textarea>
+      </div>
+      <button type="submit" class="w-full py-3.5 rounded-xl bg-pink-500 text-white font-semibold hover:bg-pink-600 transition-all btn-glow">
+        Kirim Pesan <i class="fa-solid fa-paper-plane ml-2"></i>
+      </button>
+    </form>
+
+    <div class="flex justify-center gap-8 mt-14 text-pink-300 fade-up delay-2">
+      <a href="#" class="hover:text-pink-600 transition-all text-2xl hover:scale-110"><i class="fa-brands fa-github"></i></a>
+      <a href="#" class="hover:text-pink-600 transition-all text-2xl hover:scale-110"><i class="fa-brands fa-linkedin-in"></i></a>
+      <a href="#" class="hover:text-pink-600 transition-all text-2xl hover:scale-110"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" class="hover:text-pink-600 transition-all text-2xl hover:scale-110"><i class="fa-brands fa-youtube"></i></a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="border-t border-pink-100 px-6 py-8 text-center text-xs text-pink-300 z-10 relative">
+    <p>&copy; 2026 Novia Savira. Built with <i class="fa-solid fa-heart text-pink-400"></i> &amp; Tailwind CSS</p>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+      // ---------- 1. SCROLL FADE-UP / FADE-OUT (Intersection Observer, dua arah) ----------
+      const fadeElements = document.querySelectorAll('.fade-up');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          } else {
+            entry.target.classList.remove('visible');
+          }
+        });
+      }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -10% 0px'
+      });
+
+      fadeElements.forEach(el => observer.observe(el));
+
+      // ---------- 2. MOBILE MENU TOGGLE ----------
+      const toggleBtn = document.getElementById('menu-toggle');
+      const navMenu = document.querySelector('nav.hidden.md\\:flex');
+      if (toggleBtn && navMenu) {
+        toggleBtn.addEventListener('click', function() {
+          navMenu.classList.toggle('hidden');
+          navMenu.classList.toggle('flex');
+          navMenu.classList.toggle('flex-col');
+          navMenu.classList.toggle('absolute');
+          navMenu.classList.toggle('top-full');
+          navMenu.classList.toggle('left-0');
+          navMenu.classList.toggle('right-0');
+          navMenu.classList.toggle('bg-white/90');
+          navMenu.classList.toggle('backdrop-blur-xl');
+          navMenu.classList.toggle('p-6');
+          navMenu.classList.toggle('gap-4');
+          navMenu.classList.toggle('border-b');
+          navMenu.classList.toggle('border-pink-100');
+          // change icon
+          const icon = toggleBtn.querySelector('i');
+          if (icon) {
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-xmark');
+          }
+        });
+      }
+
+      // ---------- 3. NAVBAR ACTIVE LINK (scroll spy) ----------
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('nav a[href^="#"]');
+
+      function updateActiveLink() {
+        let current = '';
+        sections.forEach(section => {
+          const top = section.offsetTop - 180;
+          if (window.scrollY >= top) {
+            current = section.getAttribute('id');
+          }
+        });
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + current) {
+            link.classList.add('active');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', updateActiveLink);
+      updateActiveLink();
+
+    });
+  </script>
+
+</body>
+</html>
