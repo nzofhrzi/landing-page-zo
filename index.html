@@ -1,530 +1,413 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Enzo Fahrezi — Player Card</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enzo Fahrezi — Portfolio</title>
 
-<!-- Tailwind via CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind via CDN -->
+    <script src="https://cdn.tailwindcss.com">
+    </script>
 
-<!-- Font Awesome (ikon) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
-<!-- Font pixel + mono -->
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
 
-<style>
-  .font-pixel { font-family: 'Press Start 2P', monospace; }
-  body { font-family: 'Space Mono', monospace; }
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
 
-  /* ANIMATED GRADIENT BACKGROUNDS */
-  @keyframes gradientFlow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-  
-  @keyframes gradientShift {
-    0% { filter: hue-rotate(0deg); }
-    100% { filter: hue-rotate(360deg); }
-  }
+        /* === GLASSMORPHISM BASE === */
+        .glass {
+            background: rgba(10, 10, 10, 0.55);
+            backdrop-filter: blur(20px) saturate(1.4);
+            -webkit-backdrop-filter: blur(20px) saturate(1.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
 
-  /* FLOATING OVERLAY */
-  @keyframes floatingOrbs {
-    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-    25% { transform: translate(30px, -30px) scale(1.1); opacity: 0.5; }
-    50% { transform: translate(-20px, 20px) scale(0.9); opacity: 0.3; }
-    75% { transform: translate(40px, 10px) scale(1.05); opacity: 0.4; }
-  }
+        .glass-light {
+            background: rgba(20, 20, 20, 0.45);
+            backdrop-filter: blur(14px) saturate(1.2);
+            -webkit-backdrop-filter: blur(14px) saturate(1.2);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
 
-  @keyframes floatingOrbsSlow {
-    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.2; }
-    50% { transform: translate(-40px, 40px) scale(1.15); opacity: 0.35; }
-  }
+        /* === GLOW ANIMATIONS === */
+        @keyframes glowPulse {
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.05), 0 0 60px rgba(255, 255, 255, 0.02);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(255, 255, 255, 0.12), 0 0 80px rgba(255, 255, 255, 0.05);
+            }
+        }
 
-  @keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-  }
+        @keyframes borderGlow {
+            0%,
+            100% {
+                border-color: rgba(255, 255, 255, 0.08);
+            }
+            50% {
+                border-color: rgba(255, 255, 255, 0.25);
+            }
+        }
 
-  @keyframes pulseGlow {
-    0%, 100% { box-shadow: 0 0 20px rgba(232, 96, 76, 0.3), 0 0 40px rgba(232, 96, 76, 0.1); }
-    50% { box-shadow: 0 0 30px rgba(232, 96, 76, 0.5), 0 0 60px rgba(232, 96, 76, 0.2); }
-  }
+        @keyframes floatSlow {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
 
-  @keyframes buttonHoverGlow {
-    0% { box-shadow: 0 4px 0 #2C2013, 0 0 0 rgba(232, 96, 76, 0); }
-    50% { box-shadow: 0 4px 0 #2C2013, 0 0 20px rgba(232, 96, 76, 0.6); }
-    100% { box-shadow: 0 4px 0 #2C2013, 0 0 0 rgba(232, 96, 76, 0); }
-  }
+        @keyframes shimmer {
+            0% {
+                background-position: -200% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
+        }
 
-  @keyframes slideInRotate {
-    from {
-      opacity: 0;
-      transform: translateX(-20px) rotateZ(-2deg);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0) rotateZ(0deg);
-    }
-  }
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-  @keyframes iconBounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-4px); }
-  }
+        /* === UTILITY CLASSES === */
+        .glow-border {
+            animation: borderGlow 3s ease-in-out infinite;
+        }
 
-  @keyframes borderFlash {
-    0%, 100% { border-color: #2C2013; }
-    50% { border-color: #E8604C; }
-  }
+        .glow-box {
+            animation: glowPulse 4s ease-in-out infinite;
+        }
 
-  /* UTILITY CLASSES */
-  .anim-fadeup { animation: fadeUp 0.5s ease-out both; }
-  .anim-float { animation: floatSoft 3s ease-in-out infinite; }
-  .anim-blink { animation: blinkCursor 1s step-end infinite; }
-  .anim-floating-orbs { animation: floatingOrbs 6s ease-in-out infinite; }
-  .anim-floating-orbs-slow { animation: floatingOrbsSlow 8s ease-in-out infinite; }
-  .anim-shimmer { animation: shimmer 2.5s infinite; }
-  .anim-pulse-glow { animation: pulseGlow 2.5s ease-in-out infinite; }
-  .anim-border-flash { animation: borderFlash 1.5s ease-in-out infinite; }
+        .float-slow {
+            animation: floatSlow 6s ease-in-out infinite;
+        }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+        .fade-slide-up {
+            animation: fadeSlideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1) both;
+        }
 
-  @keyframes floatSoft {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-  }
+        .fade-slide-up:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+        .fade-slide-up:nth-child(2) {
+            animation-delay: 0.10s;
+        }
+        .fade-slide-up:nth-child(3) {
+            animation-delay: 0.15s;
+        }
+        .fade-slide-up:nth-child(4) {
+            animation-delay: 0.20s;
+        }
+        .fade-slide-up:nth-child(5) {
+            animation-delay: 0.25s;
+        }
+        .fade-slide-up:nth-child(6) {
+            animation-delay: 0.30s;
+        }
 
-  @keyframes blinkCursor {
-    0%, 49% { opacity: 1; }
-    50%, 100% { opacity: 0; }
-  }
+        /* === CARD ENTRANCE === */
+        .card-entrance {
+            animation: cardEntrance 0.7s cubic-bezier(0.23, 1, 0.32, 1) both;
+        }
 
-  /* PREMIUM BUTTON HOVER EFFECTS */
-  .premium-btn {
-    position: relative;
-    overflow: hidden;
-    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
+        @keyframes cardEntrance {
+            from {
+                opacity: 0;
+                transform: scale(0.96) translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
 
-  .premium-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    animation: none;
-    transition: none;
-  }
+        /* === GLOW BUTTON === */
+        .btn-glow {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
 
-  .premium-btn:hover::before {
-    animation: shimmer 0.6s ease-in-out;
-  }
+        .btn-glow:hover {
+            background: rgba(255, 255, 255, 0.10);
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.06);
+        }
 
-  .premium-btn:hover {
-    transform: translateY(-8px) skewX(-1deg) !important;
-    box-shadow: 0 8px 0 #2C2013, 0 12px 20px rgba(44, 32, 19, 0.3), 0 0 30px rgba(232, 96, 76, 0.4) !important;
-  }
+        .btn-glow::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 3s ease-in-out infinite;
+            pointer-events: none;
+        }
 
-  .premium-btn:active {
-    transform: translateY(-2px) skewX(0deg) !important;
-    box-shadow: 0 4px 0 #2C2013, 0 6px 10px rgba(44, 32, 19, 0.2) !important;
-  }
+        .btn-glow .icon-hover {
+            transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
 
-  .premium-btn .icon-anim {
-    display: inline-block;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
+        .btn-glow:hover .icon-hover {
+            transform: scale(1.15);
+        }
 
-  .premium-btn:hover .icon-anim {
-    animation: iconBounce 0.6s ease-in-out;
-    color: #E8604C;
-  }
+        /* === SOCIAL BUTTON === */
+        .social-glow {
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
 
-  .premium-btn:hover .chevron-icon {
-    transform: translateX(4px) scale(1.2);
-    color: #E8604C;
-  }
+        .social-glow:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.18);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.04);
+        }
 
-  /* FLOATING OVERLAY STYLING */
-  .floating-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-  }
+        /* === SCROLLBAR === */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.20);
+        }
 
-  .floating-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(40px);
-    mix-blend-mode: screen;
-  }
-
-  .orb-1 {
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(232, 96, 76, 0.4), transparent);
-    top: 10%;
-    left: 5%;
-    animation: floatingOrbs 8s ease-in-out infinite;
-  }
-
-  .orb-2 {
-    width: 280px;
-    height: 280px;
-    background: radial-gradient(circle, rgba(47, 168, 154, 0.3), transparent);
-    bottom: 15%;
-    right: 10%;
-    animation: floatingOrbsSlow 10s ease-in-out infinite;
-  }
-
-  .orb-3 {
-    width: 150px;
-    height: 150px;
-    background: radial-gradient(circle, rgba(232, 185, 61, 0.25), transparent);
-    top: 50%;
-    right: 5%;
-    animation: floatingOrbs 7s ease-in-out infinite reverse;
-  }
-
-  .orb-4 {
-    width: 180px;
-    height: 180px;
-    background: radial-gradient(circle, rgba(92, 140, 90, 0.3), transparent);
-    bottom: 25%;
-    left: 15%;
-    animation: floatingOrbsSlow 9s ease-in-out infinite reverse;
-  }
-
-  /* CARD ENTRANCE */
-  .card-container {
-    animation: cardSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  @keyframes cardSlideIn {
-    from {
-      opacity: 0;
-      transform: translateY(30px) scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  /* PROFILE SECTION GLOW */
-  .profile-avatar:hover {
-    box-shadow: 0 0 25px rgba(232, 96, 76, 0.5), inset 0 0 15px rgba(232, 96, 76, 0.2);
-  }
-
-  .profile-avatar {
-    transition: all 0.3s ease;
-  }
-
-  /* STAGGERED LIST ANIMATIONS */
-  .level-item {
-    animation: slideInRotate 0.5s ease-out both;
-  }
-
-  .level-item:nth-child(1) { animation-delay: 0.05s; }
-  .level-item:nth-child(2) { animation-delay: 0.1s; }
-  .level-item:nth-child(3) { animation-delay: 0.15s; }
-  .level-item:nth-child(4) { animation-delay: 0.2s; }
-  .level-item:nth-child(5) { animation-delay: 0.25s; }
-  .level-item:nth-child(6) { animation-delay: 0.3s; }
-
-  /* BADGE ANIMATION */
-  .status-badge {
-    animation: badgePulse 2s ease-in-out infinite;
-  }
-
-  @keyframes badgePulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-  }
-
-  /* SOCIAL BUTTON MAGIC */
-  .social-btn {
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(135deg, #F0E6CC 0%, #E4D9BF 100%);
-    transition: all 0.3s ease;
-  }
-
-  .social-btn:hover {
-    transform: translateY(-6px) rotate(2deg);
-    box-shadow: 0 6px 0 #2C2013, 0 10px 25px rgba(44, 32, 19, 0.2), 0 0 20px rgba(232, 96, 76, 0.3);
-    background: linear-gradient(135deg, #FBF5E8 0%, #F0E6CC 100%);
-  }
-
-  .social-btn::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(232, 96, 76, 0.2);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
-  }
-
-  .social-btn:active::after {
-    width: 300px;
-    height: 300px;
-  }
-
-  /* FOOTER ENHANCEMENT */
-  .footer-text {
-    position: relative;
-    display: inline-block;
-  }
-
-  .footer-text::before,
-  .footer-text::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: 8px;
-    height: 2px;
-    background: #7A6A50;
-    transform: translateY(-50%);
-  }
-
-  .footer-text::before {
-    right: 100%;
-    margin-right: 8px;
-  }
-
-  .footer-text::after {
-    left: 100%;
-    margin-left: 8px;
-  }
-
-  /* REDUCED MOTION SUPPORT */
-  @media (prefers-reduced-motion: reduce) {
-    * {
-      animation-duration: 0.001ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.001ms !important;
-    }
-  }
-
-  /* MOBILE OPTIMIZATIONS */
-  @media (max-width: 640px) {
-    .premium-btn:hover {
-      transform: translateY(-6px) skewX(-0.5deg) !important;
-    }
-
-    .floating-overlay {
-      opacity: 0.5;
-    }
-  }
-</style>
+        /* === REDUCED MOTION === */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+            }
+        }
+    </style>
 </head>
 
-<body class="min-h-screen w-full flex items-center justify-center p-4 sm:p-6 bg-[#EFE4CE] relative overflow-hidden">
+<body class="min-h-screen w-full flex items-center justify-center p-4 sm:p-6 bg-[#0a0a0a] relative overflow-hidden">
 
-  <!-- FLOATING OVERLAY BACKDROP -->
-  <div class="floating-overlay">
-    <div class="orb-1"></div>
-    <div class="orb-2"></div>
-    <div class="orb-3"></div>
-    <div class="orb-4"></div>
-  </div>
-
-  <!-- GRID TEXTURE -->
-  <div class="absolute inset-0 opacity-[0.07] pointer-events-none"
-       style="background-image:linear-gradient(#2C2013 1px, transparent 1px), linear-gradient(90deg, #2C2013 1px, transparent 1px); background-size:22px 22px;">
-  </div>
-
-  <main class="card-container relative z-10 w-full max-w-md bg-[#FBF5E8] border-[3px] border-[#2C2013] shadow-[8px_8px_0_#2C2013] transition-all duration-300">
-
-    <!-- CARTRIDGE LABEL BAR WITH ENHANCED GLOW -->
-    <div class="flex items-center justify-between px-4 py-2 border-b-[3px] border-[#2C2013] bg-[#E7DAB8] relative overflow-hidden">
-      <div class="flex gap-1.5 relative z-10">
-        <span class="w-2.5 h-2.5 bg-[#E8604C] border border-[#2C2013] transition-all hover:scale-150"></span>
-        <span class="w-2.5 h-2.5 bg-[#E8B93D] border border-[#2C2013] transition-all hover:scale-150"></span>
-        <span class="w-2.5 h-2.5 bg-[#2FA89A] border border-[#2C2013] transition-all hover:scale-150"></span>
-      </div>
-      <span class="font-pixel text-[8px] tracking-wider text-[#2C2013] relative z-10 opacity-80">PLAYER_CARD.EXE</span>
+    <!-- ===== BACKGROUND ORBS ===== -->
+    <div class="fixed inset-0 pointer-events-none z-0">
+        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-white/5 blur-[120px] animate-pulse"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] rounded-full bg-white/5 blur-[140px] animate-pulse" style="animation-delay:2s;"></div>
+        <div class="absolute top-[40%] left-[60%] w-[300px] h-[300px] rounded-full bg-white/5 blur-[100px] animate-pulse" style="animation-delay:4s;"></div>
+        <!-- Grid overlay halus -->
+        <div class="absolute inset-0 opacity-[0.03]"
+        style="background-image:linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px); background-size:48px 48px;">
     </div>
+</div>
 
-    <div class="p-5 sm:p-6">
+<!-- ===== MAIN CARD ===== -->
+<main class="card-entrance relative z-10 w-full max-w-lg">
 
-      <!-- PROFILE HEADER WITH ENHANCED HOVER -->
-      <div class="flex items-center gap-4 pb-4 border-b-[3px] border-[#2C2013]">
-        <div class="relative shrink-0 anim-float">
-          <div class="profile-avatar w-[70px] h-[70px] bg-gradient-to-br from-[#E4C9A3] to-[#D4B393] border-[3px] border-[#2C2013] flex items-center justify-center cursor-pointer">
-            <span class="font-pixel text-2xl text-[#2C2013]">E</span>
-          </div>
-          <span class="status-badge absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-[#5C8C5A] border-2 border-[#FBF5E8] rounded-full"></span>
+    <!-- ===== GLASS CARD ===== -->
+    <div class="glass rounded-2xl glow-box overflow-hidden border border-white/10 shadow-[0_24px_80px_rgba(0,0,0,0.6)]">
+
+        <!-- ===== HEADER BAR ===== -->
+        <div class="flex items-center justify-between px-5 py-3.5 border-b border-white/5 bg-white/[0.03]">
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-white/20"></span>
+                <span class="w-2 h-2 rounded-full bg-white/10"></span>
+                <span class="w-2 h-2 rounded-full bg-white/5"></span>
+            </div>
+            <span class="text-[10px] tracking-[0.2em] uppercase text-white/30 font-light">Portfolio</span>
+            <span class="text-[10px] tracking-[0.15em] uppercase text-white/20 font-light hidden sm:inline">v1.0</span>
         </div>
-        <div class="flex-1 min-w-0">
-          <h1 class="font-pixel text-[15px] sm:text-[17px] leading-snug text-[#2C2013] truncate">Enzo Fahrezi</h1>
-          <span class="inline-flex items-center gap-1.5 mt-2 text-[10px] font-bold px-2.5 py-1 bg-[#E4D9BF] border-2 border-[#2C2013] text-[#4A3A28] transition-all hover:shadow-[0_2px_8px_rgba(44,32,19,0.2)] cursor-default">
-            <i class="fas fa-graduation-cap"></i> Mahasiswa Unmuh Babel
-          </span>
-        </div>
-      </div>
 
-      <!-- LEVEL SELECT LABEL -->
-      <div class="flex items-center gap-2 mt-5 mb-3">
-        <span class="font-pixel text-[10px] text-[#2C2013] tracking-wide">SELECT LEVEL</span>
-        <span class="flex-1 h-[3px] bg-[#2C2013] opacity-70"></span>
-      </div>
+        <!-- ===== BODY ===== -->
+        <div class="p-5 sm:p-7">
 
-      <!-- PORTFOLIO DENGAN PREMIUM HOVER EFFECTS -->
-      <div class="flex flex-col gap-2">
+            <!-- ===== PROFILE ===== -->
+            <div class="flex items-center gap-4 pb-5 border-b border-white/5">
+                <div class="relative shrink-0 float-slow">
+                    <div class="w-[68px] h-[68px] rounded-full bg-gradient-to-br from-white/10 to-white/5 border border-white/10 flex items-center justify-center shadow-[0_0_40px_rgba(255,255,255,0.03)]">
+                        <span class="text-2xl font-light text-white/70 tracking-wider">E</span>
+                    </div>
+                    <span class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-emerald-400/60 border-2 border-[#0a0a0a] shadow-[0_0_12px_rgba(52,211,153,0.25)]"></span>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <h1 class="text-xl font-semibold text-white/90 tracking-tight">Enzo Fahrezi</h1>
+                    <div class="flex items-center gap-2 mt-1.5 flex-wrap">
+                        <span class="inline-flex items-center gap-1.5 text-[11px] font-medium px-3 py-1 rounded-full bg-white/5 border border-white/5 text-white/50">
+                            <i class="fas fa-graduation-cap text-[10px]"></i> Mahasiswa Unmuh Babel
+                        </span>
+                    </div>
+                </div>
+            </div>
 
-        <a href="porto.html" target="_blank" rel="noopener noreferrer"
-           class="level-item premium-btn group flex items-center gap-3 px-3.5 py-2.5 border-[3px] border-[#2C2013] bg-[#F5EDDB] hover:shadow-[0_4px_0_#2C2013]">
-          <span class="font-pixel text-[9px] text-[#8A7657] w-6 shrink-0">01</span>
-          <span class="w-8 h-8 shrink-0 flex items-center justify-center bg-[#2C2013]/[0.07] border-2 border-[#2C2013] transition-all">
-            <i class="fas fa-briefcase icon-anim text-[#2C2013] text-[14px]"></i>
-          </span>
-          <span class="flex-1 min-w-0">
-            <span class="block text-[13px] font-bold text-[#2C2013] truncate">Portofolio Enzo Fahrezi</span>
-            <span class="block text-[10px] text-[#7A6A50] truncate">Karya &amp; proyek pribadi</span>
-          </span>
-          <span class="font-pixel text-[7px] px-2 py-1 bg-[#2C2013]/10 border-2 border-[#2C2013] text-[#2C2013] whitespace-nowrap hidden sm:inline-block transition-all">MULAI</span>
-          <i class="fas fa-chevron-right chevron-icon text-[#2C2013] text-[14px] opacity-50 shrink-0"></i>
+            <!-- ===== LABEL ===== -->
+            <div class="flex items-center gap-3 mt-5 mb-3.5">
+                <span class="text-[11px] tracking-[0.2em] uppercase text-white/30 font-light">Projects</span>
+                <span class="flex-1 h-px bg-white/5"></span>
+                <span class="text-[10px] text-white/20 font-light">06</span>
+            </div>
+
+            <!-- ===== PROJECT LINKS ===== -->
+            <div class="flex flex-col gap-2">
+
+                <!-- 1. Portofolio -->
+                <a href="porto.html" target="_blank" rel="noopener noreferrer"
+                class="btn-glow fade-slide-up group flex items-center gap-3.5 px-4 py-3 rounded-xl">
+                <span class="text-[11px] font-mono text-white/20 w-6 shrink-0">01</span>
+                <span class="w-9 h-9 shrink-0 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center group-hover:border-white/15 transition-colors">
+                    <i class="fas fa-briefcase icon-hover text-white/40 text-sm"></i>
+                </span>
+                <span class="flex-1 min-w-0">
+                    <span class="block text-sm font-medium text-white/80 truncate group-hover:text-white/95 transition-colors">Portofolio Enzo Fahrezi</span>
+                    <span class="block text-[11px] text-white/30 truncate">Karya &amp; proyek pribadi</span>
+                </span>
+                <span class="text-[9px] font-medium px-2.5 py-1 rounded-full bg-white/5 border border-white/5 text-white/30 whitespace-nowrap hidden sm:inline-block">OPEN</span>
+                <i class="fas fa-arrow-right text-white/20 text-xs group-hover:text-white/40 transition-all group-hover:translate-x-0.5"></i>
+            </a>
+
+            <!-- 2. AcademyEJI -->
+            <a href="https://academy-eji-one.vercel.app" target="_blank" rel="noopener noreferrer"
+            class="btn-glow fade-slide-up group flex items-center gap-3.5 px-4 py-3 rounded-xl">
+            <span class="text-[11px] font-mono text-white/20 w-6 shrink-0">02</span>
+            <span class="w-9 h-9 shrink-0 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center group-hover:border-white/15 transition-colors">
+                <i class="fas fa-graduation-cap icon-hover text-white/40 text-sm"></i>
+            </span>
+            <span class="flex-1 min-w-0">
+                <span class="block text-sm font-medium text-white/80 truncate group-hover:text-white/95 transition-colors">Web AcademyEJI</span>
+                <span class="block text-[11px] text-white/30 truncate">Platform belajar online</span>
+            </span>
+            <span class="text-[9px] font-medium px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400/70 whitespace-nowrap hidden sm:inline-block">LIVE</span>
+            <i class="fas fa-arrow-right text-white/20 text-xs group-hover:text-white/40 transition-all group-hover:translate-x-0.5"></i>
         </a>
 
-        <a href="https://academy-eji-one.vercel.app" target="_blank" rel="noopener noreferrer"
-           class="level-item premium-btn group flex items-center gap-3 px-3.5 py-2.5 border-[3px] border-[#2C2013] bg-[#F5EDDB] hover:shadow-[0_4px_0_#2C2013]">
-          <span class="font-pixel text-[9px] text-[#8A7657] w-6 shrink-0">02</span>
-          <span class="w-8 h-8 shrink-0 flex items-center justify-center bg-[#2C2013]/[0.07] border-2 border-[#2C2013] transition-all">
-            <i class="fas fa-graduation-cap icon-anim text-[#2C2013] text-[14px]"></i>
-          </span>
-          <span class="flex-1 min-w-0">
-            <span class="block text-[13px] font-bold text-[#2C2013] truncate">Web AcademyEJI</span>
-            <span class="block text-[10px] text-[#7A6A50] truncate">Platform belajar online</span>
-          </span>
-          <span class="font-pixel text-[7px] px-2 py-1 bg-[#2C2013]/10 border-2 border-[#2C2013] text-[#2C2013] whitespace-nowrap hidden sm:inline-block transition-all">LIVE</span>
-          <i class="fas fa-chevron-right chevron-icon text-[#2C2013] text-[14px] opacity-50 shrink-0"></i>
-        </a>
-
+        <!-- 3. LMS -->
         <a href="https://beta-test-lms.vercel.app" target="_blank" rel="noopener noreferrer"
-           class="level-item premium-btn group flex items-center gap-3 px-3.5 py-2.5 border-[3px] border-[#2C2013] bg-[#F5EDDB] hover:shadow-[0_4px_0_#2C2013]">
-          <span class="font-pixel text-[9px] text-[#8A7657] w-6 shrink-0">03</span>
-          <span class="w-8 h-8 shrink-0 flex items-center justify-center bg-[#2C2013]/[0.07] border-2 border-[#2C2013] transition-all">
-            <i class="fas fa-chalkboard-teacher icon-anim text-[#2C2013] text-[14px]"></i>
-          </span>
-          <span class="flex-1 min-w-0">
-            <span class="block text-[13px] font-bold text-[#2C2013] truncate">Learning Management System</span>
-            <span class="block text-[10px] text-[#7A6A50] truncate">LMS untuk kampus</span>
-          </span>
-          <span class="font-pixel text-[7px] px-2 py-1 bg-[#2C2013]/10 border-2 border-[#2C2013] text-[#2C2013] whitespace-nowrap hidden sm:inline-block transition-all">LIVE</span>
-          <i class="fas fa-chevron-right chevron-icon text-[#2C2013] text-[14px] opacity-50 shrink-0"></i>
-        </a>
+        class="btn-glow fade-slide-up group flex items-center gap-3.5 px-4 py-3 rounded-xl">
+        <span class="text-[11px] font-mono text-white/20 w-6 shrink-0">03</span>
+        <span class="w-9 h-9 shrink-0 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center group-hover:border-white/15 transition-colors">
+            <i class="fas fa-chalkboard-teacher icon-hover text-white/40 text-sm"></i>
+        </span>
+        <span class="flex-1 min-w-0">
+            <span class="block text-sm font-medium text-white/80 truncate group-hover:text-white/95 transition-colors">Learning Management System</span>
+            <span class="block text-[11px] text-white/30 truncate">LMS untuk kampus</span>
+        </span>
+        <span class="text-[9px] font-medium px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400/70 whitespace-nowrap hidden sm:inline-block">LIVE</span>
+        <i class="fas fa-arrow-right text-white/20 text-xs group-hover:text-white/40 transition-all group-hover:translate-x-0.5"></i>
+    </a>
 
-        <a href="https://exam-online-bay.vercel.app" target="_blank" rel="noopener noreferrer"
-           class="level-item premium-btn group flex items-center gap-3 px-3.5 py-2.5 border-[3px] border-[#2C2013] bg-[#F5EDDB] hover:shadow-[0_4px_0_#2C2013]">
-          <span class="font-pixel text-[9px] text-[#8A7657] w-6 shrink-0">04</span>
-          <span class="w-8 h-8 shrink-0 flex items-center justify-center bg-[#2C2013]/[0.07] border-2 border-[#2C2013] transition-all">
-            <i class="fas fa-file-alt icon-anim text-[#2C2013] text-[14px]"></i>
-          </span>
-          <span class="flex-1 min-w-0">
-            <span class="block text-[13px] font-bold text-[#2C2013] truncate">Exam Portal</span>
-            <span class="block text-[10px] text-[#7A6A50] truncate">Ujian online sekolah</span>
-          </span>
-          <span class="font-pixel text-[7px] px-2 py-1 bg-[#2C2013]/10 border-2 border-[#2C2013] text-[#2C2013] whitespace-nowrap hidden sm:inline-block transition-all">LIVE</span>
-          <i class="fas fa-chevron-right chevron-icon text-[#2C2013] text-[14px] opacity-50 shrink-0"></i>
-        </a>
+    <!-- 4. Exam Portal -->
+    <a href="https://exam-online-bay.vercel.app" target="_blank" rel="noopener noreferrer"
+    class="btn-glow fade-slide-up group flex items-center gap-3.5 px-4 py-3 rounded-xl">
+    <span class="text-[11px] font-mono text-white/20 w-6 shrink-0">04</span>
+    <span class="w-9 h-9 shrink-0 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center group-hover:border-white/15 transition-colors">
+        <i class="fas fa-file-alt icon-hover text-white/40 text-sm"></i>
+    </span>
+    <span class="flex-1 min-w-0">
+        <span class="block text-sm font-medium text-white/80 truncate group-hover:text-white/95 transition-colors">Exam Portal</span>
+        <span class="block text-[11px] text-white/30 truncate">Ujian online sekolah</span>
+    </span>
+    <span class="text-[9px] font-medium px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400/70 whitespace-nowrap hidden sm:inline-block">LIVE</span>
+    <i class="fas fa-arrow-right text-white/20 text-xs group-hover:text-white/40 transition-all group-hover:translate-x-0.5"></i>
+</a>
 
-        <a href="https://academy-beta-version.vercel.app" target="_blank" rel="noopener noreferrer"
-           class="level-item premium-btn group flex items-center gap-3 px-3.5 py-2.5 border-[3px] border-[#2C2013] bg-[#F5EDDB] hover:shadow-[0_4px_0_#2C2013]">
-          <span class="font-pixel text-[9px] text-[#8A7657] w-6 shrink-0">05</span>
-          <span class="w-8 h-8 shrink-0 flex items-center justify-center bg-[#2C2013]/[0.07] border-2 border-[#2C2013] transition-all">
-            <i class="fas fa-trophy icon-anim text-[#2C2013] text-[14px]"></i>
-          </span>
-          <span class="flex-1 min-w-0">
-            <span class="block text-[13px] font-bold text-[#2C2013] truncate">Web Klub Sepak Bola</span>
-            <span class="block text-[10px] text-[#7A6A50] truncate">Profil &amp; berita klub</span>
-          </span>
-          <span class="font-pixel text-[7px] px-2 py-1 bg-[#2C2013]/10 border-2 border-[#2C2013] text-[#2C2013] whitespace-nowrap hidden sm:inline-block transition-all">LIVE</span>
-          <i class="fas fa-chevron-right chevron-icon text-[#2C2013] text-[14px] opacity-50 shrink-0"></i>
-        </a>
+<!-- 5. Klub Sepak Bola -->
+<a href="https://academy-beta-version.vercel.app" target="_blank" rel="noopener noreferrer"
+class="btn-glow fade-slide-up group flex items-center gap-3.5 px-4 py-3 rounded-xl">
+<span class="text-[11px] font-mono text-white/20 w-6 shrink-0">05</span>
+<span class="w-9 h-9 shrink-0 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center group-hover:border-white/15 transition-colors">
+    <i class="fas fa-trophy icon-hover text-white/40 text-sm"></i>
+</span>
+<span class="flex-1 min-w-0">
+    <span class="block text-sm font-medium text-white/80 truncate group-hover:text-white/95 transition-colors">Web Klub Sepak Bola</span>
+    <span class="block text-[11px] text-white/30 truncate">Profil &amp; berita klub</span>
+</span>
+<span class="text-[9px] font-medium px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400/70 whitespace-nowrap hidden sm:inline-block">LIVE</span>
+<i class="fas fa-arrow-right text-white/20 text-xs group-hover:text-white/40 transition-all group-hover:translate-x-0.5"></i>
+</a>
 
-        <a href="https://tuntonluk.vercel.app" target="_blank" rel="noopener noreferrer"
-           class="level-item premium-btn group flex items-center gap-3 px-3.5 py-2.5 border-[3px] border-[#2C2013] bg-[#F5EDDB] hover:shadow-[0_4px_0_#2C2013]">
-          <span class="font-pixel text-[9px] text-[#8A7657] w-6 shrink-0">06</span>
-          <span class="w-8 h-8 shrink-0 flex items-center justify-center bg-[#2C2013]/[0.07] border-2 border-[#2C2013] transition-all">
-            <i class="fas fa-film icon-anim text-[#2C2013] text-[14px]"></i>
-          </span>
-          <span class="flex-1 min-w-0">
-            <span class="block text-[13px] font-bold text-[#2C2013] truncate">Nonton Film Pendek Lokal</span>
-            <span class="block text-[10px] text-[#7A6A50] truncate">Katalog film indie lokal</span>
-          </span>
-          <span class="font-pixel text-[7px] px-2 py-1 bg-[#2C2013]/10 border-2 border-[#2C2013] text-[#2C2013] whitespace-nowrap hidden sm:inline-block transition-all">BARU</span>
-          <i class="fas fa-chevron-right chevron-icon text-[#2C2013] text-[14px] opacity-50 shrink-0"></i>
-        </a>
+<!-- 6. Nonton Film -->
+<a href="https://tuntonluk.vercel.app" target="_blank" rel="noopener noreferrer"
+class="btn-glow fade-slide-up group flex items-center gap-3.5 px-4 py-3 rounded-xl">
+<span class="text-[11px] font-mono text-white/20 w-6 shrink-0">06</span>
+<span class="w-9 h-9 shrink-0 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center group-hover:border-white/15 transition-colors">
+    <i class="fas fa-film icon-hover text-white/40 text-sm"></i>
+</span>
+<span class="flex-1 min-w-0">
+    <span class="block text-sm font-medium text-white/80 truncate group-hover:text-white/95 transition-colors">Nonton Film Pendek Lokal</span>
+    <span class="block text-[11px] text-white/30 truncate">Katalog film indie lokal</span>
+</span>
+<span class="text-[9px] font-medium px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-white/30 whitespace-nowrap hidden sm:inline-block">BARU</span>
+<i class="fas fa-arrow-right text-white/20 text-xs group-hover:text-white/40 transition-all group-hover:translate-x-0.5"></i>
+</a>
 
-      </div>
+</div>
 
-      <!-- SOCIAL / CO-OP SECTION WITH ENHANCED STYLING -->
-      <div class="flex items-center gap-2 mt-6 mb-3">
-        <span class="flex-1 h-[3px] bg-[#2C2013] opacity-70"></span>
-        <span class="font-pixel text-[9px] text-[#2C2013] tracking-wide">CO-OP</span>
-        <span class="flex-1 h-[3px] bg-[#2C2013] opacity-70"></span>
-      </div>
-      <div class="flex justify-center gap-3 flex-wrap">
-        <a href="#" target="_blank" rel="noopener noreferrer"
-           class="social-btn flex items-center gap-2 px-3.5 py-2 border-[3px] border-[#2C2013] text-[12px] font-bold text-[#2C2013] transition-all duration-150">
-          <i class="fab fa-instagram text-[#C0567A] text-[16px]"></i> 
-          <span>@nzofhrzi</span>
-        </a>
-        <a href="#" target="_blank" rel="noopener noreferrer"
-           class="social-btn flex items-center gap-2 px-3.5 py-2 border-[3px] border-[#2C2013] text-[12px] font-bold text-[#2C2013] transition-all duration-150">
-          <i class="fab fa-tiktok text-[#2C2013] text-[16px]"></i> 
-          <span>@top.senpai_</span>
-        </a>
-      </div>
+<!-- ===== SOCIAL ===== -->
+<div class="flex items-center gap-3 mt-6 mb-3.5">
+    <span class="flex-1 h-px bg-white/5"></span>
+    <span class="text-[11px] tracking-[0.2em] uppercase text-white/30 font-light">Connect</span>
+    <span class="flex-1 h-px bg-white/5"></span>
+</div>
+<div class="flex justify-center gap-3 flex-wrap">
+    <a href="#" target="_blank" rel="noopener noreferrer"
+    class="social-glow flex items-center gap-2 px-4 py-2.5 rounded-xl text-[12px] font-medium text-white/50 transition-all duration-200">
+    <i class="fab fa-instagram text-[15px] text-white/40"></i>
+    <span>@nzofhrzi</span>
+</a>
+<a href="#" target="_blank" rel="noopener noreferrer"
+class="social-glow flex items-center gap-2 px-4 py-2.5 rounded-xl text-[12px] font-medium text-white/50 transition-all duration-200">
+<i class="fab fa-tiktok text-[15px] text-white/40"></i>
+<span>@top.senpai_</span>
+</a>
+</div>
 
-      <!-- ENHANCED FOOTER -->
-      <div class="text-center mt-6 pt-3 border-t-[3px] border-[#2C2013]">
-        <span class="footer-text font-pixel text-[8px] text-[#7A6A50] tracking-wide">ENZO FAHREZI</span>
-        <span class="inline-block w-1.5 h-3 bg-[#7A6A50] ml-1 align-middle anim-blink"></span>
-      </div>
+<!-- ===== FOOTER ===== -->
+<div class="text-center mt-6 pt-4 border-t border-white/5">
+    <span class="text-[10px] tracking-[0.25em] uppercase text-white/20 font-light">Enzo Fahrezi</span>
+    <span class="inline-block w-1 h-3 bg-white/20 ml-1.5 align-middle animate-pulse"></span>
+</div>
 
-    </div>
-  </main>
+</div>
+</div>
+</main>
 
-  <script>
-    // ENHANCED INTERACTIVITY
-    document.querySelectorAll('.premium-btn').forEach(btn => {
-      btn.addEventListener('mouseenter', function() {
-        this.style.transition = 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)';
-      });
-    });
-
-    // PARALLAX EFFECT ON FLOATING ORBS
+<!-- ===== MOUSE PARALLAX ===== -->
+<script>
     document.addEventListener('mousemove', (e) => {
-      const orbs = document.querySelectorAll('[class*="orb-"]');
-      const x = e.clientX / window.innerWidth;
-      const y = e.clientY / window.innerHeight;
-
-      orbs.forEach((orb, idx) => {
-        const speed = (idx + 1) * 10;
-        orb.style.transform = `translate(calc(-${x * speed}px), calc(-${y * speed}px))`;
-      });
+        const orbs = document.querySelectorAll('.absolute.rounded-full.bg-white\\/5');
+        const x = (e.clientX / window.innerWidth - 0.5) * 20;
+        const y = (e.clientY / window.innerHeight - 0.5) * 20;
+        orbs.forEach((orb, i) => {
+            const speed = (i + 1) * 4;
+            orb.style.transform = `translate(${x * speed * 0.3}px, ${y * speed * 0.3}px)`;
+        });
     });
-  </script>
+</script>
 
 </body>
 </html>
