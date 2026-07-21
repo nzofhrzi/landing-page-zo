@@ -1,1096 +1,530 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Landing Page - Enzo Fahrezi</title>
-
-    <!-- Font Awesome 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-
-    <!-- Google Font: Press Start 2P + Space Mono -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-
-    <style>
-        /* ===== RESET & BASE ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Space Mono', monospace;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #f0ebe3;
-            padding: 16px;
-            background-image:
-                linear-gradient(rgba(180, 160, 140, 0.08) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(180, 160, 140, 0.08) 1px, transparent 1px);
-            background-size: 20px 20px;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        /* ===== FLOATING PIXEL ELEMENTS ===== */
-        .floating-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .pixel-float {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            image-rendering: pixelated;
-            opacity: 0.6;
-            animation: floatAround linear infinite;
-        }
-
-        /* bentuk pixel dengan clip-path */
-        .pixel-float.star {
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            background: #ff6b6b;
-            width: 24px;
-            height: 24px;
-        }
-        .pixel-float.square {
-            background: #4ecdc4;
-            width: 18px;
-            height: 18px;
-            border: 2px solid #4a3a2a;
-        }
-        .pixel-float.diamond {
-            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-            background: #ffd93d;
-            width: 22px;
-            height: 22px;
-        }
-        .pixel-float.circle {
-            border-radius: 50%;
-            background: #a29bfe;
-            width: 16px;
-            height: 16px;
-            border: 2px solid #4a3a2a;
-        }
-        .pixel-float.triangle {
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            background: #ff8a80;
-            width: 20px;
-            height: 20px;
-        }
-        .pixel-float.plus {
-            background: #81ecec;
-            width: 16px;
-            height: 16px;
-            clip-path: polygon(40% 0%, 60% 0%, 60% 40%, 100% 40%, 100% 60%, 60% 60%, 60% 100%, 40% 100%, 40% 60%, 0% 60%, 0% 40%, 40% 40%);
-        }
-
-        @keyframes floatAround {
-            0% {
-                transform: translate(0, 0) rotate(0deg) scale(1);
-                opacity: 0.3;
-            }
-            25% {
-                opacity: 0.7;
-            }
-            50% {
-                transform: translate(30px, -40px) rotate(180deg) scale(1.1);
-                opacity: 0.5;
-            }
-            75% {
-                opacity: 0.8;
-            }
-            100% {
-                transform: translate(-20px, 20px) rotate(360deg) scale(0.9);
-                opacity: 0.3;
-            }
-        }
-
-        /* variasi posisi dan durasi */
-        .pixel-float:nth-child(1) {
-            top: 8%;
-            left: 5%;
-            animation-duration: 12s;
-            animation-delay: 0s;
-        }
-        .pixel-float:nth-child(2) {
-            top: 15%;
-            right: 6%;
-            animation-duration: 14s;
-            animation-delay: 1s;
-        }
-        .pixel-float:nth-child(3) {
-            bottom: 20%;
-            left: 4%;
-            animation-duration: 11s;
-            animation-delay: 2s;
-        }
-        .pixel-float:nth-child(4) {
-            bottom: 10%;
-            right: 5%;
-            animation-duration: 16s;
-            animation-delay: 0.5s;
-        }
-        .pixel-float:nth-child(5) {
-            top: 45%;
-            left: 2%;
-            animation-duration: 13s;
-            animation-delay: 1.5s;
-        }
-        .pixel-float:nth-child(6) {
-            top: 50%;
-            right: 3%;
-            animation-duration: 15s;
-            animation-delay: 0.8s;
-        }
-        .pixel-float:nth-child(7) {
-            top: 5%;
-            left: 50%;
-            animation-duration: 18s;
-            animation-delay: 2.2s;
-        }
-        .pixel-float:nth-child(8) {
-            bottom: 5%;
-            left: 45%;
-            animation-duration: 12s;
-            animation-delay: 1.2s;
-        }
-        .pixel-float:nth-child(9) {
-            top: 30%;
-            left: 8%;
-            animation-duration: 10s;
-            animation-delay: 0.3s;
-        }
-        .pixel-float:nth-child(10) {
-            bottom: 40%;
-            right: 8%;
-            animation-duration: 14s;
-            animation-delay: 1.8s;
-        }
-        .pixel-float:nth-child(11) {
-            top: 70%;
-            left: 3%;
-            animation-duration: 17s;
-            animation-delay: 0.7s;
-        }
-        .pixel-float:nth-child(12) {
-            top: 20%;
-            right: 12%;
-            animation-duration: 13s;
-            animation-delay: 2.5s;
-        }
-
-        /* ===== CARD UTAMA ===== */
-        .card {
-            max-width: 440px;
-            width: 100%;
-            background: #fcf8f2;
-            border: 4px solid #4a3a2a;
-            border-radius: 0;
-            padding: 24px 18px 22px;
-            box-shadow: 8px 8px 0 #4a3a2a, 0 0 0 2px #f0ebe3, 0 0 0 6px #4a3a2a;
-            position: relative;
-            z-index: 1;
-            transition: transform 0.1s ease;
-            animation: cardIn 0.6s steps(2) forwards;
-            opacity: 0;
-            transform: translateY(16px);
-        }
-
-        @keyframes cardIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* ===== HEADER: Avatar + Nama ===== */
-        .profile-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 16px;
-            border-bottom: 4px solid #4a3a2a;
-            padding-bottom: 14px;
-        }
-
-        .avatar-wrapper {
-            flex-shrink: 0;
-            animation: floatY 3s ease-in-out infinite;
-        }
-
-        @keyframes floatY {
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-4px);
-            }
-        }
-
-        .avatar {
-            width: 76px;
-            height: 76px;
-            background: #e8dccc;
-            border: 4px solid #4a3a2a;
-            padding: 2px;
-            image-rendering: pixelated;
-            transition: transform 0.15s ease;
-        }
-
-        .avatar:hover {
-            transform: scale(1.02);
-        }
-
-        .avatar .fallback {
-            width: 100%;
-            height: 100%;
-            background: #d4c4b0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Press Start 2P', monospace;
-            font-size: 28px;
-            color: #4a3a2a;
-            text-shadow: 2px 2px 0 #f0ebe3;
-            border: 2px solid #4a3a2a;
-        }
-
-        .profile-info {
-            flex: 1;
-        }
-
-        .name {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 18px;
-            letter-spacing: 1px;
-            color: #4a3a2a;
-            text-shadow: 2px 2px 0 #e8dccc;
-            line-height: 1.2;
-            margin-bottom: 2px;
-        }
-
-        .subtitle {
-            font-family: 'Space Mono', monospace;
-            font-size: 11px;
-            color: #6b5a4a;
-            background: #e8dccc;
-            padding: 4px 12px;
-            display: inline-block;
-            border: 2px solid #4a3a2a;
-            letter-spacing: 0.3px;
-        }
-
-        .subtitle i {
-            margin-right: 4px;
-        }
-
-        /* ===== DIVIDER ===== */
-        .divider {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin: 14px 0 16px;
-        }
-
-        .divider-line {
-            flex: 1;
-            height: 3px;
-            background: #4a3a2a;
-            border-bottom: 2px solid #f0ebe3;
-        }
-
-        .divider-dot {
-            width: 12px;
-            height: 12px;
-            background: #4a3a2a;
-            border: 2px solid #f0ebe3;
-            flex-shrink: 0;
-            animation: pulseDot 1.8s steps(2) infinite;
-        }
-
-        @keyframes pulseDot {
-            0%,
-            100% {
-                opacity: 0.6;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.3);
-            }
-        }
-
-        /* ===== SECTION LABEL ===== */
-        .section-label {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 11px;
-            color: #4a3a2a;
-            letter-spacing: 1px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border-bottom: 3px solid #4a3a2a;
-            padding-bottom: 6px;
-            text-shadow: 1px 1px 0 #e8dccc;
-        }
-
-        .section-label i {
-            font-size: 14px;
-        }
-
-        /* ===== ITEMS (Portofolio) ===== */
-        .items {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin: 8px 0 14px;
-        }
-
-        .item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 14px;
-            border: 3px solid #4a3a2a;
-            text-decoration: none;
-            color: #4a3a2a;
-            font-weight: 700;
-            font-size: 13px;
-            transition: all 0.12s ease;
-            cursor: pointer;
-            opacity: 0;
-            transform: translateY(8px);
-            animation: itemIn 0.4s steps(2) forwards;
-        }
-
-        .item:nth-child(1) {
-            animation-delay: 0.05s;
-            background: #f5efe8;
-        }
-        .item:nth-child(2) {
-            animation-delay: 0.10s;
-            background: #f0e8e0;
-        }
-        .item:nth-child(3) {
-            animation-delay: 0.15s;
-            background: #f5e8dc;
-        }
-        .item:nth-child(4) {
-            animation-delay: 0.20s;
-            background: #e8f0e8;
-        }
-        .item:nth-child(5) {
-            animation-delay: 0.25s;
-            background: #ece8f0;
-        }
-        .item:nth-child(6) {
-            animation-delay: 0.30s;
-            background: #f5f0e0;
-        }
-
-        @keyframes itemIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .item:hover {
-            filter: brightness(0.96);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 0 #4a3a2a;
-        }
-
-        .item:active {
-            transform: translateY(2px);
-            box-shadow: none;
-        }
-
-        .item-icon {
-            width: 32px;
-            height: 32px;
-            background: rgba(74, 58, 42, 0.08);
-            border: 2px solid #4a3a2a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            color: #4a3a2a;
-            flex-shrink: 0;
-        }
-
-        .item-text {
-            flex: 1;
-            font-family: 'Space Mono', monospace;
-            font-weight: 700;
-        }
-
-        .item-tag {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 8px;
-            text-transform: uppercase;
-            padding: 2px 8px;
-            background: rgba(74, 58, 42, 0.1);
-            border: 2px solid #4a3a2a;
-            color: #4a3a2a;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-        }
-
-        .item-arrow {
-            font-size: 14px;
-            color: #4a3a2a;
-            opacity: 0.5;
-            transition: opacity 0.15s ease, transform 0.15s ease;
-        }
-
-        .item:hover .item-arrow {
-            opacity: 1;
-            transform: translateX(4px);
-        }
-
-        /* ===== NOTIFICATIONS ===== */
-        .notif-section {
-            margin: 14px 0 12px;
-        }
-
-        .notif-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .notif {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 14px;
-            border: 3px solid #4a3a2a;
-            border-left-width: 8px;
-            font-size: 12px;
-            font-family: 'Space Mono', monospace;
-            color: #4a3a2a;
-            font-weight: 700;
-            transition: background 0.12s ease;
-            cursor: default;
-        }
-
-        .notif:hover {
-            filter: brightness(0.96);
-        }
-
-        .notif i {
-            font-size: 16px;
-            width: 20px;
-            text-align: center;
-            color: #4a3a2a;
-        }
-
-        .notif.success {
-            background: #e8f0e8;
-            border-left-color: #4a7a5a;
-        }
-        .notif.warning {
-            background: #f5f0dc;
-            border-left-color: #b88a3a;
-        }
-        .notif.error {
-            background: #f5e8e4;
-            border-left-color: #b85a4a;
-        }
-        .notif.complete {
-            background: #ece8f0;
-            border-left-color: #7a5a8a;
-        }
-
-        .notif .msg {
-            flex: 1;
-        }
-
-        .notif .badge {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 8px;
-            text-transform: uppercase;
-            padding: 2px 8px;
-            background: rgba(74, 58, 42, 0.08);
-            border: 2px solid #4a3a2a;
-            color: #4a3a2a;
-        }
-
-        /* ===== SOSIAL MEDIA ===== */
-        .social-section {
-            margin-top: 4px;
-        }
-
-        .social-divider {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin: 10px 0 14px;
-        }
-
-        .social-divider .divider-line {
-            background: #4a3a2a;
-            height: 3px;
-            border-bottom: 2px solid #f0ebe3;
-        }
-
-        .social-label {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 10px;
-            color: #4a3a2a;
-            letter-spacing: 1px;
-            flex-shrink: 0;
-            text-shadow: 1px 1px 0 #e8dccc;
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .social-link {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            font-family: 'Space Mono', monospace;
-            font-size: 12px;
-            font-weight: 700;
-            padding: 6px 14px 6px 10px;
-            background: #f5efe8;
-            border: 3px solid #4a3a2a;
-            color: #4a3a2a;
-            transition: all 0.12s ease;
-            opacity: 0;
-            transform: translateY(6px);
-            animation: socialIn 0.4s steps(2) forwards;
-        }
-
-        .social-link:nth-child(1) {
-            animation-delay: 0.35s;
-            background: #f0e8e0;
-        }
-        .social-link:nth-child(2) {
-            animation-delay: 0.40s;
-            background: #ece8f0;
-        }
-
-        @keyframes socialIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .social-link:hover {
-            filter: brightness(0.96);
-            transform: translateY(-2px);
-            box-shadow: 0 3px 0 #4a3a2a;
-        }
-
-        .social-link:active {
-            transform: translateY(2px);
-            box-shadow: none;
-        }
-
-        .social-link i {
-            font-size: 18px;
-            width: 22px;
-            text-align: center;
-        }
-
-        .social-link .ig {
-            color: #b85a7a;
-        }
-        .social-link .tt {
-            color: #4a3a2a;
-        }
-
-        .social-link span {
-            font-weight: 700;
-        }
-
-        /* ===== MUSIC CONTROL ===== */
-        .music-control {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 100;
-            background: #fcf8f2;
-            border: 3px solid #4a3a2a;
-            padding: 10px 14px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            box-shadow: 4px 4px 0 #4a3a2a;
-            transition: all 0.15s ease;
-            font-family: 'Press Start 2P', monospace;
-            font-size: 10px;
-            color: #4a3a2a;
-        }
-
-        .music-control:hover {
-            transform: translateY(-2px);
-            box-shadow: 6px 6px 0 #4a3a2a;
-        }
-
-        .music-control:active {
-            transform: translateY(2px);
-            box-shadow: 2px 2px 0 #4a3a2a;
-        }
-
-        .music-control i {
-            font-size: 18px;
-        }
-
-        .music-control .status {
-            font-size: 8px;
-            letter-spacing: 0.5px;
-        }
-
-        /* ===== FOOTER ===== */
-        .footer {
-            text-align: center;
-            margin-top: 18px;
-            font-family: 'Press Start 2P', monospace;
-            font-size: 9px;
-            color: #6b5a4a;
-            border-top: 3px solid #4a3a2a;
-            padding-top: 12px;
-            letter-spacing: 0.5px;
-        }
-
-        .footer span {
-            display: inline-block;
-            animation: shimmer 3s steps(2) infinite;
-        }
-
-        @keyframes shimmer {
-            0%,
-            100% {
-                opacity: 0.5;
-            }
-            50% {
-                opacity: 1;
-            }
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 480px) {
-            .card {
-                padding: 18px 12px 16px;
-                box-shadow: 6px 6px 0 #4a3a2a, 0 0 0 2px #f0ebe3, 0 0 0 4px #4a3a2a;
-            }
-            .profile-header {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                gap: 8px;
-            }
-            .avatar {
-                width: 68px;
-                height: 68px;
-            }
-            .avatar .fallback {
-                font-size: 24px;
-            }
-            .name {
-                font-size: 16px;
-            }
-            .subtitle {
-                font-size: 10px;
-            }
-            .item {
-                padding: 8px 12px;
-                font-size: 12px;
-                gap: 10px;
-            }
-            .item-icon {
-                width: 28px;
-                height: 28px;
-                font-size: 12px;
-            }
-            .item-tag {
-                font-size: 7px;
-                padding: 1px 6px;
-            }
-            .notif {
-                font-size: 11px;
-                padding: 6px 10px;
-            }
-            .notif .badge {
-                font-size: 7px;
-                padding: 1px 6px;
-            }
-            .social-link {
-                font-size: 11px;
-                padding: 4px 10px 4px 8px;
-            }
-            .social-link i {
-                font-size: 16px;
-                width: 18px;
-            }
-            .music-control {
-                bottom: 12px;
-                right: 12px;
-                padding: 8px 12px;
-                font-size: 8px;
-            }
-            .music-control i {
-                font-size: 14px;
-            }
-            .pixel-float {
-                transform: scale(0.7);
-            }
-        }
-
-        @media (max-width: 380px) {
-            .item {
-                font-size: 11px;
-                padding: 6px 10px;
-            }
-            .item-icon {
-                width: 24px;
-                height: 24px;
-                font-size: 11px;
-            }
-            .item-tag {
-                display: none;
-            }
-            .notif .badge {
-                display: none;
-            }
-        }
-
-        /* ===== SCROLLBAR ===== */
-        ::-webkit-scrollbar {
-            width: 6px;
-            background: #f0ebe3;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #4a3a2a;
-            border: 2px solid #f0ebe3;
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Enzo Fahrezi — Player Card</title>
+
+<!-- Tailwind via CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Font Awesome (ikon) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+<!-- Font pixel + mono -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+<style>
+  .font-pixel { font-family: 'Press Start 2P', monospace; }
+  body { font-family: 'Space Mono', monospace; }
+
+  /* ANIMATED GRADIENT BACKGROUNDS */
+  @keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  @keyframes gradientShift {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+  }
+
+  /* FLOATING OVERLAY */
+  @keyframes floatingOrbs {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+    25% { transform: translate(30px, -30px) scale(1.1); opacity: 0.5; }
+    50% { transform: translate(-20px, 20px) scale(0.9); opacity: 0.3; }
+    75% { transform: translate(40px, 10px) scale(1.05); opacity: 0.4; }
+  }
+
+  @keyframes floatingOrbsSlow {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+    50% { transform: translate(-40px, 40px) scale(1.15); opacity: 0.35; }
+  }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 20px rgba(232, 96, 76, 0.3), 0 0 40px rgba(232, 96, 76, 0.1); }
+    50% { box-shadow: 0 0 30px rgba(232, 96, 76, 0.5), 0 0 60px rgba(232, 96, 76, 0.2); }
+  }
+
+  @keyframes buttonHoverGlow {
+    0% { box-shadow: 0 4px 0 #2C2013, 0 0 0 rgba(232, 96, 76, 0); }
+    50% { box-shadow: 0 4px 0 #2C2013, 0 0 20px rgba(232, 96, 76, 0.6); }
+    100% { box-shadow: 0 4px 0 #2C2013, 0 0 0 rgba(232, 96, 76, 0); }
+  }
+
+  @keyframes slideInRotate {
+    from {
+      opacity: 0;
+      transform: translateX(-20px) rotateZ(-2deg);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0) rotateZ(0deg);
+    }
+  }
+
+  @keyframes iconBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+
+  @keyframes borderFlash {
+    0%, 100% { border-color: #2C2013; }
+    50% { border-color: #E8604C; }
+  }
+
+  /* UTILITY CLASSES */
+  .anim-fadeup { animation: fadeUp 0.5s ease-out both; }
+  .anim-float { animation: floatSoft 3s ease-in-out infinite; }
+  .anim-blink { animation: blinkCursor 1s step-end infinite; }
+  .anim-floating-orbs { animation: floatingOrbs 6s ease-in-out infinite; }
+  .anim-floating-orbs-slow { animation: floatingOrbsSlow 8s ease-in-out infinite; }
+  .anim-shimmer { animation: shimmer 2.5s infinite; }
+  .anim-pulse-glow { animation: pulseGlow 2.5s ease-in-out infinite; }
+  .anim-border-flash { animation: borderFlash 1.5s ease-in-out infinite; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes floatSoft {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  @keyframes blinkCursor {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+
+  /* PREMIUM BUTTON HOVER EFFECTS */
+  .premium-btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .premium-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: none;
+    transition: none;
+  }
+
+  .premium-btn:hover::before {
+    animation: shimmer 0.6s ease-in-out;
+  }
+
+  .premium-btn:hover {
+    transform: translateY(-8px) skewX(-1deg) !important;
+    box-shadow: 0 8px 0 #2C2013, 0 12px 20px rgba(44, 32, 19, 0.3), 0 0 30px rgba(232, 96, 76, 0.4) !important;
+  }
+
+  .premium-btn:active {
+    transform: translateY(-2px) skewX(0deg) !important;
+    box-shadow: 0 4px 0 #2C2013, 0 6px 10px rgba(44, 32, 19, 0.2) !important;
+  }
+
+  .premium-btn .icon-anim {
+    display: inline-block;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .premium-btn:hover .icon-anim {
+    animation: iconBounce 0.6s ease-in-out;
+    color: #E8604C;
+  }
+
+  .premium-btn:hover .chevron-icon {
+    transform: translateX(4px) scale(1.2);
+    color: #E8604C;
+  }
+
+  /* FLOATING OVERLAY STYLING */
+  .floating-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .floating-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    mix-blend-mode: screen;
+  }
+
+  .orb-1 {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(232, 96, 76, 0.4), transparent);
+    top: 10%;
+    left: 5%;
+    animation: floatingOrbs 8s ease-in-out infinite;
+  }
+
+  .orb-2 {
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, rgba(47, 168, 154, 0.3), transparent);
+    bottom: 15%;
+    right: 10%;
+    animation: floatingOrbsSlow 10s ease-in-out infinite;
+  }
+
+  .orb-3 {
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(232, 185, 61, 0.25), transparent);
+    top: 50%;
+    right: 5%;
+    animation: floatingOrbs 7s ease-in-out infinite reverse;
+  }
+
+  .orb-4 {
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(92, 140, 90, 0.3), transparent);
+    bottom: 25%;
+    left: 15%;
+    animation: floatingOrbsSlow 9s ease-in-out infinite reverse;
+  }
+
+  /* CARD ENTRANCE */
+  .card-container {
+    animation: cardSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes cardSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* PROFILE SECTION GLOW */
+  .profile-avatar:hover {
+    box-shadow: 0 0 25px rgba(232, 96, 76, 0.5), inset 0 0 15px rgba(232, 96, 76, 0.2);
+  }
+
+  .profile-avatar {
+    transition: all 0.3s ease;
+  }
+
+  /* STAGGERED LIST ANIMATIONS */
+  .level-item {
+    animation: slideInRotate 0.5s ease-out both;
+  }
+
+  .level-item:nth-child(1) { animation-delay: 0.05s; }
+  .level-item:nth-child(2) { animation-delay: 0.1s; }
+  .level-item:nth-child(3) { animation-delay: 0.15s; }
+  .level-item:nth-child(4) { animation-delay: 0.2s; }
+  .level-item:nth-child(5) { animation-delay: 0.25s; }
+  .level-item:nth-child(6) { animation-delay: 0.3s; }
+
+  /* BADGE ANIMATION */
+  .status-badge {
+    animation: badgePulse 2s ease-in-out infinite;
+  }
+
+  @keyframes badgePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+
+  /* SOCIAL BUTTON MAGIC */
+  .social-btn {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #F0E6CC 0%, #E4D9BF 100%);
+    transition: all 0.3s ease;
+  }
+
+  .social-btn:hover {
+    transform: translateY(-6px) rotate(2deg);
+    box-shadow: 0 6px 0 #2C2013, 0 10px 25px rgba(44, 32, 19, 0.2), 0 0 20px rgba(232, 96, 76, 0.3);
+    background: linear-gradient(135deg, #FBF5E8 0%, #F0E6CC 100%);
+  }
+
+  .social-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(232, 96, 76, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  .social-btn:active::after {
+    width: 300px;
+    height: 300px;
+  }
+
+  /* FOOTER ENHANCEMENT */
+  .footer-text {
+    position: relative;
+    display: inline-block;
+  }
+
+  .footer-text::before,
+  .footer-text::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 8px;
+    height: 2px;
+    background: #7A6A50;
+    transform: translateY(-50%);
+  }
+
+  .footer-text::before {
+    right: 100%;
+    margin-right: 8px;
+  }
+
+  .footer-text::after {
+    left: 100%;
+    margin-left: 8px;
+  }
+
+  /* REDUCED MOTION SUPPORT */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+
+  /* MOBILE OPTIMIZATIONS */
+  @media (max-width: 640px) {
+    .premium-btn:hover {
+      transform: translateY(-6px) skewX(-0.5deg) !important;
+    }
+
+    .floating-overlay {
+      opacity: 0.5;
+    }
+  }
+</style>
 </head>
-<body>
 
-    <!-- ===== FLOATING PIXEL ELEMENTS ===== -->
-    <div class="floating-container">
-        <div class="pixel-float star"></div>
-        <div class="pixel-float square"></div>
-        <div class="pixel-float diamond"></div>
-        <div class="pixel-float circle"></div>
-        <div class="pixel-float triangle"></div>
-        <div class="pixel-float plus"></div>
-        <div class="pixel-float star" style="background:#ffd93d;width:18px;height:18px;"></div>
-        <div class="pixel-float square" style="background:#ff6b6b;width:14px;height:14px;"></div>
-        <div class="pixel-float diamond" style="background:#a29bfe;width:16px;height:16px;"></div>
-        <div class="pixel-float circle" style="background:#ff8a80;width:20px;height:20px;"></div>
-        <div class="pixel-float triangle" style="background:#4ecdc4;width:16px;height:16px;"></div>
-        <div class="pixel-float plus" style="background:#ffd93d;width:14px;height:14px;"></div>
+<body class="min-h-screen w-full flex items-center justify-center p-4 sm:p-6 bg-[#EFE4CE] relative overflow-hidden">
+
+  <!-- FLOATING OVERLAY BACKDROP -->
+  <div class="floating-overlay">
+    <div class="orb-1"></div>
+    <div class="orb-2"></div>
+    <div class="orb-3"></div>
+    <div class="orb-4"></div>
+  </div>
+
+  <!-- GRID TEXTURE -->
+  <div class="absolute inset-0 opacity-[0.07] pointer-events-none"
+       style="background-image:linear-gradient(#2C2013 1px, transparent 1px), linear-gradient(90deg, #2C2013 1px, transparent 1px); background-size:22px 22px;">
+  </div>
+
+  <main class="card-container relative z-10 w-full max-w-md bg-[#FBF5E8] border-[3px] border-[#2C2013] shadow-[8px_8px_0_#2C2013] transition-all duration-300">
+
+    <!-- CARTRIDGE LABEL BAR WITH ENHANCED GLOW -->
+    <div class="flex items-center justify-between px-4 py-2 border-b-[3px] border-[#2C2013] bg-[#E7DAB8] relative overflow-hidden">
+      <div class="flex gap-1.5 relative z-10">
+        <span class="w-2.5 h-2.5 bg-[#E8604C] border border-[#2C2013] transition-all hover:scale-150"></span>
+        <span class="w-2.5 h-2.5 bg-[#E8B93D] border border-[#2C2013] transition-all hover:scale-150"></span>
+        <span class="w-2.5 h-2.5 bg-[#2FA89A] border border-[#2C2013] transition-all hover:scale-150"></span>
+      </div>
+      <span class="font-pixel text-[8px] tracking-wider text-[#2C2013] relative z-10 opacity-80">PLAYER_CARD.EXE</span>
     </div>
 
-    <!-- ===== MUSIC CONTROL ===== -->
-    <div class="music-control" id="musicControl">
-        <i class="fas fa-play" id="musicIcon"></i>
-        <span class="status" id="musicStatus">PLAY</span>
+    <div class="p-5 sm:p-6">
+
+      <!-- PROFILE HEADER WITH ENHANCED HOVER -->
+      <div class="flex items-center gap-4 pb-4 border-b-[3px] border-[#2C2013]">
+        <div class="relative shrink-0 anim-float">
+          <div class="profile-avatar w-[70px] h-[70px] bg-gradient-to-br from-[#E4C9A3] to-[#D4B393] border-[3px] border-[#2C2013] flex items-center justify-center cursor-pointer">
+            <span class="font-pixel text-2xl text-[#2C2013]">E</span>
+          </div>
+          <span class="status-badge absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-[#5C8C5A] border-2 border-[#FBF5E8] rounded-full"></span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h1 class="font-pixel text-[15px] sm:text-[17px] leading-snug text-[#2C2013] truncate">Enzo Fahrezi</h1>
+          <span class="inline-flex items-center gap-1.5 mt-2 text-[10px] font-bold px-2.5 py-1 bg-[#E4D9BF] border-2 border-[#2C2013] text-[#4A3A28] transition-all hover:shadow-[0_2px_8px_rgba(44,32,19,0.2)] cursor-default">
+            <i class="fas fa-graduation-cap"></i> Mahasiswa Unmuh Babel
+          </span>
+        </div>
+      </div>
+
+      <!-- LEVEL SELECT LABEL -->
+      <div class="flex items-center gap-2 mt-5 mb-3">
+        <span class="font-pixel text-[10px] text-[#2C2013] tracking-wide">SELECT LEVEL</span>
+        <span class="flex-1 h-[3px] bg-[#2C2013] opacity-70"></span>
+      </div>
+
+      <!-- PORTFOLIO DENGAN PREMIUM HOVER EFFECTS -->
+      <div class="flex flex-col gap-2">
+
+        <a href="porto.html" target="_blank" rel="noopener noreferrer"
+           class="level-item premium-btn group flex items-center gap-3 px-3.5 py-2.5 border-[3px] border-[#2C2013] bg-[#F5EDDB] hover:shadow-[0_4px_0_#2C2013]">
+          <span class="font-pixel text-[9px] text-[#8A7657] w-6 shrink-0">01</span>
+          <span class="w-8 h-8 shrink-0 flex items-center justify-center bg-[#2C2013]/[0.07] border-2 border-[#2C2013] transition-all">
+            <i class="fas fa-briefcase icon-anim text-[#2C2013] text-[14px]"></i>
+          </span>
+          <span class="flex-1 min-w-0">
+            <span class="block text-[13px] font-bold text-[#2C2013] truncate">Portofolio Enzo Fahrezi</span>
+            <span class="block text-[10px] text-[#7A6A50] truncate">Karya &amp; proyek pribadi</span>
+          </span>
+          <span class="font-pixel text-[7px] px-2 py-1 bg-[#2C2013]/10 border-2 border-[#2C2013] text-[#2C2013] whitespace-nowrap hidden sm:inline-block transition-all">MULAI</span>
+          <i class="fas fa-chevron-right chevron-icon text-[#2C2013] text-[14px] opacity-50 shrink-0"></i>
+        </a>
+
+        <a href="https://academy-eji-one.vercel.app" target="_blank" rel="noopener noreferrer"
+           class="level-item premium-btn group flex items-center gap-3 px-3.5 py-2.5 border-[3px] border-[#2C2013] bg-[#F5EDDB] hover:shadow-[0_4px_0_#2C2013]">
+          <span class="font-pixel text-[9px] text-[#8A7657] w-6 shrink-0">02</span>
+          <span class="w-8 h-8 shrink-0 flex items-center justify-center bg-[#2C2013]/[0.07] border-2 border-[#2C2013] transition-all">
+            <i class="fas fa-graduation-cap icon-anim text-[#2C2013] text-[14px]"></i>
+          </span>
+          <span class="flex-1 min-w-0">
+            <span class="block text-[13px] font-bold text-[#2C2013] truncate">Web AcademyEJI</span>
+            <span class="block text-[10px] text-[#7A6A50] truncate">Platform belajar online</span>
+          </span>
+          <span class="font-pixel text-[7px] px-2 py-1 bg-[#2C2013]/10 border-2 border-[#2C2013] text-[#2C2013] whitespace-nowrap hidden sm:inline-block transition-all">LIVE</span>
+          <i class="fas fa-chevron-right chevron-icon text-[#2C2013] text-[14px] opacity-50 shrink-0"></i>
+        </a>
+
+        <a href="https://beta-test-lms.vercel.app" target="_blank" rel="noopener noreferrer"
+           class="level-item premium-btn group flex items-center gap-3 px-3.5 py-2.5 border-[3px] border-[#2C2013] bg-[#F5EDDB] hover:shadow-[0_4px_0_#2C2013]">
+          <span class="font-pixel text-[9px] text-[#8A7657] w-6 shrink-0">03</span>
+          <span class="w-8 h-8 shrink-0 flex items-center justify-center bg-[#2C2013]/[0.07] border-2 border-[#2C2013] transition-all">
+            <i class="fas fa-chalkboard-teacher icon-anim text-[#2C2013] text-[14px]"></i>
+          </span>
+          <span class="flex-1 min-w-0">
+            <span class="block text-[13px] font-bold text-[#2C2013] truncate">Learning Management System</span>
+            <span class="block text-[10px] text-[#7A6A50] truncate">LMS untuk kampus</span>
+          </span>
+          <span class="font-pixel text-[7px] px-2 py-1 bg-[#2C2013]/10 border-2 border-[#2C2013] text-[#2C2013] whitespace-nowrap hidden sm:inline-block transition-all">LIVE</span>
+          <i class="fas fa-chevron-right chevron-icon text-[#2C2013] text-[14px] opacity-50 shrink-0"></i>
+        </a>
+
+        <a href="https://exam-online-bay.vercel.app" target="_blank" rel="noopener noreferrer"
+           class="level-item premium-btn group flex items-center gap-3 px-3.5 py-2.5 border-[3px] border-[#2C2013] bg-[#F5EDDB] hover:shadow-[0_4px_0_#2C2013]">
+          <span class="font-pixel text-[9px] text-[#8A7657] w-6 shrink-0">04</span>
+          <span class="w-8 h-8 shrink-0 flex items-center justify-center bg-[#2C2013]/[0.07] border-2 border-[#2C2013] transition-all">
+            <i class="fas fa-file-alt icon-anim text-[#2C2013] text-[14px]"></i>
+          </span>
+          <span class="flex-1 min-w-0">
+            <span class="block text-[13px] font-bold text-[#2C2013] truncate">Exam Portal</span>
+            <span class="block text-[10px] text-[#7A6A50] truncate">Ujian online sekolah</span>
+          </span>
+          <span class="font-pixel text-[7px] px-2 py-1 bg-[#2C2013]/10 border-2 border-[#2C2013] text-[#2C2013] whitespace-nowrap hidden sm:inline-block transition-all">LIVE</span>
+          <i class="fas fa-chevron-right chevron-icon text-[#2C2013] text-[14px] opacity-50 shrink-0"></i>
+        </a>
+
+        <a href="https://academy-beta-version.vercel.app" target="_blank" rel="noopener noreferrer"
+           class="level-item premium-btn group flex items-center gap-3 px-3.5 py-2.5 border-[3px] border-[#2C2013] bg-[#F5EDDB] hover:shadow-[0_4px_0_#2C2013]">
+          <span class="font-pixel text-[9px] text-[#8A7657] w-6 shrink-0">05</span>
+          <span class="w-8 h-8 shrink-0 flex items-center justify-center bg-[#2C2013]/[0.07] border-2 border-[#2C2013] transition-all">
+            <i class="fas fa-trophy icon-anim text-[#2C2013] text-[14px]"></i>
+          </span>
+          <span class="flex-1 min-w-0">
+            <span class="block text-[13px] font-bold text-[#2C2013] truncate">Web Klub Sepak Bola</span>
+            <span class="block text-[10px] text-[#7A6A50] truncate">Profil &amp; berita klub</span>
+          </span>
+          <span class="font-pixel text-[7px] px-2 py-1 bg-[#2C2013]/10 border-2 border-[#2C2013] text-[#2C2013] whitespace-nowrap hidden sm:inline-block transition-all">LIVE</span>
+          <i class="fas fa-chevron-right chevron-icon text-[#2C2013] text-[14px] opacity-50 shrink-0"></i>
+        </a>
+
+        <a href="https://tuntonluk.vercel.app" target="_blank" rel="noopener noreferrer"
+           class="level-item premium-btn group flex items-center gap-3 px-3.5 py-2.5 border-[3px] border-[#2C2013] bg-[#F5EDDB] hover:shadow-[0_4px_0_#2C2013]">
+          <span class="font-pixel text-[9px] text-[#8A7657] w-6 shrink-0">06</span>
+          <span class="w-8 h-8 shrink-0 flex items-center justify-center bg-[#2C2013]/[0.07] border-2 border-[#2C2013] transition-all">
+            <i class="fas fa-film icon-anim text-[#2C2013] text-[14px]"></i>
+          </span>
+          <span class="flex-1 min-w-0">
+            <span class="block text-[13px] font-bold text-[#2C2013] truncate">Nonton Film Pendek Lokal</span>
+            <span class="block text-[10px] text-[#7A6A50] truncate">Katalog film indie lokal</span>
+          </span>
+          <span class="font-pixel text-[7px] px-2 py-1 bg-[#2C2013]/10 border-2 border-[#2C2013] text-[#2C2013] whitespace-nowrap hidden sm:inline-block transition-all">BARU</span>
+          <i class="fas fa-chevron-right chevron-icon text-[#2C2013] text-[14px] opacity-50 shrink-0"></i>
+        </a>
+
+      </div>
+
+      <!-- SOCIAL / CO-OP SECTION WITH ENHANCED STYLING -->
+      <div class="flex items-center gap-2 mt-6 mb-3">
+        <span class="flex-1 h-[3px] bg-[#2C2013] opacity-70"></span>
+        <span class="font-pixel text-[9px] text-[#2C2013] tracking-wide">CO-OP</span>
+        <span class="flex-1 h-[3px] bg-[#2C2013] opacity-70"></span>
+      </div>
+      <div class="flex justify-center gap-3 flex-wrap">
+        <a href="#" target="_blank" rel="noopener noreferrer"
+           class="social-btn flex items-center gap-2 px-3.5 py-2 border-[3px] border-[#2C2013] text-[12px] font-bold text-[#2C2013] transition-all duration-150">
+          <i class="fab fa-instagram text-[#C0567A] text-[16px]"></i> 
+          <span>@nzofhrzi</span>
+        </a>
+        <a href="#" target="_blank" rel="noopener noreferrer"
+           class="social-btn flex items-center gap-2 px-3.5 py-2 border-[3px] border-[#2C2013] text-[12px] font-bold text-[#2C2013] transition-all duration-150">
+          <i class="fab fa-tiktok text-[#2C2013] text-[16px]"></i> 
+          <span>@top.senpai_</span>
+        </a>
+      </div>
+
+      <!-- ENHANCED FOOTER -->
+      <div class="text-center mt-6 pt-3 border-t-[3px] border-[#2C2013]">
+        <span class="footer-text font-pixel text-[8px] text-[#7A6A50] tracking-wide">ENZO FAHREZI</span>
+        <span class="inline-block w-1.5 h-3 bg-[#7A6A50] ml-1 align-middle anim-blink"></span>
+      </div>
+
     </div>
+  </main>
 
-    <!-- ===== CARD UTAMA ===== -->
-    <div class="card">
+  <script>
+    // ENHANCED INTERACTIVITY
+    document.querySelectorAll('.premium-btn').forEach(btn => {
+      btn.addEventListener('mouseenter', function() {
+        this.style.transition = 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)';
+      });
+    });
 
-        <!-- ===== HEADER: Avatar + Nama ===== -->
-        <div class="profile-header">
-            <div class="avatar-wrapper">
-                <div class="avatar">
-                    <div class="fallback">E</div>
-                </div>
-            </div>
-            <div class="profile-info">
-                <h1 class="name">Enzo Fahrezi</h1>
-                <div class="subtitle">
-                    <i class="fas fa-graduation-cap"></i> Mahasiswa Unmuh Babel
-                </div>
-            </div>
-        </div>
+    // PARALLAX EFFECT ON FLOATING ORBS
+    document.addEventListener('mousemove', (e) => {
+      const orbs = document.querySelectorAll('[class*="orb-"]');
+      const x = e.clientX / window.innerWidth;
+      const y = e.clientY / window.innerHeight;
 
-        <!-- ===== DIVIDER ===== -->
-        <div class="divider">
-            <span class="divider-line"></span>
-            <span class="divider-dot"></span>
-            <span class="divider-line"></span>
-        </div>
-
-        <!-- ===== ITEMS (Portofolio) ===== -->
-        <div class="section-label" style="margin-bottom:10px;">
-            <i class="fas fa-folder-open"></i> Portofolio
-        </div>
-        <div class="items">
-
-            <a href="porto.html" class="item" target="_blank">
-                <span class="item-icon"><i class="fas fa-briefcase"></i></span>
-                <span class="item-text">Portofolio Enzo Fahrezi</span>
-                <span class="item-tag">Melihat</span>
-                <span class="item-arrow"><i class="fas fa-chevron-right"></i></span>
-            </a>
-
-            <a href="https://academy-eji-one.vercel.app" class="item" target="_blank">
-                <span class="item-icon"><i class="fas fa-laptop-code"></i></span>
-                <span class="item-text">Web AcademyEJI</span>
-                <span class="item-tag">Melihat</span>
-                <span class="item-arrow"><i class="fas fa-chevron-right"></i></span>
-            </a>
-
-            <a href="https://beta-test-lms.vercel.app" class="item" target="_blank">
-                <span class="item-icon"><i class="fas fa-chalkboard-teacher"></i></span>
-                <span class="item-text">Web Learning Management System</span>
-                <span class="item-tag">Melihat</span>
-                <span class="item-arrow"><i class="fas fa-chevron-right"></i></span>
-            </a>
-
-            <a href="https://exam-online-bay.vercel.app" class="item" target="_blank">
-                <span class="item-icon"><i class="fas fa-file-alt"></i></span>
-                <span class="item-text">Web Exam Portal</span>
-                <span class="item-tag">Melihat</span>
-                <span class="item-arrow"><i class="fas fa-chevron-right"></i></span>
-            </a>
-
-            <a href="https://academy-beta-version.vercel.app" class="item" target="_blank">
-                <span class="item-icon"><i class="fas fa-school"></i></span>
-                <span class="item-text">Web Klub Sepak Bola</span>
-                <span class="item-tag">Melihat</span>
-                <span class="item-arrow"><i class="fas fa-chevron-right"></i></span>
-            </a>
-
-            <a href="https://tuntonluk.vercel.app" class="item" target="_blank">
-                <span class="item-icon"><i class="fas fa-film"></i></span>
-                <span class="item-text">Web Nonton Film Pendek Lokal</span>
-                <span class="item-tag">Melihat</span>
-                <span class="item-arrow"><i class="fas fa-chevron-right"></i></span>
-            </a>
-
-        </div>
-
-        <!-- ===== SOSIAL MEDIA ===== -->
-        <div class="social-section">
-            <div class="social-divider">
-                <span class="divider-line"></span>
-                <span class="social-label"><i class="fas fa-share-alt" style="margin-right:6px;"></i>Ikuti</span>
-                <span class="divider-line"></span>
-            </div>
-
-            <div class="social-icons">
-                <a href="#" class="social-link" target="_blank">
-                    <i class="fab fa-instagram ig"></i>
-                    <span>@nzofhrzi</span>
-                </a>
-                <a href="#" class="social-link" target="_blank">
-                    <i class="fab fa-tiktok tt"></i>
-                    <span>@top.senpai_</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- ===== FOOTER ===== -->
-        <div class="footer">
-            <span>✦  ENZO FAHREZI  ✦</span>
-        </div>
-
-    </div>
-
-    <!-- ===== SCRIPT ===== -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-
-            // ===== INTERAKSI ITEM =====
-            const items = document.querySelectorAll('.item');
-            items.forEach(item => {
-                item.addEventListener('click', function(e) {
-                    if (this.getAttribute('href') === '#') {
-                        e.preventDefault();
-                        this.style.transform = 'scale(0.95)';
-                        setTimeout(() => {
-                            this.style.transform = '';
-                        }, 100);
-                    }
-                });
-            });
-
-            // ===== INTERAKSI SOSIAL =====
-            const socials = document.querySelectorAll('.social-link');
-            socials.forEach(link => {
-                link.addEventListener('mouseenter', function() {
-                    const icon = this.querySelector('i');
-                    if (icon) {
-                        icon.style.transition = 'transform 0.1s ease';
-                        icon.style.transform = 'scale(1.1)';
-                    }
-                });
-                link.addEventListener('mouseleave', function() {
-                    const icon = this.querySelector('i');
-                    if (icon) {
-                        icon.style.transform = 'scale(1)';
-                    }
-                });
-            });
-
-            // ===== MUSIC ARCADE LOOPING (Web Audio API) =====
-            let audioCtx = null;
-            let isPlaying = false;
-            let intervalId = null;
-            let gainNode = null;
-
-            const musicControl = document.getElementById('musicControl');
-            const musicIcon = document.getElementById('musicIcon');
-            const musicStatus = document.getElementById('musicStatus');
-
-            // Fungsi untuk memainkan nada arcade
-            function playArcadeNote(frequency, duration, volume = 0.15) {
-                if (!audioCtx) return;
-                try {
-                    const oscillator = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
-
-                    oscillator.type = 'square'; // suara pixel/retro
-                    oscillator.frequency.value = frequency;
-
-                    gain.gain.value = volume;
-                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-
-                    oscillator.connect(gain);
-                    gain.connect(gainNode ? gainNode : audioCtx.destination);
-
-                    oscillator.start();
-                    oscillator.stop(audioCtx.currentTime + duration);
-                } catch (e) {
-                    // silent fail
-                }
-            }
-
-            // Melodi arcade sederhana (looping)
-            function playArcadeMelody() {
-                if (!isPlaying) return;
-
-                const notes = [
-                    { freq: 523, dur: 0.12 }, // C5
-                    { freq: 659, dur: 0.12 }, // E5
-                    { freq: 784, dur: 0.15 }, // G5
-                    { freq: 880, dur: 0.12 }, // A5
-                    { freq: 784, dur: 0.12 }, // G5
-                    { freq: 659, dur: 0.15 }, // E5
-                    { freq: 523, dur: 0.18 }, // C5
-                    { freq: 392, dur: 0.12 }, // G4
-                    { freq: 523, dur: 0.12 }, // C5
-                    { freq: 659, dur: 0.18 }, // E5
-                ];
-
-                let time = 0;
-                const startTime = audioCtx.currentTime;
-
-                notes.forEach((note, index) => {
-                    const delay = time;
-                    setTimeout(() => {
-                        if (isPlaying) {
-                            playArcadeNote(note.freq, note.dur, 0.10);
-                        }
-                    }, delay * 1000);
-                    time += note.dur + 0.04;
-                });
-
-                // Ulang setelah selesai
-                const totalDuration = time + 0.3;
-                clearInterval(intervalId);
-                intervalId = setInterval(() => {
-                    if (isPlaying) {
-                        playArcadeMelody();
-                    }
-                }, totalDuration * 1000);
-            }
-
-            // Start audio
-            function startAudio() {
-                if (!audioCtx) {
-                    audioCtx = new(window.AudioContext || window.webkitAudioContext)();
-                    gainNode = audioCtx.createGain();
-                    gainNode.gain.value = 0.3;
-                    gainNode.connect(audioCtx.destination);
-                }
-
-                if (audioCtx.state === 'suspended') {
-                    audioCtx.resume();
-                }
-
-                isPlaying = true;
-                musicIcon.className = 'fas fa-pause';
-                musicStatus.textContent = 'PAUSE';
-                playArcadeMelody();
-            }
-
-            // Stop audio
-            function stopAudio() {
-                isPlaying = false;
-                clearInterval(intervalId);
-                musicIcon.className = 'fas fa-play';
-                musicStatus.textContent = 'PLAY';
-                if (audioCtx && audioCtx.state === 'running') {
-                    audioCtx.suspend();
-                }
-            }
-
-            // Toggle musik
-            musicControl.addEventListener('click', () => {
-                if (isPlaying) {
-                    stopAudio();
-                } else {
-                    startAudio();
-                }
-            });
-
-            // Auto-play saat user berinteraksi (karena kebijakan browser)
-            document.addEventListener('click', () => {
-                if (!audioCtx && !isPlaying) {
-                    // inisialisasi tapi belum play
-                    audioCtx = new(window.AudioContext || window.webkitAudioContext)();
-                    gainNode = audioCtx.createGain();
-                    gainNode.gain.value = 0.3;
-                    gainNode.connect(audioCtx.destination);
-                }
-            }, { once: true });
-
-            // ===== FLOATING ELEMENTS EXTRA: variasi gerakan =====
-            // Tambahkan efek floating yang lebih dinamis dengan JS (opsional)
-            const floats = document.querySelectorAll('.pixel-float');
-            floats.forEach((el, index) => {
-                const speed = 0.5 + Math.random() * 0.8;
-                const xOffset = (Math.random() - 0.5) * 60;
-                const yOffset = (Math.random() - 0.5) * 60;
-                el.style.setProperty('--x', xOffset + 'px');
-                el.style.setProperty('--y', yOffset + 'px');
-                // animasi sudah di CSS, kita hanya tambahkan variasi
-            });
-
-        });
-    </script>
+      orbs.forEach((orb, idx) => {
+        const speed = (idx + 1) * 10;
+        orb.style.transform = `translate(calc(-${x * speed}px), calc(-${y * speed}px))`;
+      });
+    });
+  </script>
 
 </body>
 </html>
