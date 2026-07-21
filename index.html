@@ -30,14 +30,7 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .glass-light {
-            background: rgba(20, 20, 20, 0.45);
-            backdrop-filter: blur(14px) saturate(1.2);
-            -webkit-backdrop-filter: blur(14px) saturate(1.2);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        /* === GLOW ANIMATIONS === */
+        /* === GLOW ANIMATIONS (hanya untuk card) === */
         @keyframes glowPulse {
             0%,
             100% {
@@ -58,16 +51,7 @@
             }
         }
 
-        @keyframes floatSlow {
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
+        /* === SHIMMER (hanya aktif saat hover) === */
         @keyframes shimmer {
             0% {
                 background-position: -200% center;
@@ -77,58 +61,7 @@
             }
         }
 
-        @keyframes fadeSlideUp {
-            from {
-                opacity: 0;
-                transform: translateY(24px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* === UTILITY CLASSES === */
-        .glow-border {
-            animation: borderGlow 3s ease-in-out infinite;
-        }
-
-        .glow-box {
-            animation: glowPulse 4s ease-in-out infinite;
-        }
-
-        .float-slow {
-            animation: floatSlow 6s ease-in-out infinite;
-        }
-
-        .fade-slide-up {
-            animation: fadeSlideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1) both;
-        }
-
-        .fade-slide-up:nth-child(1) {
-            animation-delay: 0.05s;
-        }
-        .fade-slide-up:nth-child(2) {
-            animation-delay: 0.10s;
-        }
-        .fade-slide-up:nth-child(3) {
-            animation-delay: 0.15s;
-        }
-        .fade-slide-up:nth-child(4) {
-            animation-delay: 0.20s;
-        }
-        .fade-slide-up:nth-child(5) {
-            animation-delay: 0.25s;
-        }
-        .fade-slide-up:nth-child(6) {
-            animation-delay: 0.30s;
-        }
-
-        /* === CARD ENTRANCE === */
-        .card-entrance {
-            animation: cardEntrance 0.7s cubic-bezier(0.23, 1, 0.32, 1) both;
-        }
-
+        /* === CARD ENTRANCE (sekali saat load) === */
         @keyframes cardEntrance {
             from {
                 opacity: 0;
@@ -140,11 +73,27 @@
             }
         }
 
-        /* === GLOW BUTTON === */
+        .card-entrance {
+            animation: cardEntrance 0.7s cubic-bezier(0.23, 1, 0.32, 1) both;
+        }
+
+        /* === GLOW BORDER & BOX (statis dengan animasi lembut) === */
+        .glow-border {
+            animation: borderGlow 4s ease-in-out infinite;
+        }
+
+        .glow-box {
+            animation: glowPulse 5s ease-in-out infinite;
+        }
+
+        /* === BUTTON GLASS === */
         .btn-glow {
             position: relative;
             overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: background 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+                border-color 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+                transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+                box-shadow 0.3s cubic-bezier(0.23, 1, 0.32, 1);
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
@@ -156,14 +105,21 @@
             box-shadow: 0 8px 32px rgba(255, 255, 255, 0.06);
         }
 
+        /* Shimmer hanya muncul saat hover */
         .btn-glow::before {
             content: '';
             position: absolute;
             inset: 0;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
             background-size: 200% 100%;
-            animation: shimmer 3s ease-in-out infinite;
             pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-glow:hover::before {
+            opacity: 1;
+            animation: shimmer 1.2s ease-in-out infinite;
         }
 
         .btn-glow .icon-hover {
@@ -176,7 +132,10 @@
 
         /* === SOCIAL BUTTON === */
         .social-glow {
-            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: background 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+                border-color 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+                transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+                box-shadow 0.3s cubic-bezier(0.23, 1, 0.32, 1);
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.06);
         }
@@ -216,11 +175,11 @@
 
 <body class="min-h-screen w-full flex items-center justify-center p-4 sm:p-6 bg-[#0a0a0a] relative overflow-hidden">
 
-    <!-- ===== BACKGROUND ORBS ===== -->
+    <!-- ===== BACKGROUND ORBS (STATIS, TIDAK BERGERAK) ===== -->
     <div class="fixed inset-0 pointer-events-none z-0">
-        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-white/5 blur-[120px] animate-pulse"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] rounded-full bg-white/5 blur-[140px] animate-pulse" style="animation-delay:2s;"></div>
-        <div class="absolute top-[40%] left-[60%] w-[300px] h-[300px] rounded-full bg-white/5 blur-[100px] animate-pulse" style="animation-delay:4s;"></div>
+        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-white/5 blur-[120px]"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] rounded-full bg-white/5 blur-[140px]"></div>
+        <div class="absolute top-[40%] left-[60%] w-[300px] h-[300px] rounded-full bg-white/5 blur-[100px]"></div>
         <!-- Grid overlay halus -->
         <div class="absolute inset-0 opacity-[0.03]"
         style="background-image:linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px); background-size:48px 48px;">
@@ -231,7 +190,7 @@
 <main class="card-entrance relative z-10 w-full max-w-lg">
 
     <!-- ===== GLASS CARD ===== -->
-    <div class="glass rounded-2xl glow-box overflow-hidden border border-white/10 shadow-[0_24px_80px_rgba(0,0,0,0.6)]">
+    <div class="glass rounded-2xl glow-box glow-border overflow-hidden shadow-[0_24px_80px_rgba(0,0,0,0.6)]">
 
         <!-- ===== HEADER BAR ===== -->
         <div class="flex items-center justify-between px-5 py-3.5 border-b border-white/5 bg-white/[0.03]">
@@ -247,9 +206,9 @@
         <!-- ===== BODY ===== -->
         <div class="p-5 sm:p-7">
 
-            <!-- ===== PROFILE ===== -->
+            <!-- ===== PROFILE (tanpa animasi float) ===== -->
             <div class="flex items-center gap-4 pb-5 border-b border-white/5">
-                <div class="relative shrink-0 float-slow">
+                <div class="relative shrink-0">
                     <div class="w-[68px] h-[68px] rounded-full bg-gradient-to-br from-white/10 to-white/5 border border-white/10 flex items-center justify-center shadow-[0_0_40px_rgba(255,255,255,0.03)]">
                         <span class="text-2xl font-light text-white/70 tracking-wider">E</span>
                     </div>
@@ -277,7 +236,7 @@
 
                 <!-- 1. Portofolio -->
                 <a href="porto.html" target="_blank" rel="noopener noreferrer"
-                class="btn-glow fade-slide-up group flex items-center gap-3.5 px-4 py-3 rounded-xl">
+                class="btn-glow group flex items-center gap-3.5 px-4 py-3 rounded-xl">
                 <span class="text-[11px] font-mono text-white/20 w-6 shrink-0">01</span>
                 <span class="w-9 h-9 shrink-0 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center group-hover:border-white/15 transition-colors">
                     <i class="fas fa-briefcase icon-hover text-white/40 text-sm"></i>
@@ -292,7 +251,7 @@
 
             <!-- 2. AcademyEJI -->
             <a href="https://academy-eji-one.vercel.app" target="_blank" rel="noopener noreferrer"
-            class="btn-glow fade-slide-up group flex items-center gap-3.5 px-4 py-3 rounded-xl">
+            class="btn-glow group flex items-center gap-3.5 px-4 py-3 rounded-xl">
             <span class="text-[11px] font-mono text-white/20 w-6 shrink-0">02</span>
             <span class="w-9 h-9 shrink-0 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center group-hover:border-white/15 transition-colors">
                 <i class="fas fa-graduation-cap icon-hover text-white/40 text-sm"></i>
@@ -307,7 +266,7 @@
 
         <!-- 3. LMS -->
         <a href="https://beta-test-lms.vercel.app" target="_blank" rel="noopener noreferrer"
-        class="btn-glow fade-slide-up group flex items-center gap-3.5 px-4 py-3 rounded-xl">
+        class="btn-glow group flex items-center gap-3.5 px-4 py-3 rounded-xl">
         <span class="text-[11px] font-mono text-white/20 w-6 shrink-0">03</span>
         <span class="w-9 h-9 shrink-0 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center group-hover:border-white/15 transition-colors">
             <i class="fas fa-chalkboard-teacher icon-hover text-white/40 text-sm"></i>
@@ -322,7 +281,7 @@
 
     <!-- 4. Exam Portal -->
     <a href="https://exam-online-bay.vercel.app" target="_blank" rel="noopener noreferrer"
-    class="btn-glow fade-slide-up group flex items-center gap-3.5 px-4 py-3 rounded-xl">
+    class="btn-glow group flex items-center gap-3.5 px-4 py-3 rounded-xl">
     <span class="text-[11px] font-mono text-white/20 w-6 shrink-0">04</span>
     <span class="w-9 h-9 shrink-0 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center group-hover:border-white/15 transition-colors">
         <i class="fas fa-file-alt icon-hover text-white/40 text-sm"></i>
@@ -337,7 +296,7 @@
 
 <!-- 5. Klub Sepak Bola -->
 <a href="https://academy-beta-version.vercel.app" target="_blank" rel="noopener noreferrer"
-class="btn-glow fade-slide-up group flex items-center gap-3.5 px-4 py-3 rounded-xl">
+class="btn-glow group flex items-center gap-3.5 px-4 py-3 rounded-xl">
 <span class="text-[11px] font-mono text-white/20 w-6 shrink-0">05</span>
 <span class="w-9 h-9 shrink-0 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center group-hover:border-white/15 transition-colors">
     <i class="fas fa-trophy icon-hover text-white/40 text-sm"></i>
@@ -352,7 +311,7 @@ class="btn-glow fade-slide-up group flex items-center gap-3.5 px-4 py-3 rounded-
 
 <!-- 6. Nonton Film -->
 <a href="https://tuntonluk.vercel.app" target="_blank" rel="noopener noreferrer"
-class="btn-glow fade-slide-up group flex items-center gap-3.5 px-4 py-3 rounded-xl">
+class="btn-glow group flex items-center gap-3.5 px-4 py-3 rounded-xl">
 <span class="text-[11px] font-mono text-white/20 w-6 shrink-0">06</span>
 <span class="w-9 h-9 shrink-0 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center group-hover:border-white/15 transition-colors">
     <i class="fas fa-film icon-hover text-white/40 text-sm"></i>
@@ -375,12 +334,12 @@ class="btn-glow fade-slide-up group flex items-center gap-3.5 px-4 py-3 rounded-
 </div>
 <div class="flex justify-center gap-3 flex-wrap">
     <a href="#" target="_blank" rel="noopener noreferrer"
-    class="social-glow flex items-center gap-2 px-4 py-2.5 rounded-xl text-[12px] font-medium text-white/50 transition-all duration-200">
+    class="social-glow flex items-center gap-2 px-4 py-2.5 rounded-xl text-[12px] font-medium text-white/50">
     <i class="fab fa-instagram text-[15px] text-white/40"></i>
     <span>@nzofhrzi</span>
 </a>
 <a href="#" target="_blank" rel="noopener noreferrer"
-class="social-glow flex items-center gap-2 px-4 py-2.5 rounded-xl text-[12px] font-medium text-white/50 transition-all duration-200">
+class="social-glow flex items-center gap-2 px-4 py-2.5 rounded-xl text-[12px] font-medium text-white/50">
 <i class="fab fa-tiktok text-[15px] text-white/40"></i>
 <span>@top.senpai_</span>
 </a>
@@ -389,25 +348,12 @@ class="social-glow flex items-center gap-2 px-4 py-2.5 rounded-xl text-[12px] fo
 <!-- ===== FOOTER ===== -->
 <div class="text-center mt-6 pt-4 border-t border-white/5">
     <span class="text-[10px] tracking-[0.25em] uppercase text-white/20 font-light">Enzo Fahrezi</span>
-    <span class="inline-block w-1 h-3 bg-white/20 ml-1.5 align-middle animate-pulse"></span>
+    <span class="inline-block w-1 h-3 bg-white/20 ml-1.5 align-middle"></span>
 </div>
 
 </div>
 </div>
 </main>
-
-<!-- ===== MOUSE PARALLAX ===== -->
-<script>
-    document.addEventListener('mousemove', (e) => {
-        const orbs = document.querySelectorAll('.absolute.rounded-full.bg-white\\/5');
-        const x = (e.clientX / window.innerWidth - 0.5) * 20;
-        const y = (e.clientY / window.innerHeight - 0.5) * 20;
-        orbs.forEach((orb, i) => {
-            const speed = (i + 1) * 4;
-            orb.style.transform = `translate(${x * speed * 0.3}px, ${y * speed * 0.3}px)`;
-        });
-    });
-</script>
 
 </body>
 </html>
