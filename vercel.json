@@ -1,6 +1,6 @@
-
 {
-  "buildCommand": "npm run build || true",
+  "buildCommand": "echo 'Static site - no build needed'",
+  "outputDirectory": ".",
   "functions": {
     "api/saveData.js": {
       "runtime": "@vercel/node@3.0.0"
@@ -34,5 +34,7 @@
         }
       ]
     }
-  ]
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false
 }
