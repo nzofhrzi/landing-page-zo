@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel — Portofolio Enzo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --bg: #0a0a0a;
+  --panel: #161616;
+  --text: #f4f4f4;
+  --text-soft: #b8b8b8;
+  --text-faint: #7a7a7a;
+  --border: #2a2a2a;
+  --ink: #fff;
+  --accent: #ff6b6b;
+  --success: #51cf66;
+  --warning: #ffd43b;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ============ AUTH SCREEN ============ */
+.auth-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+}
+
+.auth-box {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 20px 50px rgba(0,0,0,.5);
+}
+
+.auth-box h2 {
+  font-size: 24px;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.auth-box p {
+  color: var(--text-soft);
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.form-group input {
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.03);
+  color: var(--text);
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, .1);
+}
+
+.auth-btn {
+  padding: 12px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #000;
+  font-weight: 700;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  transition: transform .2s, opacity .2s;
+}
+
+.auth-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.auth-btn:active {
+  transform: translateY(0);
+}
+
+.auth-error {
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(255, 107, 107, .1);
+  border: 1px solid rgba(255, 107, 107, .3);
+  color: #ff8787;
+  font-size: 13px;
+  text-align: center;
+  display: none;
+}
+
+.auth-error.show { display: block; }
+
+/* ============ ADMIN LAYOUT ============ */
+.admin-wrapper {
+  display: none;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.admin-wrapper.authenticated { display: flex; }
+
+.admin-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0,0,0,.2);
+}
+
+.admin-title {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,.05);
+  border: 1px solid var(--border);
+  color: var(--text-soft);
+  cursor: pointer;
+  transition: all .2s;
+  font-size: 14px;
+}
+
+.icon-btn:hover {
+  color: var(--ink);
+  border-color: var(--accent);
+  background: rgba(255, 107, 107, .1);
+}
+
+.logout-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: rgba(255, 107, 107, .15);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.logout-btn:hover {
+  background: var(--accent);
+  color: #000;
+}
+
+.admin-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.admin-sidebar {
+  width: 220px;
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  padding: 20px 0;
+  overflow-y: auto;
+}
+
+.sidebar-item {
+  padding: 12px 16px;
+  color: var(--text-soft);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: all .2s;
+}
+
+.sidebar-item:hover {
+  background: rgba(255,255,255,.05);
+  color: var(--text);
+}
+
+.sidebar-item.active {
+  background: rgba(255, 107, 107, .1);
+  color: var(--accent);
+  border-left-color: var(--accent);
+}
+
+.admin-main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px 32px;
+}
+
+.section {
+  display: none;
+}
+
+.section.active { display: block; }
+
+.section h1 {
+  font-size: 28px;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.section-desc {
+  color: var(--text-soft);
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+
+/* ============ FORMS & LISTS ============ */
+.form-section {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.form-section h3 {
+  font-size: 16px;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.form-grid.full { grid-template-columns: 1fr; }
+
+.form-group textarea {
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.03);
+  color: var(--text);
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 100px;
+  transition: border-color .2s;
+}
+
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all .2s;
+  font-family: inherit;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #000;
+}
+
+.btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+
+.btn-secondary {
+  background: rgba(255,255,255,.1);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.btn-secondary:hover { background: rgba(255,255,255,.15); }
+
+.btn-danger {
+  background: rgba(255, 107, 107, .2);
+  border: 1px solid rgba(255, 107, 107, .5);
+  color: #ff8787;
+}
+
+.btn-danger:hover { background: rgba(255, 107, 107, .3); }
+
+.items-list {
+  display: grid;
+  gap: 12px;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: all .2s;
+}
+
+.list-item:hover {
+  background: rgba(255,255,255,.05);
+  border-color: var(--accent);
+}
+
+.list-item-content {
+  flex: 1;
+}
+
+.list-item-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.list-item-meta {
+  font-size: 12px;
+  color: var(--text-faint);
+}
+
+.list-item-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.item-btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.05);
+  color: var(--text-soft);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.item-btn:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+.item-btn.delete:hover {
+  color: #ff8787;
+  border-color: #ff8787;
+}
+
+/* ============ MODAL ============ */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.show { display: flex; }
+
+.modal-content {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.modal-header h2 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.modal-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,.05);
+  border: 1px solid var(--border);
+  color: var(--text-soft);
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.modal-close:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+/* ============ TOAST ============ */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  padding: 14px 20px;
+  border-radius: 10px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all .3s;
+  pointer-events: none;
+  z-index: 300;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.toast.success { border-color: var(--success); color: var(--success); }
+.toast.error { border-color: var(--accent); color: var(--accent); }
+
+.loading {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin .6s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 768px) {
+  .admin-body { flex-direction: column; }
+  .admin-sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
+  .form-grid { grid-template-columns: 1fr; }
+  .modal-content { max-width: 90%; }
+}
+</style>
+</head>
+<body>
+
+<!-- AUTH SCREEN -->
+<div class="auth-wrapper" id="authWrapper">
+  <div class="auth-box">
+    <h2>Admin Panel</h2>
+    <p>Masukkan kode admin untuk akses panel</p>
+    <form class="auth-form" id="authForm">
+      <div class="form-group">
+        <label>Admin Key</label>
+        <input type="password" id="adminKeyInput" placeholder="Masukkan admin key..." required>
+      </div>
+      <button type="submit" class="auth-btn">Masuk</button>
+      <div class="auth-error" id="authError"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ADMIN LAYOUT -->
+<div class="admin-wrapper" id="adminWrapper">
+  <!-- HEADER -->
+  <header class="admin-header">
+    <div class="admin-title">Admin Portofolio Enzo</div>
+    <div class="admin-actions">
+      <button class="icon-btn" title="Refresh data"><i class="fa-solid fa-arrows-rotate"></i></button>
+      <button class="logout-btn" id="logoutBtn">Logout</button>
+    </div>
+  </header>
+
+  <!-- BODY -->
+  <div class="admin-body">
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-item active" data-section="profile"><i class="fa-solid fa-user"></i> Profil</div>
+      <div class="sidebar-item" data-section="experience"><i class="fa-solid fa-briefcase"></i> Pengalaman</div>
+      <div class="sidebar-item" data-section="achievements"><i class="fa-solid fa-trophy"></i> Prestasi</div>
+      <div class="sidebar-item" data-section="events"><i class="fa-solid fa-calendar"></i> Berita Acara</div>
+      <div class="sidebar-item" data-section="skills"><i class="fa-solid fa-lightbulb"></i> Skills</div>
+      <div class="sidebar-item" data-section="settings"><i class="fa-solid fa-gear"></i> Pengaturan</div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="admin-main">
+
+      <!-- PROFIL SECTION -->
+      <section class="section active" id="section-profile">
+        <h1>Profil</h1>
+        <p class="section-desc">Edit informasi profil pribadi Anda</p>
+
+        <div class="form-section">
+          <h3>Informasi Dasar</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Nama Lengkap</label>
+              <input type="text" id="profileName" placeholder="Nama">
+            </div>
+            <div class="form-group">
+              <label>Gelar / Title</label>
+              <input type="text" id="profileTitle" placeholder="Gelar atau title">
+            </div>
+          </div>
+          <div class="form-grid full">
+            <div class="form-group">
+              <label>Bio Singkat (Hero Text)</label>
+              <textarea id="profileBio"></textarea>
+            </div>
+          </div>
+          <div class="form-grid full">
+            <div class="form-group">
+              <label>Bio Detail</label>
+              <textarea id="profileBioDetail"></textarea>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Tempat Lahir</label>
+              <input type="text" id="profileBirthplace" placeholder="Tempat lahir">
+            </div>
+            <div class="form-group">
+              <label>Tahun Lahir</label>
+              <input type="number" id="profileBirthyear" placeholder="Tahun lahir">
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Domisili</label>
+              <input type="text" id="profileLocation" placeholder="Domisili">
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" id="profileEmail" placeholder="Email">
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label>No. Telepon</label>
+              <input type="tel" id="profilePhone" placeholder="No. telepon">
+            </div>
+            <div class="form-group">
+              <label>Universitas</label>
+              <input type="text" id="profileUniversity" placeholder="Universitas">
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-secondary" id="resetProfileBtn">Reset</button>
+            <button class="btn btn-primary" id="saveProfileBtn">Simpan Perubahan</button>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Statistik</h3>
+          <div id="statsList" class="items-list"></div>
+          <button class="btn btn-secondary" style="margin-top: 16px; width: 100%;">+ Tambah Statistik</button>
+        </div>
+      </section>
+
+      <!-- EXPERIENCE SECTION -->
+      <section class="section" id="section-experience">
+        <h1>Pengalaman</h1>
+        <p class="section-desc">Kelola pengalaman kerja dan organisasi Anda</p>
+
+        <div class="form-section">
+          <h3>Pengalaman Kerja</h3>
+          <div id="workList" class="items-list"></div>
+          <button class="btn btn-secondary" style="margin-top: 16px; width: 100%;" id="addWorkBtn">+ Tambah Pengalaman Kerja</button>
+        </div>
+
+        <div class="form-section">
+          <h3>Pengalaman Organisasi</h3>
+          <div id="orgList" class="items-list"></div>
+          <button class="btn btn-secondary" style="margin-top: 16px; width: 100%;" id="addOrgBtn">+ Tambah Pengalaman Organisasi</button>
+        </div>
+      </section>
+
+      <!-- ACHIEVEMENTS SECTION -->
+      <section class="section" id="section-achievements">
+        <h1>Prestasi & Sertifikasi</h1>
+        <p class="section-desc">Kelola daftar prestasi dan sertifikasi Anda</p>
+
+        <div class="form-section">
+          <h3>Prestasi</h3>
+          <div id="achievementsList" class="items-list"></div>
+          <button class="btn btn-secondary" style="margin-top: 16px; width: 100%;" id="addAchievementBtn">+ Tambah Prestasi</button>
+        </div>
+      </section>
+
+      <!-- EVENTS SECTION -->
+      <section class="section" id="section-events">
+        <h1>Berita Acara</h1>
+        <p class="section-desc">Kelola catatan kegiatan dan acara</p>
+
+        <div class="form-section">
+          <h3>Berita Acara</h3>
+          <div id="eventsList" class="items-list"></div>
+          <button class="btn btn-secondary" style="margin-top: 16px; width: 100%;" id="addEventBtn">+ Tambah Berita Acara</button>
+        </div>
+      </section>
+
+      <!-- SKILLS SECTION -->
+      <section class="section" id="section-skills">
+        <h1>Skills</h1>
+        <p class="section-desc">Kelola kemampuan teknis, soft skills, dan tools</p>
+
+        <div class="form-section">
+          <h3>Technical Skills</h3>
+          <div id="technicalList" class="items-list"></div>
+          <button class="btn btn-secondary" style="margin-top: 16px; width: 100%;" id="addTechnicalBtn">+ Tambah Technical Skill</button>
+        </div>
+
+        <div class="form-section">
+          <h3>Soft Skills</h3>
+          <div id="softList" class="items-list"></div>
+          <button class="btn btn-secondary" style="margin-top: 16px; width: 100%;" id="addSoftBtn">+ Tambah Soft Skill</button>
+        </div>
+
+        <div class="form-section">
+          <h3>Tools & Platform</h3>
+          <div id="toolsList" class="items-list"></div>
+          <button class="btn btn-secondary" style="margin-top: 16px; width: 100%;" id="addToolBtn">+ Tambah Tool</button>
+        </div>
+      </section>
+
+      <!-- SETTINGS SECTION -->
+      <section class="section" id="section-settings">
+        <h1>Pengaturan</h1>
+        <p class="section-desc">Kelola pengaturan admin panel</p>
+
+        <div class="form-section">
+          <h3>Data GitHub</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>GitHub Username</label>
+              <input type="text" id="githubUsername" placeholder="username" disabled value="nzofhrzi">
+            </div>
+            <div class="form-group">
+              <label>Repository Name</label>
+              <input type="text" id="repoName" placeholder="repo-name" disabled value="landing-page-zo">
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>GitHub PAT (Personal Access Token)</label>
+              <input type="password" id="githubToken" placeholder="Masukkan GitHub PAT Anda">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" id="saveSettingsBtn">Simpan Token</button>
+          </div>
+        </div>
+
+        <div class="form-section" style="border: 1px solid rgba(255, 107, 107, .3); background: rgba(255, 107, 107, .05);">
+          <h3 style="color: #ff8787;">Zona Berbahaya</h3>
+          <p style="color: var(--text-soft); font-size: 13px; margin-bottom: 16px;">Tindakan di bawah tidak dapat diundur</p>
+          <div class="form-actions">
+            <button class="btn btn-danger" id="resetDataBtn">Reset Semua Data</button>
+            <button class="btn btn-danger" id="logoutAllBtn">Logout Semua Session</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div class="modal" id="editModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 id="modalTitle">Edit Item</h2>
+      <button class="modal-close" id="modalClose">&times;</button>
+    </div>
+    <form id="editForm" class="form-section" style="border: none; padding: 0; margin: 0;">
+      <div id="modalFields"></div>
+      <div class="form-actions" style="margin-top: 20px;">
+        <button type="button" class="btn btn-secondary" id="modalCancelBtn">Batal</button>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="loading"></span>
+  <span id="toastMsg">Loading...</span>
+</div>
+
+<script>
+// ============ CONFIG ============
+const ADMIN_KEY = 'Enzo_Port_JEZTYV8O_IAIRJ7Q2';
+const DATA_REPO = 'landing-page-zo';
+const DATA_USERNAME = 'nzofhrzi';
+
+let currentData = null;
+let isAuthenticated = false;
+
+// ============ AUTH ============
+document.getElementById('authForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const key = document.getElementById('adminKeyInput').value;
+  
+  if (key === ADMIN_KEY) {
+    isAuthenticated = true;
+    document.getElementById('authWrapper').style.display = 'none';
+    document.getElementById('adminWrapper').classList.add('authenticated');
+    loadData();
+  } else {
+    showError('Admin key salah!');
+  }
+});
+
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  isAuthenticated = false;
+  document.getElementById('adminWrapper').classList.remove('authenticated');
+  document.getElementById('authWrapper').style.display = 'flex';
+  document.getElementById('adminKeyInput').value = '';
+  document.getElementById('authError').classList.remove('show');
+});
+
+function showError(msg) {
+  const error = document.getElementById('authError');
+  error.textContent = msg;
+  error.classList.add('show');
+  setTimeout(() => error.classList.remove('show'), 3000);
+}
+
+// ============ DATA MANAGEMENT ============
+async function loadData() {
+  showToast('Loading data...');
+  try {
+    // Untuk sekarang, load data.json dari yang kita buat
+    const response = await fetch('/data.json');
+    currentData = await response.json();
+    renderAll();
+    showToast('Data loaded!', 'success');
+  } catch (err) {
+    showToast('Error loading data: ' + err.message, 'error');
+  }
+}
+
+function renderAll() {
+  if (!currentData) return;
+  
+  // Profile
+  document.getElementById('profileName').value = currentData.profile.name || '';
+  document.getElementById('profileTitle').value = currentData.profile.title || '';
+  document.getElementById('profileBio').value = currentData.profile.bio || '';
+  document.getElementById('profileBioDetail').value = currentData.profile.bioDetail || '';
+  document.getElementById('profileBirthplace').value = currentData.profile.birthplace || '';
+  document.getElementById('profileBirthyear').value = currentData.profile.birthyear || '';
+  document.getElementById('profileLocation').value = currentData.profile.location || '';
+  document.getElementById('profileEmail').value = currentData.profile.email || '';
+  document.getElementById('profilePhone').value = currentData.profile.phone || '';
+  document.getElementById('profileUniversity').value = currentData.profile.university || '';
+
+  // Stats
+  renderList('statsList', currentData.profile.stats, ['value', 'label']);
+
+  // Experience
+  renderList('workList', currentData.experience.work, ['title', 'org']);
+  renderList('orgList', currentData.experience.organization, ['title', 'org']);
+
+  // Achievements
+  renderList('achievementsList', currentData.achievements, ['title', 'meta']);
+
+  // Events
+  renderList('eventsList', currentData.events, ['title', 'date']);
+
+  // Skills
+  renderList('technicalList', currentData.skills.technical, ['name', 'percent']);
+  renderList('softList', currentData.skills.soft.map((s, i) => ({id: i, name: s})), ['name']);
+  renderList('toolsList', currentData.skills.tools.map((t, i) => ({id: i, name: t})), ['name']);
+}
+
+function renderList(containerId, items, displayFields) {
+  const container = document.getElementById(containerId);
+  if (!items || items.length === 0) {
+    container.innerHTML = '<p style="color: var(--text-faint); font-size: 13px;">Kosong</p>';
+    return;
+  }
+
+  container.innerHTML = items.map((item, idx) => {
+    const display = displayFields.map(f => item[f]).filter(Boolean).join(' — ');
+    return `
+      <div class="list-item">
+        <div class="list-item-content">
+          <div class="list-item-title">${item.title || item.name || item.value || 'Item'}</div>
+          <div class="list-item-meta">${display}</div>
+        </div>
+        <div class="list-item-actions">
+          <button class="item-btn" onclick="editItem(${idx})">Edit</button>
+          <button class="item-btn delete" onclick="deleteItem(${idx})">Hapus</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ============ SIDEBAR NAVIGATION ============
+document.querySelectorAll('.sidebar-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    
+    item.classList.add('active');
+    const sectionId = 'section-' + item.dataset.section;
+    document.getElementById(sectionId).classList.add('active');
+  });
+});
+
+// ============ PROFILE SAVE ============
+document.getElementById('saveProfileBtn').addEventListener('click', () => {
+  currentData.profile.name = document.getElementById('profileName').value;
+  currentData.profile.title = document.getElementById('profileTitle').value;
+  currentData.profile.bio = document.getElementById('profileBio').value;
+  currentData.profile.bioDetail = document.getElementById('profileBioDetail').value;
+  currentData.profile.birthplace = document.getElementById('profileBirthplace').value;
+  currentData.profile.birthyear = parseInt(document.getElementById('profileBirthyear').value);
+  currentData.profile.location = document.getElementById('profileLocation').value;
+  currentData.profile.email = document.getElementById('profileEmail').value;
+  currentData.profile.phone = document.getElementById('profilePhone').value;
+  currentData.profile.university = document.getElementById('profileUniversity').value;
+  
+  saveToGitHub();
+});
+
+document.getElementById('resetProfileBtn').addEventListener('click', () => {
+  if (confirm('Yakin ingin reset profil?')) {
+    renderAll();
+  }
+});
+
+// ============ MODAL & EDIT ============
+const modal = document.getElementById('editModal');
+const modalClose = document.getElementById('modalClose');
+const modalCancelBtn = document.getElementById('modalCancelBtn');
+
+modalClose.addEventListener('click', closeModal);
+modalCancelBtn.addEventListener('click', closeModal);
+
+function closeModal() {
+  modal.classList.remove('show');
+}
+
+function editItem(index) {
+  console.log('Edit item:', index);
+  modal.classList.add('show');
+}
+
+function deleteItem(index) {
+  if (confirm('Yakin ingin menghapus?')) {
+    console.log('Delete item:', index);
+  }
+}
+
+// ============ GITHUB SAVE ============
+async function saveToGitHub() {
+  showToast('Saving to GitHub...');
+  
+  const token = localStorage.getItem('github_token');
+  if (!token) {
+    showToast('GitHub token belum disimpan! Silakan ke Settings', 'error');
+    return;
+  }
+
+  try {
+    // Simulasi save (implementasi penuh akan di Vercel function)
+    console.log('Saving data:', currentData);
+    showToast('Data berhasil disimpan!', 'success');
+  } catch (err) {
+    showToast('Error: ' + err.message, 'error');
+  }
+}
+
+// ============ SETTINGS ============
+document.getElementById('saveSettingsBtn').addEventListener('click', () => {
+  const token = document.getElementById('githubToken').value;
+  if (token) {
+    localStorage.setItem('github_token', token);
+    showToast('Token disimpan!', 'success');
+  }
+});
+
+// ============ TOAST ============
+function showToast(msg, type = 'default') {
+  const toast = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  toast.className = 'toast show ' + type;
+  setTimeout(() => toast.classList.remove('show'), 2600);
+}
+
+// ============ INIT ============
+window.addEventListener('load', () => {
+  if (localStorage.getItem('github_token')) {
+    document.getElementById('githubToken').value = localStorage.getItem('github_token');
+  }
+});
+</script>
+</body>
+</html>
