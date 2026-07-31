@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portofolio Enzo Fahrezi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --bg:#f5f6fb;
+  --panel:#ffffff;
+  --text:#1a1d2e;
+  --text-soft:#5c6178;
+  --text-faint:#9296a8;
+  --border:#eceef5;
+  --blue:#2f5bff;
+  --blue-dark:#1e3fd6;
+  --purple:#7b3ff2;
+  --grad: linear-gradient(120deg,#2f5bff 0%, #7b3ff2 100%);
+  --grad-soft: linear-gradient(120deg, rgba(47,91,255,.10), rgba(123,63,242,.10));
+  --shadow-sm: 0 1px 2px rgba(20,20,50,.04), 0 1px 1px rgba(20,20,50,.03);
+  --shadow-md: 0 10px 30px -12px rgba(30,40,100,.15);
+  --shadow-lg: 0 20px 50px -15px rgba(30,40,100,.25);
+  --radius: 18px;
+  --sidebar-w: 280px;
+  --header-h: 88px;
+}
+[data-theme="dark"]{
+  --bg:#0f1120;
+  --panel:#171a2e;
+  --text:#f2f3fa;
+  --text-soft:#b7bad0;
+  --text-faint:#7d81a0;
+  --border:#272b45;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.3);
+  --shadow-md: 0 10px 30px -12px rgba(0,0,0,.55);
+  --shadow-lg: 0 20px 50px -15px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Plus Jakarta Sans', sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  transition:background .4s ease, color .4s ease;
+  overflow-x:hidden;
+}
+::selection{background:var(--blue); color:#fff;}
+::-webkit-scrollbar{width:9px; height:9px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border); border-radius:10px;}
+::-webkit-scrollbar-thumb:hover{background:var(--blue);}
+
+a{text-decoration:none; color:inherit;}
+button{font-family:inherit; cursor:pointer; border:none; background:none;}
+ul{list-style:none;}
+
+.script-text{font-family:'Caveat', cursive;}
+
+/* ============ HEADER ============ */
+.site-header{
+  position:sticky; top:0; z-index:100;
+  height:var(--header-h);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 40px;
+  background:color-mix(in srgb, var(--panel) 88%, transparent);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+  gap:24px;
+}
+.brand{
+  font-size:22px; font-weight:800; letter-spacing:-.02em; white-space:nowrap;
+}
+.brand span{
+  background:var(--grad);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.header-pill{
+  display:flex; align-items:center; gap:10px;
+  padding:12px 22px;
+  border-radius:100px;
+  background:var(--grad-soft);
+  border:1px solid rgba(47,91,255,.18);
+  font-weight:600; font-size:14.5px;
+  color:var(--blue);
+  white-space:nowrap;
+}
+[data-theme="dark"] .header-pill{ color:#a9b8ff; }
+.header-search{
+  flex:1; max-width:520px;
+  display:flex; align-items:center; gap:12px;
+  padding:12px 20px;
+  border-radius:100px;
+  background:var(--bg);
+  border:1px solid var(--border);
+  color:var(--text-faint);
+  transition:box-shadow .25s ease, border-color .25s ease;
+}
+.header-search:focus-within{
+  border-color:var(--blue);
+  box-shadow:0 0 0 4px rgba(47,91,255,.12);
+}
+.header-search input{
+  border:none; background:none; outline:none; width:100%;
+  font-size:14.5px; color:var(--text); font-family:inherit;
+}
+.header-right{display:flex; align-items:center; gap:16px;}
+.icon-btn{
+  width:44px; height:44px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--panel); border:1px solid var(--border);
+  color:var(--text-soft);
+  transition:transform .25s ease, color .25s ease, border-color .25s ease;
+}
+.icon-btn:hover{ transform:translateY(-2px) rotate(-8deg); color:var(--blue); border-color:var(--blue);}
+.avatar-mini{
+  width:46px; height:46px; border-radius:50%;
+  background:var(--grad);
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; font-weight:700; font-size:15px;
+  border:2px solid var(--panel); outline:2px solid var(--blue);
+  cursor:pointer;
+}
+
+/* ============ LAYOUT ============ */
+.layout{
+  display:grid;
+  grid-template-columns:var(--sidebar-w) 1fr;
+  min-height:calc(100vh - var(--header-h));
+}
+
+/* ============ SIDEBAR ============ */
+.sidebar{
+  border-right:1px solid var(--border);
+  padding:28px 22px;
+  display:flex; flex-direction:column;
+  gap:6px;
+  position:sticky; top:var(--header-h);
+  align-self:start;
+  height:calc(100vh - var(--header-h));
+}
+.nav-item{
+  display:flex; align-items:center; gap:14px;
+  padding:14px 18px;
+  border-radius:14px;
+  font-weight:600; font-size:15px;
+  color:var(--text-soft);
+  position:relative;
+  transition:background .25s ease, color .25s ease, transform .2s ease;
+}
+.nav-item i{ width:20px; text-align:center; font-size:16px; transition:transform .3s ease;}
+.nav-item:hover{ background:var(--bg); color:var(--text); transform:translateX(3px);}
+.nav-item.active{
+  background:var(--grad);
+  color:#fff;
+  box-shadow:var(--shadow-md);
+}
+.nav-item.active i{ transform:scale(1.1);}
+.sidebar-spacer{flex:1;}
+.cta-card{
+  margin-top:18px;
+  padding:22px;
+  border-radius:20px;
+  background:var(--grad);
+  color:#fff;
+  position:relative;
+  overflow:hidden;
+  animation:pulseGlow 5s ease-in-out infinite;
+}
+.cta-card::after{
+  content:"";
+  position:absolute; width:140px; height:140px;
+  background:rgba(255,255,255,.12);
+  border-radius:50%;
+  top:-60px; right:-60px;
+}
+.cta-card h4{font-size:16px; font-weight:800; margin-bottom:8px;}
+.cta-card p{font-size:13.2px; opacity:.92; line-height:1.5; margin-bottom:18px;}
+.cta-btn{
+  width:100%;
+  background:#fff; color:var(--blue-dark);
+  padding:12px; border-radius:12px;
+  font-weight:700; font-size:14px;
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.cta-btn:hover{ transform:translateY(-2px); box-shadow:0 10px 22px -8px rgba(0,0,0,.35);}
+@keyframes pulseGlow{
+  0%,100%{ box-shadow:0 15px 35px -12px rgba(47,91,255,.45);}
+  50%{ box-shadow:0 15px 45px -8px rgba(123,63,242,.55);}
+}
+
+/* ============ MAIN ============ */
+.main{ padding:44px 48px 80px; max-width:1200px;}
+.page{ display:none; }
+.page.active{ display:block; animation:fadeUp .55s ease both; }
+@keyframes fadeUp{ from{opacity:0; transform:translateY(18px);} to{opacity:1; transform:translateY(0);} }
+
+.section-eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:13px; font-weight:700; color:var(--blue);
+  text-transform:uppercase; letter-spacing:.08em;
+  margin-bottom:10px;
+}
+.section-title{ font-size:32px; font-weight:800; letter-spacing:-.02em; margin-bottom:12px;}
+.section-desc{ color:var(--text-soft); font-size:15.5px; max-width:640px; line-height:1.7; margin-bottom:36px;}
+
+/* ---- HERO (Beranda) ---- */
+.hero{
+  display:grid; grid-template-columns:1.15fr .85fr;
+  gap:40px; align-items:center;
+  margin-bottom:44px;
+}
+.hero-greet{ font-size:30px; color:var(--blue); margin-bottom:6px;}
+.hero-title{ font-size:46px; font-weight:800; letter-spacing:-.02em; line-height:1.15; margin-bottom:18px;}
+.hero-title .accent{
+  background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.underline-mark{
+  width:70px; height:5px; border-radius:6px; background:var(--grad); margin-bottom:22px;
+  animation:growLine 1s ease .3s both;
+}
+@keyframes growLine{ from{width:0;} to{width:70px;} }
+.hero-text{ color:var(--text-soft); font-size:16px; line-height:1.85; margin-bottom:26px; max-width:560px;}
+.hero-badge{
+  display:flex; align-items:center; gap:16px;
+  padding:20px 24px; border-radius:18px;
+  background:var(--panel); border:1px solid var(--border);
+  box-shadow:var(--shadow-sm);
+  max-width:520px;
+}
+.hero-badge .icon{
+  width:48px; height:48px; border-radius:50%;
+  background:var(--grad); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-size:18px;
+  flex-shrink:0;
+  animation:floatY 3s ease-in-out infinite;
+}
+.hero-badge p{ font-size:14.5px; color:var(--text-soft); line-height:1.55; font-weight:500;}
+@keyframes floatY{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
+
+.hero-photo-wrap{ position:relative; display:flex; justify-content:center; align-items:center; height:420px;}
+.blob{
+  position:absolute; width:380px; height:380px; border-radius:50%;
+  background:linear-gradient(135deg, rgba(47,91,255,.12), rgba(123,63,242,.14));
+  animation:blobMove 8s ease-in-out infinite;
+}
+@keyframes blobMove{ 0%,100%{ border-radius:50% 50% 50% 50%/50% 50% 50% 50%; transform:rotate(0deg) scale(1);} 50%{ border-radius:45% 55% 60% 40%/55% 45% 55% 45%; transform:rotate(20deg) scale(1.04);} }
+.photo-ring{
+  position:relative; z-index:2;
+  width:300px; height:300px; border-radius:50%;
+  padding:6px;
+  background:var(--grad);
+  animation:floatY 5s ease-in-out infinite;
+}
+.photo-ring .inner{
+  width:100%; height:100%; border-radius:50%;
+  background:var(--panel);
+  padding:6px;
+}
+.photo-avatar{
+  width:100%; height:100%; border-radius:50%;
+  background:linear-gradient(150deg,#3556e0,#7b3ff2 60%, #a76bf0);
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; font-size:76px; font-weight:800; letter-spacing:-.03em;
+  overflow:hidden;
+  position:relative;
+}
+.photo-avatar i{ font-size:120px; opacity:.35; position:absolute;}
+.photo-avatar span{ position:relative; z-index:1;}
+.badge-float{
+  position:absolute; top:14px; left:-6px; z-index:3;
+  width:56px; height:56px; border-radius:16px;
+  background:var(--grad); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-size:20px;
+  box-shadow:var(--shadow-md);
+  animation:floatY 4s ease-in-out infinite;
+}
+.dot-float{
+  position:absolute; border-radius:50%; background:var(--blue);
+}
+.dot1{ width:20px; height:20px; bottom:60px; right:20px; animation:floatY 3.4s ease-in-out infinite;}
+.dot2{ width:14px; height:14px; top:40px; right:60px; background:var(--purple); animation:floatY 4.2s ease-in-out infinite reverse;}
+.dot-grid{
+  position:absolute; top:10px; right:0; z-index:1;
+  display:grid; grid-template-columns:repeat(4,1fr); gap:8px;
+  opacity:.5;
+}
+.dot-grid span{ width:5px; height:5px; border-radius:50%; background:var(--blue);}
+
+/* ---- info strip cards ---- */
+.info-panel{
+  background:var(--panel); border:1px solid var(--border); border-radius:22px;
+  padding:34px; box-shadow:var(--shadow-sm);
+}
+.info-panel-title{
+  display:flex; align-items:center; gap:10px;
+  font-size:18px; font-weight:800; margin-bottom:26px;
+}
+.info-panel-title .bar{ width:5px; height:20px; border-radius:4px; background:var(--grad);}
+.info-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+.info-card{
+  display:flex; gap:14px; align-items:flex-start;
+  padding:6px;
+  transition:transform .25s ease;
+}
+.info-card:hover{ transform:translateY(-4px);}
+.info-card .ic{
+  width:52px; height:52px; border-radius:14px;
+  display:flex; align-items:center; justify-content:center; font-size:20px;
+  flex-shrink:0;
+}
+.ic-blue{ background:rgba(47,91,255,.12); color:var(--blue);}
+.ic-purple{ background:rgba(123,63,242,.12); color:var(--purple);}
+.ic-pink{ background:rgba(240,60,110,.12); color:#f0396e;}
+.ic-yellow{ background:rgba(240,180,40,.15); color:#dba018;}
+.info-card h5{ font-size:14.5px; font-weight:700; margin-bottom:4px;}
+.info-card p{ font-size:13px; color:var(--text-soft); line-height:1.5;}
+
+/* ---- generic cards / grids reused across sections ---- */
+.card{
+  background:var(--panel); border:1px solid var(--border); border-radius:20px;
+  padding:28px; box-shadow:var(--shadow-sm);
+  transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+.card:hover{ transform:translateY(-5px); box-shadow:var(--shadow-md); border-color:rgba(47,91,255,.25);}
+
+.grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+.grid-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+
+/* ---- Tentangku ---- */
+.about-wrap{ display:grid; grid-template-columns:.8fr 1.2fr; gap:40px; align-items:start;}
+.about-photo{
+  position:relative; border-radius:24px; overflow:hidden;
+  aspect-ratio:1/1;
+  background:linear-gradient(150deg,#3556e0,#7b3ff2 60%, #a76bf0);
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:var(--shadow-lg);
+}
+.about-photo span{ font-size:110px; font-weight:800; color:#fff;}
+.about-stats{ display:flex; gap:14px; margin-top:20px;}
+.mini-stat{
+  flex:1; text-align:center; padding:16px 10px; border-radius:14px;
+  background:var(--panel); border:1px solid var(--border);
+}
+.mini-stat b{ display:block; font-size:22px; font-weight:800; color:var(--blue);}
+.mini-stat span{ font-size:12px; color:var(--text-soft); font-weight:600;}
+.bio-block p{ color:var(--text-soft); font-size:15.5px; line-height:1.85; margin-bottom:16px;}
+.detail-table{ margin-top:26px; display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+.detail-row{
+  display:flex; gap:14px; align-items:center; padding:14px 16px;
+  background:var(--bg); border-radius:14px; border:1px solid var(--border);
+}
+.detail-row i{ color:var(--blue); font-size:16px; width:20px;}
+.detail-row div b{ display:block; font-size:12.5px; color:var(--text-faint); font-weight:700; text-transform:uppercase; letter-spacing:.04em;}
+.detail-row div span{ font-size:14.5px; font-weight:600;}
+.tag-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:22px;}
+.tag{
+  padding:9px 16px; border-radius:100px; font-size:13px; font-weight:600;
+  background:var(--grad-soft); color:var(--blue); border:1px solid rgba(47,91,255,.18);
+  transition:transform .2s ease;
+}
+.tag:hover{ transform:translateY(-3px);}
+[data-theme="dark"] .tag{ color:#a9b8ff;}
+
+/* ---- Timeline (Pengalaman) ---- */
+.timeline{ position:relative; padding-left:36px;}
+.timeline::before{
+  content:""; position:absolute; left:9px; top:6px; bottom:6px; width:2px;
+  background:linear-gradient(var(--blue), var(--purple));
+}
+.tl-item{ position:relative; margin-bottom:34px;}
+.tl-item:last-child{ margin-bottom:0;}
+.tl-dot{
+  position:absolute; left:-36px; top:2px;
+  width:20px; height:20px; border-radius:50%;
+  background:var(--panel); border:3px solid var(--blue);
+}
+.tl-item.alt .tl-dot{ border-color:var(--purple);}
+.tl-period{
+  display:inline-block; font-size:12.5px; font-weight:700; color:var(--blue);
+  background:var(--grad-soft); padding:5px 14px; border-radius:100px; margin-bottom:10px;
+}
+.tl-item h4{ font-size:17px; font-weight:800; margin-bottom:4px;}
+.tl-item .org{ font-size:13.5px; color:var(--text-faint); font-weight:600; margin-bottom:10px;}
+.tl-item p{ color:var(--text-soft); font-size:14.5px; line-height:1.75;}
+
+/* ---- Prestasi grid ---- */
+.achieve-card{ display:flex; flex-direction:column; gap:16px;}
+.achieve-icon{
+  width:54px; height:54px; border-radius:16px;
+  display:flex; align-items:center; justify-content:center; font-size:22px; color:#fff;
+  background:var(--grad);
+}
+.achieve-card h4{ font-size:16px; font-weight:800; margin-bottom:6px;}
+.achieve-card .meta{ font-size:12.5px; color:var(--text-faint); font-weight:600; margin-bottom:10px;}
+.achieve-card p{ font-size:13.8px; color:var(--text-soft); line-height:1.6;}
+
+/* ---- Berita Acara ---- */
+.news-card{ overflow:hidden; padding:0;}
+.news-thumb{
+  height:150px; background:var(--grad-soft);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--blue); font-size:34px;
+  border-bottom:1px solid var(--border);
+}
+.news-body{ padding:22px;}
+.news-date{ font-size:12px; font-weight:700; color:var(--purple); text-transform:uppercase; letter-spacing:.05em; margin-bottom:8px;}
+.news-body h4{ font-size:16px; font-weight:800; margin-bottom:10px; line-height:1.4;}
+.news-body p{ font-size:13.8px; color:var(--text-soft); line-height:1.7;}
+
+/* ---- Skills ---- */
+.skill-cat{ margin-bottom:34px;}
+.skill-cat h4{ font-size:16px; font-weight:800; margin-bottom:18px; display:flex; align-items:center; gap:10px;}
+.skill-cat h4 i{ color:var(--blue);}
+.skill-bar-row{ margin-bottom:16px;}
+.skill-bar-row .top{ display:flex; justify-content:space-between; font-size:13.8px; font-weight:600; margin-bottom:8px;}
+.skill-bar-row .top span:last-child{ color:var(--text-faint); font-weight:700;}
+.skill-track{ height:9px; background:var(--bg); border-radius:100px; overflow:hidden; border:1px solid var(--border);}
+.skill-fill{ height:100%; border-radius:100px; background:var(--grad); width:0; transition:width 1.4s cubic-bezier(.2,.9,.2,1);}
+.soft-tags{ display:flex; flex-wrap:wrap; gap:12px;}
+.soft-tag{
+  display:flex; align-items:center; gap:10px;
+  padding:12px 18px; border-radius:14px;
+  background:var(--panel); border:1px solid var(--border);
+  font-size:13.8px; font-weight:600;
+  transition:transform .2s ease, border-color .2s ease;
+}
+.soft-tag:hover{ transform:translateY(-3px); border-color:var(--blue);}
+.soft-tag i{ color:var(--purple);}
+
+/* ---- CV Resume ---- */
+.cv-wrap{ display:grid; grid-template-columns:1.3fr .7fr; gap:32px;}
+.cv-doc{
+  background:var(--panel); border:1px solid var(--border); border-radius:20px;
+  padding:44px; box-shadow:var(--shadow-sm);
+}
+.cv-doc-head{ display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid var(--border); padding-bottom:22px; margin-bottom:24px;}
+.cv-doc-head h2{ font-size:26px; font-weight:800;}
+.cv-doc-head p{ color:var(--text-soft); font-size:14px; margin-top:6px;}
+.cv-doc-head .role{ color:var(--blue); font-weight:700; font-size:14px; margin-top:4px;}
+.cv-section{ margin-bottom:22px;}
+.cv-section h5{
+  font-size:12.5px; text-transform:uppercase; letter-spacing:.08em; font-weight:800; color:var(--blue); margin-bottom:12px;
+}
+.cv-section li{ font-size:14px; color:var(--text-soft); line-height:1.9; padding-left:16px; position:relative;}
+.cv-section li::before{ content:""; position:absolute; left:0; top:9px; width:6px; height:6px; border-radius:50%; background:var(--purple);}
+.cv-side .card{ margin-bottom:20px;}
+.cv-side h4{ font-size:14.5px; font-weight:800; margin-bottom:14px;}
+.download-btn{
+  width:100%; display:flex; align-items:center; justify-content:center; gap:10px;
+  padding:16px; border-radius:14px; background:var(--grad); color:#fff;
+  font-weight:700; font-size:14.5px;
+  box-shadow:var(--shadow-md);
+  transition:transform .25s ease;
+}
+.download-btn:hover{ transform:translateY(-3px);}
+.contact-line{ display:flex; align-items:center; gap:12px; font-size:13.8px; color:var(--text-soft); margin-bottom:12px;}
+.contact-line i{ color:var(--blue); width:18px;}
+
+/* ---- Toast ---- */
+.toast{
+  position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(30px);
+  background:var(--text); color:var(--bg); padding:14px 26px; border-radius:100px;
+  font-size:14px; font-weight:600; display:flex; align-items:center; gap:10px;
+  opacity:0; pointer-events:none; transition:all .35s ease; z-index:999;
+  box-shadow:var(--shadow-lg);
+}
+.toast.show{ opacity:1; transform:translateX(-50%) translateY(0);}
+.toast i{ color:#4ade80;}
+
+/* ---- reveal on scroll ---- */
+.reveal{ opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+.reveal.in{ opacity:1; transform:translateY(0);}
+
+@media (max-width:1080px){
+  .layout{ grid-template-columns:1fr;}
+  .sidebar{ display:none; }
+  .hero{ grid-template-columns:1fr;}
+  .info-grid{ grid-template-columns:repeat(2,1fr);}
+  .about-wrap, .cv-wrap, .grid-2, .grid-3{ grid-template-columns:1fr;}
+  .header-search{ display:none;}
+}
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition:none !important;}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">Portofolio <span>nzofhrzi</span></div>
+  <div class="header-pill"><i class="fa-solid fa-house"></i> Beranda Utama</div>
+  <div class="header-search">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="text" placeholder="Cari disini....">
+  </div>
+  <div class="header-right">
+    <button class="icon-btn" id="themeToggle" title="Ganti tema"><i class="fa-solid fa-moon"></i></button>
+    <div class="avatar-mini" id="avatarBtn" title="Enzo Fahrezi">EF</div>
+  </div>
+</header>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <a class="nav-item active" data-page="beranda"><i class="fa-solid fa-house"></i> Beranda Utama</a>
+    <a class="nav-item" data-page="tentangku"><i class="fa-solid fa-user"></i> Tentangku</a>
+    <a class="nav-item" data-page="pengalaman-kerja"><i class="fa-solid fa-briefcase"></i> Pengalaman Kerja</a>
+    <a class="nav-item" data-page="pengalaman-organisasi"><i class="fa-solid fa-users"></i> Pengalaman Organisasi</a>
+    <a class="nav-item" data-page="prestasi"><i class="fa-solid fa-trophy"></i> Prestasi &amp; Sertifikasi</a>
+    <a class="nav-item" data-page="berita-acara"><i class="fa-regular fa-calendar-days"></i> Berita Acara</a>
+    <a class="nav-item" data-page="skills"><i class="fa-regular fa-lightbulb"></i> Skills</a>
+    <a class="nav-item" data-page="cv"><i class="fa-regular fa-file-lines"></i> CV Resume</a>
+    <div class="sidebar-spacer"></div>
+    <div class="cta-card">
+      <h4>Tertarik bekerja sama?</h4>
+      <p>Saya terbuka untuk peluang dan kolaborasi menarik!</p>
+      <button class="cta-btn" id="hubungiBtn"><i class="fa-solid fa-paper-plane"></i> Hubungi Saya</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ================= BERANDA ================= -->
+    <section class="page active" id="beranda">
+      <div class="hero">
+        <div>
+          <div class="hero-greet script-text">Halo semua,</div>
+          <h1 class="hero-title">Saya <span class="accent">Enzo</span> Fahrezi</h1>
+          <div class="underline-mark"></div>
+          <p class="hero-text">Saya seorang mahasiswa Universitas Muhammadiyah Bangka Belitung Tahun Ajaran 2025/2026. Saya juga alumni dari SMAN 1 Namang lulusan tahun 2024. Saya senang mempelajari hal hal baru terutama dalam bidang teknologi seperti AI, tools, software dan sbg nya yang membantu dalam kehidupan sehari-hari.</p>
+          <div class="hero-badge">
+            <div class="icon"><i class="fa-solid fa-rocket"></i></div>
+            <p>Selalu antusias belajar hal baru dan berkembang menjadi versi terbaik setiap hari.</p>
+          </div>
+        </div>
+        <div class="hero-photo-wrap">
+          <div class="dot-grid">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <div class="blob"></div>
+          <div class="photo-ring">
+            <div class="inner">
+              <div class="photo-avatar"><i class="fa-solid fa-user"></i><span>EF</span></div>
+            </div>
+          </div>
+          <div class="badge-float"><i class="fa-solid fa-user"></i></div>
+          <div class="dot-float dot1"></div>
+          <div class="dot-float dot2"></div>
+        </div>
+      </div>
+
+      <div class="info-panel reveal">
+        <div class="info-panel-title"><span class="bar"></span> Sekilas Tentang Saya</div>
+        <div class="info-grid">
+          <div class="info-card">
+            <div class="ic ic-blue"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div><h5>Pendidikan</h5><p>Universitas Muhammadiyah Bangka Belitung (2025&ndash;sekarang)</p></div>
+          </div>
+          <div class="info-card">
+            <div class="ic ic-purple"><i class="fa-solid fa-briefcase"></i></div>
+            <div><h5>Alumni</h5><p>SMAN 1 Namang, Lulusan 2024</p></div>
+          </div>
+          <div class="info-card">
+            <div class="ic ic-pink"><i class="fa-solid fa-bullseye"></i></div>
+            <div><h5>Fokus</h5><p>Teknologi, AI, Tools, Software &amp; Produktivitas</p></div>
+          </div>
+          <div class="info-card">
+            <div class="ic ic-yellow"><i class="fa-solid fa-heart"></i></div>
+            <div><h5>Passion</h5><p>Belajar, Berkarya, Berbagi Manfaat</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TENTANGKU ================= -->
+    <section class="page" id="tentangku">
+      <div class="section-eyebrow"><i class="fa-solid fa-user"></i> Profil</div>
+      <h2 class="section-title">Tentangku</h2>
+      <p class="section-desc">Kenalan lebih dekat dengan saya, latar belakang, dan hal-hal yang saya sukai.</p>
+
+      <div class="about-wrap">
+        <div class="reveal">
+          <div class="about-photo"><span>EF</span></div>
+          <div class="about-stats">
+            <div class="mini-stat"><b>2+</b><span>Tahun Belajar IT</span></div>
+            <div class="mini-stat"><b>6+</b><span>Sertifikasi</span></div>
+            <div class="mini-stat"><b>3+</b><span>Organisasi</span></div>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="bio-block">
+            <p>Perkenalkan, nama saya <strong>Enzo Fahrezi</strong>, biasa dipanggil Enzo. Saat ini saya berstatus sebagai mahasiswa aktif di Universitas Muhammadiyah Bangka Belitung, Tahun Ajaran 2025/2026. Sebelumnya saya menyelesaikan pendidikan menengah atas di SMAN 1 Namang dan lulus pada tahun 2024.</p>
+            <p>Saya memiliki ketertarikan besar terhadap dunia teknologi, khususnya di bidang pengembangan web, kecerdasan buatan (AI), serta berbagai tools dan software yang dapat membantu produktivitas sehari-hari. Bagi saya, belajar hal baru adalah cara terbaik untuk terus berkembang.</p>
+            <p>Selain aktif di bidang akademik, saya juga senang mengikuti kegiatan organisasi dan pelatihan untuk mengasah soft skill seperti komunikasi, kerja sama tim, dan kepemimpinan.</p>
+          </div>
+
+          <div class="detail-table">
+            <div class="detail-row"><i class="fa-solid fa-id-card"></i><div><b>Nama Lengkap</b><span>Enzo Fahrezi</span></div></div>
+            <div class="detail-row"><i class="fa-solid fa-cake-candles"></i><div><b>Tempat, Tgl Lahir</b><span>Bangka Belitung, 2006</span></div></div>
+            <div class="detail-row"><i class="fa-solid fa-location-dot"></i><div><b>Domisili</b><span>Bangka Belitung, Indonesia</span></div></div>
+            <div class="detail-row"><i class="fa-solid fa-envelope"></i><div><b>Email</b><span>enzo.fahrezi@email.com</span></div></div>
+            <div class="detail-row"><i class="fa-solid fa-phone"></i><div><b>No. Telepon</b><span>+62 812-3456-7890</span></div></div>
+            <div class="detail-row"><i class="fa-solid fa-graduation-cap"></i><div><b>Universitas</b><span>Univ. Muhammadiyah Babel</span></div></div>
+          </div>
+
+          <div class="tag-row">
+            <span class="tag"><i class="fa-solid fa-code"></i> Web Development</span>
+            <span class="tag"><i class="fa-solid fa-robot"></i> Artificial Intelligence</span>
+            <span class="tag"><i class="fa-solid fa-palette"></i> UI/UX Design</span>
+            <span class="tag"><i class="fa-solid fa-camera"></i> Fotografi</span>
+            <span class="tag"><i class="fa-solid fa-book"></i> Membaca</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PENGALAMAN KERJA ================= -->
+    <section class="page" id="pengalaman-kerja">
+      <div class="section-eyebrow"><i class="fa-solid fa-briefcase"></i> Riwayat</div>
+      <h2 class="section-title">Pengalaman Kerja</h2>
+      <p class="section-desc">Perjalanan profesional dan praktik kerja yang pernah saya jalani.</p>
+
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <span class="tl-period">2024 &ndash; Sekarang</span>
+          <h4>Freelance Web Developer</h4>
+          <div class="org">Mandiri / Remote</div>
+          <p>Membangun dan merancang website portofolio, landing page, dan aplikasi sederhana untuk klien perorangan menggunakan HTML, CSS, JavaScript, serta tools AI untuk mempercepat proses pengembangan.</p>
+        </div>
+        <div class="tl-item alt reveal">
+          <div class="tl-dot"></div>
+          <span class="tl-period">2023 &ndash; 2024</span>
+          <h4>Praktik Kerja Lapangan (PKL)</h4>
+          <div class="org">Instansi Teknologi Informasi, Bangka Belitung</div>
+          <p>Ditempatkan pada divisi IT support, membantu pengelolaan data, instalasi perangkat lunak, serta dokumentasi sistem operasional kantor selama masa praktik.</p>
+        </div>
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <span class="tl-period">2022 &ndash; 2023</span>
+          <h4>Content Creator &amp; Admin Media Sosial</h4>
+          <div class="org">Proyek Pribadi</div>
+          <p>Mengelola konten edukasi teknologi di media sosial, merancang desain visual menggunakan Canva, dan menyusun strategi konten sederhana untuk meningkatkan engagement.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PENGALAMAN ORGANISASI ================= -->
+    <section class="page" id="pengalaman-organisasi">
+      <div class="section-eyebrow"><i class="fa-solid fa-users"></i> Kepemimpinan</div>
+      <h2 class="section-title">Pengalaman Organisasi</h2>
+      <p class="section-desc">Kontribusi saya dalam berbagai organisasi dan kepanitiaan.</p>
+
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <span class="tl-period">2025 &ndash; Sekarang</span>
+          <h4>Anggota Himpunan Mahasiswa Informatika</h4>
+          <div class="org">Universitas Muhammadiyah Bangka Belitung</div>
+          <p>Aktif berpartisipasi dalam kegiatan himpunan, mulai dari seminar, pelatihan skill teknis, hingga kegiatan pengabdian masyarakat berbasis teknologi.</p>
+        </div>
+        <div class="tl-item alt reveal">
+          <div class="tl-dot"></div>
+          <span class="tl-period">2023 &ndash; 2024</span>
+          <h4>Ketua OSIS</h4>
+          <div class="org">SMAN 1 Namang</div>
+          <p>Memimpin organisasi siswa, mengoordinasikan program kerja tahunan, serta menjadi jembatan komunikasi antara siswa dan pihak sekolah.</p>
+        </div>
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <span class="tl-period">2021 &ndash; 2023</span>
+          <h4>Anggota Pramuka</h4>
+          <div class="org">SMAN 1 Namang</div>
+          <p>Mengikuti berbagai kegiatan kepramukaan yang melatih kedisiplinan, kerja sama tim, dan jiwa kepemimpinan.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PRESTASI & SERTIFIKASI ================= -->
+    <section class="page" id="prestasi">
+      <div class="section-eyebrow"><i class="fa-solid fa-trophy"></i> Pencapaian</div>
+      <h2 class="section-title">Prestasi &amp; Sertifikasi</h2>
+      <p class="section-desc">Beberapa penghargaan dan sertifikasi yang pernah saya raih.</p>
+
+      <div class="grid-3">
+        <div class="card achieve-card reveal">
+          <div class="achieve-icon"><i class="fa-solid fa-medal"></i></div>
+          <div>
+            <h4>Juara 2 Lomba Web Design</h4>
+            <div class="meta">Tingkat Kabupaten &middot; 2024</div>
+            <p>Meraih juara 2 dalam kompetisi desain website tingkat kabupaten yang diikuti oleh pelajar SMA/SMK se-kabupaten.</p>
+          </div>
+        </div>
+        <div class="card achieve-card reveal">
+          <div class="achieve-icon"><i class="fa-solid fa-certificate"></i></div>
+          <div>
+            <h4>Belajar Dasar Pemrograman Web</h4>
+            <div class="meta">Dicoding Indonesia &middot; 2024</div>
+            <p>Menyelesaikan kelas dan lulus sertifikasi dasar pemrograman web meliputi HTML, CSS, dan JavaScript.</p>
+          </div>
+        </div>
+        <div class="card achieve-card reveal">
+          <div class="achieve-icon"><i class="fa-solid fa-award"></i></div>
+          <div>
+            <h4>Fundamentals of Digital Marketing</h4>
+            <div class="meta">Google Digital Garage &middot; 2023</div>
+            <p>Sertifikasi dasar digital marketing yang mencakup strategi pemasaran online dan branding digital.</p>
+          </div>
+        </div>
+        <div class="card achieve-card reveal">
+          <div class="achieve-icon"><i class="fa-solid fa-star"></i></div>
+          <div>
+            <h4>Peserta Terbaik Pelatihan UI/UX</h4>
+            <div class="meta">Workshop Kampus &middot; 2024</div>
+            <p>Dinobatkan sebagai peserta terbaik dalam pelatihan dasar UI/UX design selama program berlangsung.</p>
+          </div>
+        </div>
+        <div class="card achieve-card reveal">
+          <div class="achieve-icon"><i class="fa-solid fa-laptop-code"></i></div>
+          <div>
+            <h4>Basic Python Programming</h4>
+            <div class="meta">Sertifikasi Online &middot; 2023</div>
+            <p>Menguasai dasar-dasar bahasa pemrograman Python meliputi struktur data dan logika pemrograman.</p>
+          </div>
+        </div>
+        <div class="card achieve-card reveal">
+          <div class="achieve-icon"><i class="fa-solid fa-people-group"></i></div>
+          <div>
+            <h4>Peserta Aktif Organisasi Terbaik</h4>
+            <div class="meta">HMTI UMB Babel &middot; 2025</div>
+            <p>Penghargaan atas keaktifan dan kontribusi dalam kegiatan-kegiatan himpunan mahasiswa informatika.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= BERITA ACARA ================= -->
+    <section class="page" id="berita-acara">
+      <div class="section-eyebrow"><i class="fa-regular fa-calendar-days"></i> Dokumentasi</div>
+      <h2 class="section-title">Berita Acara</h2>
+      <p class="section-desc">Catatan kegiatan, seminar, dan acara yang pernah saya ikuti.</p>
+
+      <div class="grid-3">
+        <div class="card news-card reveal">
+          <div class="news-thumb"><i class="fa-solid fa-microphone"></i></div>
+          <div class="news-body">
+            <div class="news-date">15 Maret 2025</div>
+            <h4>Seminar Nasional Teknologi AI</h4>
+            <p>Mengikuti seminar nasional membahas perkembangan kecerdasan buatan dan dampaknya bagi dunia kerja.</p>
+          </div>
+        </div>
+        <div class="card news-card reveal">
+          <div class="news-thumb"><i class="fa-solid fa-laptop"></i></div>
+          <div class="news-body">
+            <div class="news-date">22 Mei 2025</div>
+            <h4>Workshop Pengembangan Aplikasi AI</h4>
+            <p>Berpartisipasi dalam workshop hands-on membangun aplikasi sederhana berbasis kecerdasan buatan.</p>
+          </div>
+        </div>
+        <div class="card news-card reveal">
+          <div class="news-thumb"><i class="fa-solid fa-building"></i></div>
+          <div class="news-body">
+            <div class="news-date">10 Oktober 2024</div>
+            <h4>Studi Banding Perusahaan Teknologi</h4>
+            <p>Kunjungan studi banding kampus ke perusahaan teknologi untuk melihat langsung praktik industri IT.</p>
+          </div>
+        </div>
+        <div class="card news-card reveal">
+          <div class="news-thumb"><i class="fa-solid fa-flag"></i></div>
+          <div class="news-body">
+            <div class="news-date">17 Agustus 2024</div>
+            <h4>Panitia Upacara &amp; Perlombaan HUT RI</h4>
+            <p>Menjadi bagian panitia pelaksana rangkaian perlombaan dan upacara peringatan kemerdekaan di lingkungan kampus.</p>
+          </div>
+        </div>
+        <div class="card news-card reveal">
+          <div class="news-thumb"><i class="fa-solid fa-people-roof"></i></div>
+          <div class="news-body">
+            <div class="news-date">5 Desember 2024</div>
+            <h4>Pengabdian Masyarakat Berbasis Digital</h4>
+            <p>Terlibat dalam program pengabdian masyarakat memberikan edukasi literasi digital kepada warga sekitar kampus.</p>
+          </div>
+        </div>
+        <div class="card news-card reveal">
+          <div class="news-thumb"><i class="fa-solid fa-graduation-cap"></i></div>
+          <div class="news-body">
+            <div class="news-date">20 Januari 2025</div>
+            <h4>Pelatihan Softskill Mahasiswa Baru</h4>
+            <p>Mengikuti rangkaian pelatihan pengembangan diri yang diadakan khusus untuk mahasiswa baru angkatan 2025.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SKILLS ================= -->
+    <section class="page" id="skills">
+      <div class="section-eyebrow"><i class="fa-regular fa-lightbulb"></i> Kemampuan</div>
+      <h2 class="section-title">Skills</h2>
+      <p class="section-desc">Kombinasi kemampuan teknis dan non-teknis yang terus saya asah.</p>
+
+      <div class="grid-2">
+        <div class="card reveal">
+          <div class="skill-cat">
+            <h4><i class="fa-solid fa-code"></i> Technical Skills</h4>
+            <div class="skill-bar-row"><div class="top"><span>HTML &amp; CSS</span><span>90%</span></div><div class="skill-track"><div class="skill-fill" data-w="90"></div></div></div>
+            <div class="skill-bar-row"><div class="top"><span>JavaScript</span><span>75%</span></div><div class="skill-track"><div class="skill-fill" data-w="75"></div></div></div>
+            <div class="skill-bar-row"><div class="top"><span>Python</span><span>65%</span></div><div class="skill-track"><div class="skill-fill" data-w="65"></div></div></div>
+            <div class="skill-bar-row"><div class="top"><span>Figma / Canva</span><span>85%</span></div><div class="skill-track"><div class="skill-fill" data-w="85"></div></div></div>
+            <div class="skill-bar-row"><div class="top"><span>Microsoft Office</span><span>88%</span></div><div class="skill-track"><div class="skill-fill" data-w="88"></div></div></div>
+          </div>
+        </div>
+        <div class="card reveal">
+          <div class="skill-cat" style="margin-bottom:0;">
+            <h4><i class="fa-solid fa-people-arrows"></i> Soft Skills</h4>
+            <div class="soft-tags">
+              <div class="soft-tag"><i class="fa-solid fa-comments"></i> Komunikasi</div>
+              <div class="soft-tag"><i class="fa-solid fa-people-group"></i> Kerja Tim</div>
+              <div class="soft-tag"><i class="fa-solid fa-clock"></i> Manajemen Waktu</div>
+              <div class="soft-tag"><i class="fa-solid fa-puzzle-piece"></i> Problem Solving</div>
+              <div class="soft-tag"><i class="fa-solid fa-lightbulb"></i> Kreativitas</div>
+              <div class="soft-tag"><i class="fa-solid fa-user-tie"></i> Kepemimpinan</div>
+              <div class="soft-tag"><i class="fa-solid fa-arrows-rotate"></i> Adaptasi Cepat</div>
+              <div class="soft-tag"><i class="fa-solid fa-magnifying-glass"></i> Detail Oriented</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card reveal" style="margin-top:24px;">
+        <div class="skill-cat" style="margin-bottom:0;">
+          <h4><i class="fa-solid fa-toolbox"></i> Tools &amp; Platform</h4>
+          <div class="soft-tags">
+            <div class="soft-tag"><i class="fa-brands fa-html5"></i> HTML5</div>
+            <div class="soft-tag"><i class="fa-brands fa-css3-alt"></i> CSS3</div>
+            <div class="soft-tag"><i class="fa-brands fa-js"></i> JavaScript</div>
+            <div class="soft-tag"><i class="fa-brands fa-python"></i> Python</div>
+            <div class="soft-tag"><i class="fa-brands fa-figma"></i> Figma</div>
+            <div class="soft-tag"><i class="fa-brands fa-google"></i> Google Workspace</div>
+            <div class="soft-tag"><i class="fa-brands fa-github"></i> GitHub</div>
+            <div class="soft-tag"><i class="fa-solid fa-robot"></i> AI Tools</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CV RESUME ================= -->
+    <section class="page" id="cv">
+      <div class="section-eyebrow"><i class="fa-regular fa-file-lines"></i> Dokumen</div>
+      <h2 class="section-title">CV Resume</h2>
+      <p class="section-desc">Ringkasan diri saya dalam format curriculum vitae.</p>
+
+      <div class="cv-wrap">
+        <div class="cv-doc reveal">
+          <div class="cv-doc-head">
+            <div>
+              <h2>Enzo Fahrezi</h2>
+              <p class="role">Mahasiswa Informatika &middot; Web Enthusiast</p>
+              <p>Bangka Belitung, Indonesia</p>
+            </div>
+            <div class="photo-avatar" style="width:74px;height:74px;font-size:26px;"><span>EF</span></div>
+          </div>
+
+          <div class="cv-section">
+            <h5>Ringkasan</h5>
+            <p style="color:var(--text-soft); font-size:14.5px; line-height:1.8;">Mahasiswa aktif Informatika dengan minat besar pada pengembangan web dan teknologi AI. Terbiasa bekerja mandiri maupun tim, cepat beradaptasi dengan tools baru, dan berorientasi pada hasil.</p>
+          </div>
+
+          <div class="cv-section">
+            <h5>Pendidikan</h5>
+            <ul>
+              <li>Universitas Muhammadiyah Bangka Belitung &mdash; Informatika (2025&ndash;Sekarang)</li>
+              <li>SMAN 1 Namang &mdash; Lulusan 2024</li>
+            </ul>
+          </div>
+
+          <div class="cv-section">
+            <h5>Pengalaman</h5>
+            <ul>
+              <li>Freelance Web Developer (2024&ndash;Sekarang)</li>
+              <li>Praktik Kerja Lapangan &mdash; Divisi IT Support (2023&ndash;2024)</li>
+              <li>Content Creator &amp; Admin Media Sosial (2022&ndash;2023)</li>
+            </ul>
+          </div>
+
+          <div class="cv-section">
+            <h5>Organisasi</h5>
+            <ul>
+              <li>Anggota HMTI Universitas Muhammadiyah Babel (2025&ndash;Sekarang)</li>
+              <li>Ketua OSIS SMAN 1 Namang (2023&ndash;2024)</li>
+            </ul>
+          </div>
+
+          <div class="cv-section" style="margin-bottom:0;">
+            <h5>Skills</h5>
+            <ul>
+              <li>HTML, CSS, JavaScript, Python</li>
+              <li>Figma, Canva, Microsoft Office</li>
+              <li>Komunikasi, Kerja Tim, Manajemen Waktu</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cv-side reveal">
+          <div class="card">
+            <h4><i class="fa-solid fa-download"></i>&nbsp; Unduh CV</h4>
+            <p style="font-size:13px; color:var(--text-soft); margin-bottom:16px; line-height:1.6;">Dapatkan versi lengkap CV saya dalam format PDF untuk keperluan lamaran atau kolaborasi.</p>
+            <button class="download-btn" id="downloadCvBtn"><i class="fa-solid fa-file-arrow-down"></i> Download CV (PDF)</button>
+          </div>
+          <div class="card">
+            <h4>Kontak</h4>
+            <div class="contact-line"><i class="fa-solid fa-envelope"></i> enzo.fahrezi@email.com</div>
+            <div class="contact-line"><i class="fa-solid fa-phone"></i> +62 812-3456-7890</div>
+            <div class="contact-line"><i class="fa-solid fa-location-dot"></i> Bangka Belitung, Indonesia</div>
+            <div class="contact-line"><i class="fa-brands fa-linkedin"></i> linkedin.com/in/enzofahrezi</div>
+            <div class="contact-line"><i class="fa-brands fa-github"></i> github.com/enzofahrezi</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div class="toast" id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toastMsg">Berhasil!</span></div>
+
+<script>
+// ---------- Navigation ----------
+const navItems = document.querySelectorAll('.nav-item');
+const pages = document.querySelectorAll('.page');
+
+function goToPage(id){
+  pages.forEach(p => p.classList.remove('active'));
+  navItems.forEach(n => n.classList.remove('active'));
+  const target = document.getElementById(id);
+  const nav = document.querySelector(`.nav-item[data-page="${id}"]`);
+  if(target){ target.classList.add('active'); }
+  if(nav){ nav.classList.add('active'); }
+  window.scrollTo({top:0, behavior:'smooth'});
+  animateReveals();
+  if(id === 'skills'){ setTimeout(animateSkillBars, 250); }
+}
+
+navItems.forEach(item => {
+  item.addEventListener('click', () => goToPage(item.dataset.page));
+});
+document.querySelector('.header-pill').addEventListener('click', () => goToPage('beranda'));
+
+// ---------- Theme toggle ----------
+const themeToggle = document.getElementById('themeToggle');
+themeToggle.addEventListener('click', () => {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  themeToggle.innerHTML = isDark ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+});
+
+// ---------- Toast ----------
+function showToast(msg){
+  const toast = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2600);
+}
+document.getElementById('hubungiBtn').addEventListener('click', () => {
+  showToast('Terima kasih! Silakan hubungi via email di CV Resume.');
+  goToPage('cv');
+});
+document.getElementById('downloadCvBtn').addEventListener('click', () => {
+  showToast('CV sedang disiapkan untuk diunduh...');
+});
+document.getElementById('avatarBtn').addEventListener('click', () => goToPage('tentangku'));
+
+// ---------- Reveal on scroll ----------
+function animateReveals(){
+  const els = document.querySelectorAll('.page.active .reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
+  }, {threshold:.15});
+  els.forEach(el => obs.observe(el));
+}
+animateReveals();
+
+// ---------- Skill bars ----------
+function animateSkillBars(){
+  document.querySelectorAll('.skill-fill').forEach(bar => {
+    bar.style.width = bar.dataset.w + '%';
+  });
+}
+
+// ---------- Search filter (simple highlight/scroll on Enter) ----------
+document.querySelector('.header-search input').addEventListener('keydown', function(e){
+  if(e.key === 'Enter' && this.value.trim() !== ''){
+    showToast('Mencari: "' + this.value.trim() + '"');
+  }
+});
+</script>
+</body>
+</html>
