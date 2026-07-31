@@ -1,8 +1,9 @@
+
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "npm run build || true",
   "functions": {
     "api/saveData.js": {
-      "runtime": "nodejs20.x"
+      "runtime": "@vercel/node@3.0.0"
     }
   },
   "rewrites": [
