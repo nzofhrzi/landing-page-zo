@@ -1,585 +1,1065 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Enzo Fahrezi · Portfolio</title>
-  <!-- Tailwind CSS via CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Font Awesome 6 -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <!-- Google Font: Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
-  <style>
-    /* ----- RESET & BASE ----- */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: #0a0a0a;
-      color: #f0f0f0;
-      overflow-x: hidden;
-      line-height: 1.6;
-      position: relative;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portofolio Enzo Fahrezi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --bg:#f7f7f7;
+  --panel:#ffffff;
+  --text:#111111;
+  --text-soft:#4a4a4a;
+  --text-faint:#8a8a8a;
+  --border:#e2e2e2;
+  --ink:#111111;
+  --ink-soft:#3a3a3a;
+  --grad: linear-gradient(120deg,#111111 0%, #3a3a3a 100%);
+  --grad-soft: #f0f0f0;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.04), 0 1px 1px rgba(0,0,0,.03);
+  --shadow-md: 0 10px 30px -12px rgba(0,0,0,.16);
+  --shadow-lg: 0 20px 50px -15px rgba(0,0,0,.28);
+  --radius: 18px;
+  --sidebar-w: 280px;
+  --header-h: 88px;
+}
+[data-theme="dark"]{
+  --bg:#0a0a0a;
+  --panel:#161616;
+  --text:#f4f4f4;
+  --text-soft:#b8b8b8;
+  --text-faint:#7a7a7a;
+  --border:#2a2a2a;
+  --ink:#f4f4f4;
+  --ink-soft:#d0d0d0;
+  --grad: linear-gradient(120deg,#f4f4f4 0%, #cfcfcf 100%);
+  --grad-soft: #1f1f1f;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.3);
+  --shadow-md: 0 10px 30px -12px rgba(0,0,0,.55);
+  --shadow-lg: 0 20px 50px -15px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Inter', sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  transition:background .4s ease, color .4s ease;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4,.section-title,.cv-doc-head h2{ font-family:'Fraunces', serif; }
+::selection{background:var(--ink); color:#fff;}
+::-webkit-scrollbar{width:9px; height:9px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border); border-radius:10px;}
+::-webkit-scrollbar-thumb:hover{background:var(--ink);}
 
-    /* ----- GRID BACKGROUND PATTERN ----- */
-    .bg-grid-pattern {
-      background-image:
-        linear-gradient(to right, rgba(255,255,255,0.045) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,0.045) 1px, transparent 1px);
-      background-size: 44px 44px;
-      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
-      mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
-    }
-    /* subtle vignette glow behind the grid, gives it depth like the reference */
-    .bg-radial-glow {
-      background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.06), transparent 55%);
-    }
+a{text-decoration:none; color:inherit;}
+button{font-family:inherit; cursor:pointer; border:none; background:none;}
+ul{list-style:none;}
 
-    /* ----- GLASS CARD ----- */
-    .glass {
-      background: rgba(255, 255, 255, 0.04);
-      backdrop-filter: blur(20px) saturate(140%);
-      -webkit-backdrop-filter: blur(20px) saturate(140%);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255,255,255,0.05);
-    }
-    .glass-hover:hover {
-      background: rgba(255, 255, 255, 0.07);
-      border-color: rgba(255, 255, 255, 0.16);
-      transition: all 0.35s ease;
-    }
+.script-text{font-family:'Caveat', cursive; font-weight:700;}
 
-    /* ----- PILL NAV / SEGMENTED GLASS (like rifqi.dev reference) ----- */
-    .glass-pill {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(22px) saturate(150%);
-      -webkit-backdrop-filter: blur(22px) saturate(150%);
-      border: 1px solid rgba(255, 255, 255, 0.10);
-      box-shadow: 0 10px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06);
-      border-radius: 9999px;
-    }
+/* ============ HEADER ============ */
+.site-header{
+  position:sticky; top:0; z-index:100;
+  height:var(--header-h);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 40px;
+  background:color-mix(in srgb, var(--panel) 90%, transparent);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+  gap:24px;
+}
+.brand{
+  font-family:'Fraunces', serif;
+  font-size:clamp(18px, 2.4vw, 23px); font-weight:700; letter-spacing:-.01em; white-space:nowrap;
+}
+.brand span{
+  color:var(--ink);
+  font-style:italic;
+  font-weight:600;
+}
+.header-pill{
+  display:flex; align-items:center; gap:10px;
+  padding:12px 22px;
+  border-radius:100px;
+  background:var(--ink);
+  border:1px solid var(--ink);
+  font-weight:600; font-size:14.5px;
+  color:#fff;
+  white-space:nowrap;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.header-pill:hover{ transform:translateY(-2px); box-shadow:var(--shadow-md);}
+.header-search{
+  flex:1; max-width:520px;
+  display:flex; align-items:center; gap:12px;
+  padding:12px 20px;
+  border-radius:100px;
+  background:var(--bg);
+  border:1px solid var(--border);
+  color:var(--text-faint);
+  transition:box-shadow .25s ease, border-color .25s ease;
+}
+.header-search:focus-within{
+  border-color:var(--ink);
+  box-shadow:0 0 0 4px rgba(0,0,0,.08);
+}
+[data-theme="dark"] .header-search:focus-within{ box-shadow:0 0 0 4px rgba(255,255,255,.08); }
+.header-search input{
+  border:none; background:none; outline:none; width:100%;
+  font-size:14.5px; color:var(--text); font-family:inherit;
+}
+.header-right{display:flex; align-items:center; gap:16px;}
+.icon-btn{
+  width:44px; height:44px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--panel); border:1px solid var(--border);
+  color:var(--text-soft);
+  transition:transform .25s ease, color .25s ease, border-color .25s ease;
+}
+.icon-btn:hover{ transform:translateY(-2px) rotate(-8deg); color:var(--ink); border-color:var(--ink);}
+.avatar-mini{
+  width:46px; height:46px; border-radius:50%;
+  background:var(--ink);
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; font-weight:700; font-size:14px; letter-spacing:.02em;
+  border:2px solid var(--panel); outline:2px solid var(--ink);
+  cursor:pointer;
+  transition:transform .25s ease;
+}
+.avatar-mini:hover{ transform:scale(1.06);}
 
-    /* ----- SCROLL ANIMATIONS (fade-up) ----- */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(50px);
-      transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-                  transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .fade-up.delay-1 { transition-delay: 0.10s; }
-    .fade-up.delay-2 { transition-delay: 0.20s; }
-    .fade-up.delay-3 { transition-delay: 0.30s; }
-    .fade-up.delay-4 { transition-delay: 0.40s; }
-    /* ----- NAVBAR LINK UNDERLINE ----- */
-    .nav-link {
-      position: relative;
-      font-weight: 500;
-      color: #a0a0a0;
-      transition: color 0.25s;
-    }
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: #ffffff;
-      transition: width 0.3s ease;
-    }
-    .nav-link:hover { color: #ffffff; }
-    .nav-link:hover::after { width: 100%; }
-    .nav-link.active {
-      color: #ffffff;
-    }
-    .nav-link.active::after { width: 100%; }
-    /* ----- PROJECT CARD HOVER ----- */
-    .project-card {
-      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-                  box-shadow 0.4s ease, background 0.4s ease;
-    }
-    .project-card:hover {
-      transform: translateY(-10px) scale(1.01);
-      background: rgba(255, 255, 255, 0.06);
-      box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08);
-    }
-    /* ----- TYPEWRITER CURSOR (hero subtitle) ----- */
-    .cursor-blink::after {
-      content: '|';
-      animation: blink 0.9s step-end infinite;
-      color: #888;
-      margin-left: 2px;
-    }
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-    /* ----- BUTTON GLOW ----- */
-    .btn-glow {
-      transition: all 0.3s ease;
-    }
-    .btn-glow:hover {
-      box-shadow: 0 0 40px rgba(255,255,255,0.06);
-    }
-    /* ----- SKILL ITEM BADGE (glass pill) ----- */
-    .skill-badge {
-      display: inline-block;
-      padding: 0.5rem 1.25rem;
-      border-radius: 9999px;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      font-size: 0.875rem;
-      color: #d0d0d0;
-      transition: all 0.25s ease;
-    }
-    .skill-badge:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.2);
-      color: #ffffff;
-      transform: scale(1.02);
-    }
-    /* ----- EXPERIENCE CARD ----- */
-    .exp-card {
-      border-left: 2px solid rgba(255, 255, 255, 0.08);
-      padding-left: 1.5rem;
-      transition: border-color 0.3s ease;
-    }
-    .exp-card:hover {
-      border-left-color: rgba(255, 255, 255, 0.25);
-    }
-    /* ----- RESPONSIVE ----- */
-    @media (max-width: 640px) {
-      .exp-card { padding-left: 1rem; }
-      .bg-grid-pattern { background-size: 32px 32px; }
-    }
-  </style>
+/* ============ LAYOUT ============ */
+.layout{
+  display:grid;
+  grid-template-columns:var(--sidebar-w) 1fr;
+  min-height:calc(100vh - var(--header-h));
+}
+.menu-toggle{
+  display:none;
+  width:44px; height:44px; border-radius:12px;
+  align-items:center; justify-content:center;
+  background:var(--panel); border:1px solid var(--border);
+  color:var(--text); font-size:18px;
+  flex-shrink:0;
+  transition:background .2s ease, transform .2s ease;
+}
+.menu-toggle:hover{ background:var(--bg); }
+.sidebar-backdrop{
+  display:none;
+  position:fixed; inset:0; z-index:150;
+  background:rgba(0,0,0,.45);
+  backdrop-filter:blur(2px);
+  opacity:0; transition:opacity .3s ease;
+}
+.sidebar-backdrop.show{ display:block; opacity:1; }
+
+/* ============ SIDEBAR ============ */
+.sidebar{
+  border-right:1px solid var(--border);
+  padding:28px 22px;
+  display:flex; flex-direction:column;
+  gap:4px;
+  position:sticky; top:var(--header-h);
+  align-self:start;
+  height:calc(100vh - var(--header-h));
+}
+.sidebar-close{
+  display:none;
+  align-self:flex-end;
+  width:38px; height:38px; border-radius:10px;
+  align-items:center; justify-content:center;
+  background:var(--bg); border:1px solid var(--border);
+  color:var(--text); font-size:16px;
+  margin-bottom:10px;
+}
+.nav-item{
+  display:flex; align-items:center; gap:14px;
+  padding:14px 18px;
+  border-radius:14px;
+  font-weight:600; font-size:14.5px;
+  color:var(--text-soft);
+  position:relative;
+  border:1px solid transparent;
+  transition:background .25s ease, color .25s ease, transform .2s ease, border-color .25s ease;
+}
+.nav-item i{ width:20px; text-align:center; font-size:15px; transition:transform .3s ease;}
+.nav-item:hover{ background:var(--bg); color:var(--text); transform:translateX(3px); border-color:var(--border);}
+.nav-item.active{
+  background:var(--ink);
+  color:#fff;
+  box-shadow:var(--shadow-md);
+}
+.nav-item.active i{ transform:scale(1.05);}
+.sidebar-spacer{flex:1;}
+.cta-card{
+  margin-top:18px;
+  padding:22px;
+  border-radius:20px;
+  background:var(--ink);
+  color:var(--bg);
+  position:relative;
+  overflow:hidden;
+}
+[data-theme="dark"] .cta-card{ color:#0a0a0a; }
+.cta-card::after{
+  content:"";
+  position:absolute; width:140px; height:140px;
+  background:rgba(255,255,255,.06);
+  border-radius:50%;
+  top:-60px; right:-60px;
+}
+[data-theme="dark"] .cta-card::after{ background:rgba(0,0,0,.06); }
+.cta-card h4{font-family:'Fraunces', serif; font-size:17px; font-weight:700; margin-bottom:8px;}
+.cta-card p{font-size:13.2px; opacity:.85; line-height:1.5; margin-bottom:18px;}
+.cta-btn{
+  width:100%;
+  background:#fff; color:#111;
+  padding:12px; border-radius:12px;
+  font-weight:700; font-size:14px;
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+[data-theme="dark"] .cta-btn{ background:#0a0a0a; color:#f4f4f4; }
+.cta-btn:hover{ transform:translateY(-2px); box-shadow:0 10px 22px -8px rgba(0,0,0,.35);}
+
+/* ============ MAIN ============ */
+.main{ padding:44px clamp(20px, 4vw, 48px) 80px; max-width:1200px; width:100%;}
+.page{
+  padding-top:56px;
+  padding-bottom:56px;
+  scroll-margin-top:calc(var(--header-h) + 20px);
+  border-bottom:1px solid var(--border);
+  opacity:0;
+  transform:translateY(50px);
+  transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1);
+}
+.page:first-of-type{ padding-top:8px; }
+.page:last-of-type{ border-bottom:none; padding-bottom:20px; }
+.page.in-view{ opacity:1; transform:translateY(0); }
+
+.section-eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:12.5px; font-weight:700; color:var(--text-faint);
+  text-transform:uppercase; letter-spacing:.14em;
+  margin-bottom:12px;
+}
+.section-eyebrow::before{ content:""; width:22px; height:1px; background:var(--text-faint); display:inline-block;}
+.section-title{ font-size:clamp(26px, 4vw, 34px); font-weight:700; letter-spacing:-.01em; margin-bottom:14px;}
+.section-desc{ color:var(--text-soft); font-size:15.5px; max-width:640px; line-height:1.7; margin-bottom:36px;}
+
+/* ---- HERO ---- */
+.hero{
+  display:grid; grid-template-columns:1.15fr .85fr;
+  gap:40px; align-items:center;
+  margin-bottom:44px;
+}
+.hero-greet{ font-size:clamp(24px, 4vw, 30px); color:var(--text-soft); margin-bottom:6px;}
+.hero-title{ font-size:clamp(32px, 5.5vw, 48px); font-weight:700; letter-spacing:-.02em; line-height:1.15; margin-bottom:18px;}
+.hero-title .accent{
+  font-style:italic;
+  font-weight:600;
+  color:var(--ink);
+}
+.underline-mark{
+  width:70px; height:3px; border-radius:6px; background:var(--ink); margin-bottom:22px;
+  animation:growLine 1s ease .3s both;
+}
+@keyframes growLine{ from{width:0;} to{width:70px;} }
+.hero-text{ color:var(--text-soft); font-size:16px; line-height:1.85; margin-bottom:26px; max-width:560px;}
+@keyframes floatY{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
+
+.hero-photo-wrap{ position:relative; display:flex; justify-content:center; align-items:center; height:420px;}
+.blob{
+  position:absolute; width:380px; height:380px; border-radius:50%;
+  background:var(--grad-soft);
+  animation:blobMove 8s ease-in-out infinite;
+}
+@keyframes blobMove{ 0%,100%{ border-radius:50% 50% 50% 50%/50% 50% 50% 50%; transform:rotate(0deg) scale(1);} 50%{ border-radius:45% 55% 60% 40%/55% 45% 55% 45%; transform:rotate(20deg) scale(1.04);} }
+.photo-ring{
+  position:relative; z-index:2;
+  width:300px; height:300px; border-radius:50%;
+  padding:6px;
+  background:var(--ink);
+  animation:floatY 5s ease-in-out infinite;
+}
+.photo-ring .inner{
+  width:100%; height:100%; border-radius:50%;
+  background:var(--panel);
+  padding:6px;
+}
+.photo-avatar{
+  width:100%; height:100%; border-radius:50%;
+  background:linear-gradient(150deg,#2a2a2a,#111111 60%, #000000);
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; font-size:76px; font-weight:700; letter-spacing:-.03em;
+  font-family:'Fraunces', serif;
+  overflow:hidden;
+  position:relative;
+}
+.photo-avatar i{ font-size:120px; opacity:.15; position:absolute;}
+.photo-avatar span{ position:relative; z-index:1;}
+.badge-float{
+  position:absolute; top:14px; left:-6px; z-index:3;
+  width:56px; height:56px; border-radius:16px;
+  background:var(--ink); color:var(--bg);
+  display:flex; align-items:center; justify-content:center; font-size:20px;
+  box-shadow:var(--shadow-md);
+  animation:floatY 4s ease-in-out infinite;
+}
+.dot-float{
+  position:absolute; border-radius:50%; background:var(--ink);
+}
+.dot1{ width:20px; height:20px; bottom:60px; right:20px; animation:floatY 3.4s ease-in-out infinite;}
+.dot2{ width:14px; height:14px; top:40px; right:60px; background:var(--text-faint); animation:floatY 4.2s ease-in-out infinite reverse;}
+.dot-grid{
+  position:absolute; top:10px; right:0; z-index:1;
+  display:grid; grid-template-columns:repeat(4,1fr); gap:8px;
+  opacity:.4;
+}
+.dot-grid span{ width:5px; height:5px; border-radius:50%; background:var(--ink);}
+
+/* ---- CARDS ---- */
+.card{
+  background:var(--panel); border:1px solid var(--border); border-radius:20px;
+  padding:28px; box-shadow:var(--shadow-sm);
+  transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+.card:hover{ transform:translateY(-5px); box-shadow:var(--shadow-md); border-color:var(--ink);}
+
+.grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+.grid-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+
+/* ---- Tentangku ---- */
+.about-wrap{ display:grid; grid-template-columns:.8fr 1.2fr; gap:40px; align-items:start;}
+.about-photo{
+  position:relative; border-radius:24px; overflow:hidden;
+  aspect-ratio:1/1;
+  background:linear-gradient(150deg,#2a2a2a,#111111 60%, #000000);
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:var(--shadow-lg);
+}
+.about-photo span{ font-family:'Fraunces', serif; font-size:110px; font-weight:700; color:#fff;}
+.about-stats{ display:flex; gap:14px; margin-top:20px;}
+.mini-stat{
+  flex:1; text-align:center; padding:16px 10px; border-radius:14px;
+  background:var(--panel); border:1px solid var(--border);
+}
+.mini-stat b{ display:block; font-family:'Fraunces', serif; font-size:23px; font-weight:700; color:var(--ink);}
+.mini-stat span{ font-size:12px; color:var(--text-soft); font-weight:600;}
+.bio-block p{ color:var(--text-soft); font-size:15.5px; line-height:1.85; margin-bottom:16px;}
+.detail-table{ margin-top:26px; display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+.detail-row{
+  display:flex; gap:14px; align-items:center; padding:14px 16px;
+  background:var(--bg); border-radius:14px; border:1px solid var(--border);
+}
+.detail-row i{ color:var(--ink); font-size:16px; width:20px;}
+.detail-row div b{ display:block; font-size:12.5px; color:var(--text-faint); font-weight:700; text-transform:uppercase; letter-spacing:.04em;}
+.detail-row div span{ font-size:14.5px; font-weight:600;}
+.tag-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:22px;}
+.tag{
+  padding:9px 16px; border-radius:100px; font-size:13px; font-weight:600;
+  background:var(--panel); color:var(--text); border:1px solid var(--border);
+  transition:transform .2s ease, border-color .2s ease, background .2s ease;
+}
+.tag:hover{ transform:translateY(-3px); background:var(--ink); color:var(--bg); border-color:var(--ink);}
+
+/* ---- Timeline ---- */
+.timeline{ position:relative; padding-left:36px;}
+.timeline::before{
+  content:""; position:absolute; left:9px; top:6px; bottom:6px; width:1px;
+  background:var(--border);
+}
+.tl-item{ position:relative; margin-bottom:34px;}
+.tl-item:last-child{ margin-bottom:0;}
+.tl-dot{
+  position:absolute; left:-36px; top:2px;
+  width:20px; height:20px; border-radius:50%;
+  background:var(--panel); border:3px solid var(--ink);
+}
+.tl-item.alt .tl-dot{ border-color:var(--text-faint);}
+.tl-period{
+  display:inline-block; font-size:12.5px; font-weight:700; color:var(--text);
+  background:var(--grad-soft); border:1px solid var(--border); padding:5px 14px; border-radius:100px; margin-bottom:10px;
+}
+.tl-item h4{ font-family:'Fraunces', serif; font-size:18px; font-weight:700; margin-bottom:4px;}
+.tl-item .org{ font-size:13.5px; color:var(--text-faint); font-weight:600; margin-bottom:10px;}
+.tl-item p{ color:var(--text-soft); font-size:14.5px; line-height:1.75;}
+
+/* ---- Achieve cards ---- */
+.achieve-card{ display:flex; flex-direction:column; gap:16px;}
+.achieve-icon{
+  width:54px; height:54px; border-radius:16px;
+  display:flex; align-items:center; justify-content:center; font-size:22px; color:#fff;
+  background:var(--ink);
+}
+.achieve-card h4{ font-family:'Fraunces', serif; font-size:17px; font-weight:700; margin-bottom:6px;}
+.achieve-card .meta{ font-size:12.5px; color:var(--text-faint); font-weight:600; margin-bottom:10px;}
+.achieve-card p{ font-size:13.8px; color:var(--text-soft); line-height:1.6;}
+
+/* ---- Berita Acara ---- */
+.news-card{ overflow:hidden; padding:0;}
+.news-thumb{
+  height:150px; background:var(--grad-soft);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--ink); font-size:32px;
+  border-bottom:1px solid var(--border);
+}
+.news-body{ padding:22px;}
+.news-date{ font-size:12px; font-weight:700; color:var(--text-faint); text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px;}
+.news-body h4{ font-family:'Fraunces', serif; font-size:17px; font-weight:700; margin-bottom:10px; line-height:1.4;}
+.news-body p{ font-size:13.8px; color:var(--text-soft); line-height:1.7;}
+
+/* ---- Skills ---- */
+.skill-cat{ margin-bottom:34px;}
+.skill-cat h4{ font-family:'Fraunces', serif; font-size:17px; font-weight:700; margin-bottom:18px; display:flex; align-items:center; gap:10px;}
+.skill-cat h4 i{ color:var(--ink);}
+.skill-bar-row{ margin-bottom:16px;}
+.skill-bar-row .top{ display:flex; justify-content:space-between; font-size:13.8px; font-weight:600; margin-bottom:8px;}
+.skill-bar-row .top span:last-child{ color:var(--text-faint); font-weight:700;}
+.skill-track{ height:8px; background:var(--bg); border-radius:100px; overflow:hidden; border:1px solid var(--border);}
+.skill-fill{ height:100%; border-radius:100px; background:var(--ink); width:0; transition:width 1.4s cubic-bezier(.2,.9,.2,1);}
+.soft-tags{ display:flex; flex-wrap:wrap; gap:12px;}
+.soft-tag{
+  display:flex; align-items:center; gap:10px;
+  padding:12px 18px; border-radius:14px;
+  background:var(--panel); border:1px solid var(--border);
+  font-size:13.8px; font-weight:600;
+  transition:transform .2s ease, border-color .2s ease, background .2s ease, color .2s ease;
+}
+.soft-tag:hover{ transform:translateY(-3px); border-color:var(--ink); background:var(--ink); color:var(--bg);}
+.soft-tag i{ color:var(--text-soft); transition:color .2s ease;}
+.soft-tag:hover i{ color:var(--bg);}
+
+/* ---- CV Resume ---- */
+.cv-wrap{ display:grid; grid-template-columns:1.3fr .7fr; gap:32px;}
+.cv-doc{
+  background:var(--panel); border:1px solid var(--border); border-radius:20px;
+  padding:44px; box-shadow:var(--shadow-sm);
+}
+.cv-doc-head{ display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid var(--border); padding-bottom:22px; margin-bottom:24px;}
+.cv-doc-head h2{ font-size:27px; font-weight:700;}
+.cv-doc-head p{ color:var(--text-soft); font-size:14px; margin-top:6px;}
+.cv-doc-head .role{ color:var(--text); font-weight:700; font-size:14px; margin-top:4px;}
+.cv-section{ margin-bottom:22px;}
+.cv-section h5{
+  font-size:12px; text-transform:uppercase; letter-spacing:.12em; font-weight:700; color:var(--text-faint); margin-bottom:12px;
+  padding-bottom:8px; border-bottom:1px solid var(--border);
+}
+.cv-section li{ font-size:14px; color:var(--text-soft); line-height:1.9; padding-left:16px; position:relative;}
+.cv-section li::before{ content:""; position:absolute; left:0; top:9px; width:5px; height:5px; border-radius:50%; background:var(--ink);}
+.cv-side .card{ margin-bottom:20px;}
+.cv-side h4{ font-family:'Fraunces', serif; font-size:15px; font-weight:700; margin-bottom:14px;}
+.download-btn{
+  width:100%; display:flex; align-items:center; justify-content:center; gap:10px;
+  padding:16px; border-radius:14px; background:var(--ink); color:var(--bg);
+  font-weight:700; font-size:14.5px;
+  box-shadow:var(--shadow-md);
+  transition:transform .25s ease;
+}
+.download-btn:hover{ transform:translateY(-3px);}
+.contact-line{ display:flex; align-items:center; gap:12px; font-size:13.8px; color:var(--text-soft); margin-bottom:12px;}
+.contact-line i{ color:var(--ink); width:18px;}
+
+/* ---- Toast ---- */
+.toast{
+  position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(30px);
+  background:var(--ink); color:var(--bg); padding:14px 26px; border-radius:100px;
+  font-size:14px; font-weight:600; display:flex; align-items:center; gap:10px;
+  opacity:0; pointer-events:none; transition:all .35s ease; z-index:999;
+  box-shadow:var(--shadow-lg);
+}
+.toast.show{ opacity:1; transform:translateX(-50%) translateY(0);}
+.toast i{ color:var(--bg);}
+
+/* ---- Reveal ---- */
+.reveal{ opacity:0; transform:translateY(28px); transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);}
+.reveal.in{ opacity:1; transform:translateY(0);}
+
+/* Progress bar */
+.scroll-progress{
+  position:fixed; top:0; left:0; height:3px; width:0%;
+  background:var(--ink); z-index:200; transition:width .1s linear;
+}
+
+/* RESPONSIVE */
+@media (max-width:1080px){
+  .layout{ grid-template-columns:1fr; }
+  .menu-toggle{ display:flex; }
+  .sidebar{
+    position:fixed; top:0; left:0; z-index:200;
+    width:min(300px, 82vw);
+    height:100vh;
+    background:var(--panel);
+    box-shadow:var(--shadow-lg);
+    transform:translateX(-105%);
+    transition:transform .35s cubic-bezier(.2,.8,.2,1);
+    overflow-y:auto;
+  }
+  .sidebar.open{ transform:translateX(0); }
+  .sidebar-close{ display:flex; }
+  .hero{ grid-template-columns:1fr; gap:32px;}
+  .hero-photo-wrap{ height:340px; order:-1;}
+  .about-wrap, .cv-wrap{ grid-template-columns:1fr;}
+  .grid-3{ grid-template-columns:repeat(2,1fr);}
+  .header-search{ max-width:280px;}
+}
+
+@media (max-width:860px){
+  .main{ padding-top:32px;}
+  .page{ padding-top:40px; padding-bottom:40px;}
+  .header-search{ display:none;}
+  .pill-text{ display:none;}
+  .header-pill{ padding:12px; }
+}
+
+@media (max-width:640px){
+  .site-header{ padding:0 16px; gap:12px; height:74px;}
+  :root{ --header-h:74px; }
+  .brand span{ display:inline;}
+  .avatar-mini{ width:40px; height:40px; font-size:12.5px;}
+  .icon-btn{ width:38px; height:38px;}
+  .header-right{ gap:10px;}
+
+  .main{ padding:28px 18px 60px;}
+  .page{ padding-top:32px; padding-bottom:32px;}
+
+  .hero{ gap:26px; margin-bottom:30px;}
+  .hero-photo-wrap{ height:260px;}
+  .photo-ring{ width:220px; height:220px;}
+  .photo-avatar{ font-size:56px;}
+  .badge-float{ width:44px; height:44px; font-size:16px;}
+  .blob{ width:280px; height:280px;}
+  .hero-text{ font-size:15px;}
+
+  .grid-2, .grid-3{ grid-template-columns:1fr;}
+  .card{ padding:22px;}
+
+  .about-photo span{ font-size:80px;}
+  .about-stats{ flex-wrap:wrap;}
+
+  .cv-doc{ padding:26px;}
+
+  .timeline{ padding-left:28px;}
+  .tl-dot{ left:-28px; width:16px; height:16px;}
+}
+
+@media (max-width:380px){
+  .brand{ font-size:16px;}
+  .photo-ring{ width:190px; height:190px;}
+  .hero-photo-wrap{ height:230px;}
+}
+</style>
 </head>
 <body>
 
-  <!-- ===== BACKGROUND LAYERS (grid + glow, fixed behind everything) ===== -->
-  <div class="fixed inset-0 bg-radial-glow pointer-events-none z-0"></div>
-  <div class="fixed inset-0 bg-grid-pattern pointer-events-none z-0"></div>
+<div class="scroll-progress" id="scrollProgress"></div>
+<header class="site-header">
+  <button class="menu-toggle" id="menuToggle" aria-label="Buka menu"><i class="fa-solid fa-bars"></i></button>
+  <div class="brand">Portofolio <span>nzofhrzi</span></div>
+  <div class="header-pill"><i class="fa-solid fa-house"></i> <span class="pill-text">Beranda Utama</span></div>
+  <div class="header-search">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="text" placeholder="Cari disini....">
+  </div>
+  <div class="header-right">
+    <button class="icon-btn" id="themeToggle" title="Ganti tema"><i class="fa-solid fa-moon"></i></button>
+    <div class="avatar-mini" id="avatarBtn" title="Lihat profil">EF</div>
+  </div>
+</header>
 
-  <!-- ===== NAVBAR ===== -->
-  <header class="fixed top-0 left-0 right-0 z-50 px-6 py-4 md:px-12 flex justify-between items-center glass border-b border-white/5">
-    <a href="#" class="text-xl font-bold tracking-tight bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">
-      <i class="fa-solid fa-star mr-2"></i>Enzo.
-    </a>
-    <nav class="hidden md:flex items-center gap-8 text-sm">
-      <a href="#about" class="nav-link">About</a>
-      <a href="#experience" class="nav-link">Experience</a>
-      <a href="#certificates" class="nav-link">Certificates</a>
-      <a href="#skills" class="nav-link">Skills</a>
-      <a href="#contact" class="nav-link">Contact</a>
-      <a href="#" download class="px-5 py-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 text-white text-xs transition-all btn-glow">
-        <i class="fa-solid fa-download mr-2"></i>Download CV
-      </a>
-    </nav>
-    <!-- Mobile toggle -->
-    <button id="menu-toggle" class="md:hidden text-white text-xl focus:outline-none">
-      <i class="fa-solid fa-bars"></i>
-    </button>
-  </header>
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
-  <!-- ===== HERO ===== -->
-  <section class="relative min-h-screen flex flex-col justify-center items-center text-center px-6 pt-28 pb-20 max-w-5xl mx-auto z-10">
-    <div class="fade-up visible">
-      <span class="inline-block px-4 py-1.5 mb-6 rounded-full glass-pill text-xs text-zinc-300">
-        <i class="fa-solid fa-circle-check mr-2"></i>Available for opportunities
-      </span>
-      <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-[1.1] tracking-tight">
-        <span class="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
-          Enzo Fahrezi
-        </span>
-      </h1>
-      <p class="mt-5 text-base sm:text-lg text-zinc-400 max-w-xl mx-auto cursor-blink">
-        Mahasiswa · Multimedia &amp; IT Enthusiast
-      </p>
-      <div class="mt-10 flex flex-wrap justify-center gap-4">
-        <a href="#experience" class="px-8 py-3.5 rounded-full bg-white text-black font-semibold hover:bg-zinc-200 transition-all btn-glow text-sm">
-          My Journey <i class="fa-solid fa-arrow-down ml-2"></i>
-        </a>
-        <a href="#contact" class="px-8 py-3.5 rounded-full glass-pill hover:bg-white/10 transition-all text-sm btn-glow">
-          Let's Connect
-        </a>
-      </div>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar-close" id="sidebarClose"><i class="fa-solid fa-xmark"></i></button>
+    <a class="nav-item active" href="#beranda" data-page="beranda"><i class="fa-solid fa-house"></i> Beranda Utama</a>
+    <a class="nav-item" href="#tentangku" data-page="tentangku"><i class="fa-solid fa-user"></i> Tentangku</a>
+    <a class="nav-item" href="#pengalaman-kerja" data-page="pengalaman-kerja"><i class="fa-solid fa-briefcase"></i> Pengalaman Kerja</a>
+    <a class="nav-item" href="#pengalaman-organisasi" data-page="pengalaman-organisasi"><i class="fa-solid fa-users"></i> Pengalaman Organisasi</a>
+    <a class="nav-item" href="#prestasi" data-page="prestasi"><i class="fa-solid fa-trophy"></i> Prestasi &amp; Sertifikasi</a>
+    <a class="nav-item" href="#berita-acara" data-page="berita-acara"><i class="fa-regular fa-calendar-days"></i> Berita Acara</a>
+    <a class="nav-item" href="#skills" data-page="skills"><i class="fa-regular fa-lightbulb"></i> Skills</a>
+    <a class="nav-item" href="#cv" data-page="cv"><i class="fa-regular fa-file-lines"></i> CV Resume</a>
+    <div class="sidebar-spacer"></div>
+    <div class="cta-card">
+      <h4>Tertarik bekerja sama?</h4>
+      <p>Saya terbuka untuk peluang dan kolaborasi menarik!</p>
+      <button class="cta-btn" id="hubungiBtn"><i class="fa-solid fa-paper-plane"></i> Hubungi Saya</button>
     </div>
-    <!-- Scroll hint -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block text-zinc-500 text-xs animate-bounce">
-      <i class="fa-solid fa-chevron-down"></i>
-    </div>
-  </section>
+  </aside>
 
-  <!-- ===== ABOUT ===== -->
-  <section id="about" class="px-6 py-24 md:py-32 max-w-6xl mx-auto z-10 relative">
-    <div class="grid md:grid-cols-5 gap-12 items-start">
-      <div class="md:col-span-2 fade-up">
-        <span class="text-xs uppercase tracking-[0.2em] text-zinc-500 font-semibold">About</span>
-        <h2 class="text-3xl md:text-4xl font-bold mt-2 leading-[1.2]">
-          Multimedia &amp; IT<br/>
-          <span class="bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">with creative vision</span>
-        </h2>
-      </div>
-      <div class="md:col-span-3 space-y-5 text-zinc-300 leading-relaxed fade-up delay-1 glass rounded-2xl p-6 md:p-8">
-        <p>
-          Saya <strong class="text-white">Enzo Fahrezi</strong>, mahasiswa aktif di Universitas Muhammadiyah Bangka Belitung dengan minat mendalam di bidang multimedia, teknologi informasi, dan pengembangan kreatif digital.
-        </p>
-        <p>
-          Berpengalaman dalam pengelolaan konten, videografi, fotografi, desain grafis, serta manajemen media sosial. Saya percaya bahwa kolaborasi antara kreativitas dan teknologi mampu menciptakan dampak positif yang berkelanjutan.
-        </p>
-        <p class="text-zinc-400 text-sm">
-          <i class="fa-solid fa-location-dot mr-2"></i> Bangka Belitung, Indonesia
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== EXPERIENCE ===== -->
-  <section id="experience" class="px-6 py-24 md:py-32 max-w-6xl mx-auto z-10 relative">
-    <div class="text-center mb-16 fade-up">
-      <span class="text-xs uppercase tracking-[0.2em] text-zinc-500 font-semibold">Experience</span>
-      <h2 class="text-3xl md:text-5xl font-bold mt-2">
-        Organizational &amp; <span class="bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">Professional</span>
-      </h2>
-      <p class="text-zinc-400 mt-3 max-w-xl mx-auto">Perjalanan saya dalam organisasi dan dunia kerja.</p>
-    </div>
-
-    <div class="grid md:grid-cols-2 gap-10">
-      <!-- Organizational Experience -->
-      <div class="space-y-8 fade-up delay-1 glass rounded-2xl p-6 md:p-8 project-card">
-        <h3 class="text-lg font-semibold text-white border-b border-white/10 pb-3">
-          <i class="fa-solid fa-users mr-3"></i>Organisasi
-        </h3>
-
-        <div class="exp-card">
-          <span class="text-xs uppercase tracking-wider text-zinc-500">2024 — 2025</span>
-          <h4 class="text-white font-semibold mt-1">OSIS · Ketua Divisi IT &amp; Sosial Media</h4>
-          <p class="text-sm text-zinc-400 mt-1">
-            Memimpin pengelolaan sistem informasi dan strategi konten media sosial, meningkatkan engagement dan efisiensi komunikasi internal.
-          </p>
+  <main class="main">
+    <!-- BERANDA SECTION -->
+    <section class="page" id="beranda">
+      <div class="hero">
+        <div>
+          <div class="hero-greet script-text" id="heroGreet">Halo semua,</div>
+          <h1 class="hero-title">Saya <span class="accent" id="heroName">Enzo</span> Fahrezi</h1>
+          <div class="underline-mark"></div>
+          <p class="hero-text" id="heroText"></p>
         </div>
-
-        <div class="exp-card">
-          <span class="text-xs uppercase tracking-wider text-zinc-500">2024 — 2025</span>
-          <h4 class="text-white font-semibold mt-1">Tim Kreatif · Videografer &amp; Editor</h4>
-          <p class="text-sm text-zinc-400 mt-1">
-            Bertanggung jawab dalam produksi konten video, fotografi, desain grafis, dan editing untuk berbagai kebutuhan kreatif organisasi.
-          </p>
-        </div>
-
-        <div class="exp-card">
-          <span class="text-xs uppercase tracking-wider text-zinc-500">2024 — 2025</span>
-          <h4 class="text-white font-semibold mt-1">PIK-R · Social Media Management</h4>
-          <p class="text-sm text-zinc-400 mt-1">
-            Mengelola strategi konten dan publikasi media sosial untuk mendukung program-program Pusat Informasi dan Konseling Remaja.
-          </p>
-        </div>
-
-        <div class="exp-card">
-          <span class="text-xs uppercase tracking-wider text-zinc-500">2024 — 2025</span>
-          <h4 class="text-white font-semibold mt-1">Pustaka · IT Support Management</h4>
-          <p class="text-sm text-zinc-400 mt-1">
-            Memberikan dukungan teknis dan manajemen sistem informasi di perpustakaan sekolah, memastikan operasional berjalan optimal.
-          </p>
-        </div>
-      </div>
-
-      <!-- Professional Experience -->
-      <div class="space-y-8 fade-up delay-2 glass rounded-2xl p-6 md:p-8 project-card">
-        <h3 class="text-lg font-semibold text-white border-b border-white/10 pb-3">
-          <i class="fa-solid fa-briefcase mr-3"></i>Pengalaman Kerja
-        </h3>
-
-        <div class="exp-card">
-          <span class="text-xs uppercase tracking-wider text-zinc-500">2025</span>
-          <h4 class="text-white font-semibold mt-1">BUMDES · Sekretaris</h4>
-          <p class="text-sm text-zinc-400 mt-1">
-            Mengelola administrasi, korespondensi, dan koordinasi internal untuk mendukung operasional Badan Usaha Milik Desa.
-          </p>
-        </div>
-
-        <div class="exp-card">
-          <span class="text-xs uppercase tracking-wider text-zinc-500">2024 — 2025</span>
-          <h4 class="text-white font-semibold mt-1">BUMDES · Pegawai</h4>
-          <p class="text-sm text-zinc-400 mt-1">
-            Menjalankan tugas operasional dan administrasi, mendukung berbagai program pengembangan ekonomi desa.
-          </p>
-        </div>
-
-        <!-- Soft Skills -->
-        <div class="pt-6 border-t border-white/5">
-          <h4 class="text-sm font-semibold text-white mb-3">
-            <i class="fa-solid fa-heart mr-2"></i>Soft Skills
-          </h4>
-          <div class="flex flex-wrap gap-3">
-            <span class="skill-badge">Public Speaking</span>
-            <span class="skill-badge">Confidence</span>
-            <span class="skill-badge">Communication</span>
-            <span class="skill-badge">Adaptability</span>
+        <div class="hero-photo-wrap">
+          <div class="dot-grid">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== CERTIFICATES ===== -->
-  <section id="certificates" class="px-6 py-24 md:py-32 max-w-6xl mx-auto z-10 relative">
-    <div class="text-center mb-16 fade-up">
-      <span class="text-xs uppercase tracking-[0.2em] text-zinc-500 font-semibold">Achievements</span>
-      <h2 class="text-3xl md:text-5xl font-bold mt-2">
-        Certificates &amp; <span class="bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">Training</span>
-      </h2>
-      <p class="text-zinc-400 mt-3 max-w-xl mx-auto">Kumpulan sertifikat pelatihan dan pencapaian yang pernah saya ikuti.</p>
-    </div>
-
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      <!-- Certificate Card 1 -->
-      <div class="glass project-card rounded-2xl overflow-hidden">
-        <div class="aspect-video flex items-center justify-center bg-white/5 border-b border-white/10">
-          <i class="fa-solid fa-certificate text-4xl text-zinc-600"></i>
-        </div>
-        <div class="p-6">
-          <span class="text-xs uppercase tracking-wider text-zinc-500">Placeholder · 2025</span>
-          <h4 class="text-white font-semibold mt-1">Nama Sertifikat</h4>
-          <p class="text-sm text-zinc-400 mt-1">Diterbitkan oleh Penyelenggara / Lembaga.</p>
-          <a href="#" class="inline-flex items-center gap-2 mt-4 text-sm text-zinc-300 hover:text-white transition-all">
-            Lihat Sertifikat <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-          </a>
-        </div>
-      </div>
-
-      <!-- Certificate Card 2 -->
-      <div class="glass project-card rounded-2xl overflow-hidden">
-        <div class="aspect-video flex items-center justify-center bg-white/5 border-b border-white/10">
-          <i class="fa-solid fa-certificate text-4xl text-zinc-600"></i>
-        </div>
-        <div class="p-6">
-          <span class="text-xs uppercase tracking-wider text-zinc-500">Placeholder · 2025</span>
-          <h4 class="text-white font-semibold mt-1">Nama Sertifikat</h4>
-          <p class="text-sm text-zinc-400 mt-1">Diterbitkan oleh Penyelenggara / Lembaga.</p>
-          <a href="#" class="inline-flex items-center gap-2 mt-4 text-sm text-zinc-300 hover:text-white transition-all">
-            Lihat Sertifikat <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-          </a>
-        </div>
-      </div>
-
-      <!-- Certificate Card 3 -->
-      <div class="glass project-card rounded-2xl overflow-hidden">
-        <div class="aspect-video flex items-center justify-center bg-white/5 border-b border-white/10">
-          <i class="fa-solid fa-certificate text-4xl text-zinc-600"></i>
-        </div>
-        <div class="p-6">
-          <span class="text-xs uppercase tracking-wider text-zinc-500">Placeholder · 2025</span>
-          <h4 class="text-white font-semibold mt-1">Nama Sertifikat</h4>
-          <p class="text-sm text-zinc-400 mt-1">Diterbitkan oleh Penyelenggara / Lembaga.</p>
-          <a href="#" class="inline-flex items-center gap-2 mt-4 text-sm text-zinc-300 hover:text-white transition-all">
-            Lihat Sertifikat <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== SKILLS ===== -->
-  <section id="skills" class="px-6 py-24 md:py-32 max-w-6xl mx-auto z-10 relative">
-    <div class="text-center mb-16 fade-up">
-      <span class="text-xs uppercase tracking-[0.2em] text-zinc-500 font-semibold">Expertise</span>
-      <h2 class="text-3xl md:text-5xl font-bold mt-2">
-        Technical &amp; <span class="bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">Creative Skills</span>
-      </h2>
-      <p class="text-zinc-400 mt-3 max-w-xl mx-auto">Kombinasi kemampuan teknis dan kreatif yang saya kuasai.</p>
-    </div>
-
-    <div class="grid md:grid-cols-2 gap-8">
-      <!-- Hard Skills -->
-      <div class="space-y-5 fade-up delay-1 glass rounded-2xl p-6 md:p-8">
-        <h3 class="text-lg font-semibold text-white border-b border-white/10 pb-3">
-          <i class="fa-solid fa-code mr-3"></i>Hard Skills
-        </h3>
-        <div class="flex flex-wrap gap-3">
-          <span class="skill-badge"><i class="fa-solid fa-camera mr-2"></i>Videography</span>
-          <span class="skill-badge"><i class="fa-solid fa-image mr-2"></i>Photography</span>
-          <span class="skill-badge"><i class="fa-solid fa-pen-ruler mr-2"></i>Graphic Design</span>
-          <span class="skill-badge"><i class="fa-solid fa-video mr-2"></i>Video Editing</span>
-          <span class="skill-badge"><i class="fa-solid fa-computer mr-2"></i>IT Support</span>
-          <span class="skill-badge"><i class="fa-solid fa-hashtag mr-2"></i>Social Media Management</span>
-          <span class="skill-badge"><i class="fa-solid fa-file-word mr-2"></i>MS Word</span>
-          <span class="skill-badge"><i class="fa-solid fa-file-excel mr-2"></i>MS Excel</span>
-          <span class="skill-badge"><i class="fa-solid fa-file-powerpoint mr-2"></i>MS PowerPoint</span>
-          <span class="skill-badge"><i class="fa-solid fa-palette mr-2"></i>Canva</span>
-          <span class="skill-badge"><i class="fa-solid fa-robot mr-2"></i>AI Tools</span>
-          <span class="skill-badge"><i class="fa-solid fa-code mr-2"></i>Web Development</span>
-          <span class="skill-badge"><i class="fa-solid fa-cubes mr-2"></i>Adobe Suite</span>
-        </div>
-      </div>
-
-      <!-- Additional Expertise -->
-      <div class="space-y-5 fade-up delay-2 glass rounded-2xl p-6 md:p-8">
-        <h3 class="text-lg font-semibold text-white border-b border-white/10 pb-3">
-          <i class="fa-solid fa-star mr-3"></i>Core Competencies
-        </h3>
-        <div class="space-y-4 text-zinc-300">
-          <div class="flex items-start gap-3">
-            <i class="fa-solid fa-check-circle text-zinc-400 mt-1"></i>
-            <div>
-              <span class="text-white font-medium">Multimedia Production</span>
-              <p class="text-sm text-zinc-400">Menguasai produksi konten dari pra-produksi hingga pasca-produksi.</p>
+          <div class="blob"></div>
+          <div class="photo-ring">
+            <div class="inner">
+              <div class="photo-avatar"><i class="fa-solid fa-user"></i><span>EF</span></div>
             </div>
           </div>
-          <div class="flex items-start gap-3">
-            <i class="fa-solid fa-check-circle text-zinc-400 mt-1"></i>
-            <div>
-              <span class="text-white font-medium">Digital Marketing</span>
-              <p class="text-sm text-zinc-400">Strategi konten, manajemen media sosial, dan analisis engagement.</p>
-            </div>
+          <div class="badge-float"><i class="fa-solid fa-user"></i></div>
+          <div class="dot-float dot1"></div>
+          <div class="dot-float dot2"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TENTANGKU SECTION -->
+    <section class="page" id="tentangku">
+      <div class="section-eyebrow"><i class="fa-solid fa-user"></i> Profil</div>
+      <h2 class="section-title">Tentangku</h2>
+      <p class="section-desc">Kenalan lebih dekat dengan saya, latar belakang, dan hal-hal yang saya sukai.</p>
+
+      <div class="about-wrap">
+        <div class="reveal">
+          <div class="about-photo"><span>EF</span></div>
+          <div class="about-stats" id="statsContainer"></div>
+        </div>
+        <div class="reveal">
+          <div class="bio-block">
+            <p id="bioDetail1"></p>
+            <p id="bioDetail2"></p>
+            <p id="bioDetail3"></p>
           </div>
-          <div class="flex items-start gap-3">
-            <i class="fa-solid fa-check-circle text-zinc-400 mt-1"></i>
+
+          <div class="detail-table" id="detailTable"></div>
+
+          <div class="tag-row" id="interestsTags"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PENGALAMAN KERJA SECTION -->
+    <section class="page" id="pengalaman-kerja">
+      <div class="section-eyebrow"><i class="fa-solid fa-briefcase"></i> Riwayat</div>
+      <h2 class="section-title">Pengalaman Kerja</h2>
+      <p class="section-desc">Perjalanan profesional dan praktik kerja yang pernah saya jalani.</p>
+      <div class="timeline" id="workTimeline"></div>
+    </section>
+
+    <!-- PENGALAMAN ORGANISASI SECTION -->
+    <section class="page" id="pengalaman-organisasi">
+      <div class="section-eyebrow"><i class="fa-solid fa-users"></i> Kepemimpinan</div>
+      <h2 class="section-title">Pengalaman Organisasi</h2>
+      <p class="section-desc">Kontribusi saya dalam berbagai organisasi dan kepanitiaan.</p>
+      <div class="timeline" id="orgTimeline"></div>
+    </section>
+
+    <!-- PRESTASI SECTION -->
+    <section class="page" id="prestasi">
+      <div class="section-eyebrow"><i class="fa-solid fa-trophy"></i> Pencapaian</div>
+      <h2 class="section-title">Prestasi &amp; Sertifikasi</h2>
+      <p class="section-desc">Beberapa penghargaan dan sertifikasi yang pernah saya raih.</p>
+      <div class="grid-3" id="achievementsGrid"></div>
+    </section>
+
+    <!-- BERITA ACARA SECTION -->
+    <section class="page" id="berita-acara">
+      <div class="section-eyebrow"><i class="fa-regular fa-calendar-days"></i> Dokumentasi</div>
+      <h2 class="section-title">Berita Acara</h2>
+      <p class="section-desc">Catatan kegiatan, seminar, dan acara yang pernah saya ikuti.</p>
+      <div class="grid-3" id="eventsGrid"></div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section class="page" id="skills">
+      <div class="section-eyebrow"><i class="fa-regular fa-lightbulb"></i> Kemampuan</div>
+      <h2 class="section-title">Skills</h2>
+      <p class="section-desc">Kombinasi kemampuan teknis dan non-teknis yang terus saya asah.</p>
+
+      <div class="grid-2">
+        <div class="card reveal">
+          <div class="skill-cat" id="technicalSkills"></div>
+        </div>
+        <div class="card reveal">
+          <div class="skill-cat" id="softSkills"></div>
+        </div>
+      </div>
+
+      <div class="card reveal" style="margin-top:24px;">
+        <div class="skill-cat" id="toolsSkills"></div>
+      </div>
+    </section>
+
+    <!-- CV SECTION -->
+    <section class="page" id="cv">
+      <div class="section-eyebrow"><i class="fa-regular fa-file-lines"></i> Dokumen</div>
+      <h2 class="section-title">CV Resume</h2>
+      <p class="section-desc">Ringkasan diri saya dalam format curriculum vitae.</p>
+
+      <div class="cv-wrap">
+        <div class="cv-doc reveal">
+          <div class="cv-doc-head">
             <div>
-              <span class="text-white font-medium">Technical Support</span>
-              <p class="text-sm text-zinc-400">Pemecahan masalah teknis dan optimasi sistem informasi.</p>
+              <h2 id="cvName">Enzo Fahrezi</h2>
+              <p class="role" id="cvTitle">Mahasiswa Informatika · Web Enthusiast</p>
+              <p id="cvLocation">Bangka Belitung, Indonesia</p>
             </div>
+            <div class="photo-avatar" style="width:74px;height:74px;font-size:26px;"><span>EF</span></div>
           </div>
-          <div class="flex items-start gap-3">
-            <i class="fa-solid fa-check-circle text-zinc-400 mt-1"></i>
-            <div>
-              <span class="text-white font-medium">AI Integration</span>
-              <p class="text-sm text-zinc-400">Memanfaatkan kecerdasan buatan sebagai pendukung dalam proses kreatif dan editing.</p>
-            </div>
+
+          <div class="cv-section">
+            <h5>Ringkasan</h5>
+            <p id="cvSummary" style="color:var(--text-soft); font-size:14.5px; line-height:1.8;"></p>
+          </div>
+
+          <div class="cv-section">
+            <h5>Pendidikan</h5>
+            <ul id="cvEducation"></ul>
+          </div>
+
+          <div class="cv-section">
+            <h5>Pengalaman</h5>
+            <ul id="cvExperience"></ul>
+          </div>
+
+          <div class="cv-section">
+            <h5>Organisasi</h5>
+            <ul id="cvOrganization"></ul>
+          </div>
+
+          <div class="cv-section" style="margin-bottom:0;">
+            <h5>Skills</h5>
+            <ul id="cvSkills"></ul>
+          </div>
+        </div>
+
+        <div class="cv-side reveal">
+          <div class="card">
+            <h4><i class="fa-solid fa-download"></i>&nbsp; Unduh CV</h4>
+            <p style="font-size:13px; color:var(--text-soft); margin-bottom:16px; line-height:1.6;">Dapatkan versi lengkap CV saya dalam format PDF untuk keperluan lamaran atau kolaborasi.</p>
+            <button class="download-btn" id="downloadCvBtn"><i class="fa-solid fa-file-arrow-down"></i> Download CV (PDF)</button>
+          </div>
+          <div class="card">
+            <h4>Kontak</h4>
+            <div class="contact-line"><i class="fa-solid fa-envelope"></i> <span id="contactEmail"></span></div>
+            <div class="contact-line"><i class="fa-solid fa-phone"></i> <span id="contactPhone"></span></div>
+            <div class="contact-line"><i class="fa-solid fa-location-dot"></i> <span id="contactLocation"></span></div>
+            <div class="contact-line"><i class="fa-brands fa-linkedin"></i> <span id="contactLinkedin"></span></div>
+            <div class="contact-line"><i class="fa-brands fa-github"></i> <span id="contactGithub"></span></div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ===== CONTACT ===== -->
-  <section id="contact" class="px-6 py-24 md:py-32 max-w-4xl mx-auto text-center z-10 relative">
-    <div class="fade-up">
-      <span class="text-xs uppercase tracking-[0.2em] text-zinc-500 font-semibold">Contact</span>
-      <h2 class="text-3xl md:text-5xl font-bold mt-2">
-        Let's <span class="bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">Collaborate</span>
-      </h2>
-      <p class="text-zinc-400 mt-3 max-w-md mx-auto">
-        Terbuka untuk peluang kerja, kolaborasi kreatif, atau sekadar berbagi ide.
-      </p>
-    </div>
+  </main>
+</div>
 
-    <form class="mt-12 max-w-lg mx-auto text-left space-y-5 fade-up delay-1 glass rounded-2xl p-6 md:p-8">
-      <div class="relative">
-        <i class="fa-solid fa-user absolute left-4 top-3.5 text-zinc-500"></i>
-        <input type="text" placeholder="Nama lengkap" class="w-full pl-11 pr-5 py-3.5 rounded-xl bg-white/5 border border-white/10 focus:border-white/30 outline-none text-white placeholder-zinc-500 transition-all focus:bg-white/10" />
+<div class="toast" id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toastMsg">Berhasil!</span></div>
+
+<script>
+// ============ LOAD DATA FROM GITHUB ============
+let portfolioData = null;
+
+async function loadPortfolioData() {
+  try {
+    // Update URL to point to GitHub raw content
+    const url = `https://raw.githubusercontent.com/nzofhrzi/landing-page-zo/main/data.json`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('Failed to load data');
+    portfolioData = await response.json();
+    renderPortfolio();
+  } catch (error) {
+    console.error('Error loading data:', error);
+    // Fallback to local data.json if GitHub fetch fails
+    try {
+      const response = await fetch('/data.json');
+      portfolioData = await response.json();
+      renderPortfolio();
+    } catch (err) {
+      console.error('Error loading fallback data:', err);
+    }
+  }
+}
+
+// ============ RENDER DATA ============
+function renderPortfolio() {
+  if (!portfolioData) return;
+
+  const p = portfolioData.profile;
+  const e = portfolioData.experience;
+  const a = portfolioData.achievements;
+  const ev = portfolioData.events;
+  const s = portfolioData.skills;
+
+  // Hero section
+  document.getElementById('heroGreet').textContent = p.greet;
+  document.getElementById('heroName').textContent = p.name.split(' ')[0];
+  document.getElementById('heroText').textContent = p.bio;
+
+  // Stats
+  document.getElementById('statsContainer').innerHTML = p.stats
+    .map(st => `<div class="mini-stat"><b>${st.value}</b><span>${st.label}</span></div>`)
+    .join('');
+
+  // Bio detail
+  const bioDetail = p.bioDetail.split('. ').slice(0, 3);
+  document.getElementById('bioDetail1').textContent = (bioDetail[0] || '') + '.';
+  document.getElementById('bioDetail2').textContent = (bioDetail[1] || '') + '.';
+  document.getElementById('bioDetail3').textContent = (bioDetail[2] || '') + '.';
+
+  // Detail table
+  document.getElementById('detailTable').innerHTML = `
+    <div class="detail-row"><i class="fa-solid fa-id-card"></i><div><b>Nama Lengkap</b><span>${p.name}</span></div></div>
+    <div class="detail-row"><i class="fa-solid fa-cake-candles"></i><div><b>Tempat, Tgl Lahir</b><span>${p.birthplace}, ${p.birthyear}</span></div></div>
+    <div class="detail-row"><i class="fa-solid fa-location-dot"></i><div><b>Domisili</b><span>${p.location}</span></div></div>
+    <div class="detail-row"><i class="fa-solid fa-envelope"></i><div><b>Email</b><span>${p.email}</span></div></div>
+    <div class="detail-row"><i class="fa-solid fa-phone"></i><div><b>No. Telepon</b><span>${p.phone}</span></div></div>
+    <div class="detail-row"><i class="fa-solid fa-graduation-cap"></i><div><b>Universitas</b><span>${p.university}</span></div></div>
+  `;
+
+  // Interests tags
+  document.getElementById('interestsTags').innerHTML = p.interests
+    .map(int => `<span class="tag"><i class="fa-solid fa-${int.icon}"></i> ${int.name}</span>`)
+    .join('');
+
+  // Experience timelines
+  document.getElementById('workTimeline').innerHTML = e.work
+    .map((w, i) => `
+      <div class="tl-item ${i % 2 === 1 ? 'alt' : ''} reveal">
+        <div class="tl-dot"></div>
+        <span class="tl-period">${w.period}</span>
+        <h4>${w.title}</h4>
+        <div class="org">${w.org}</div>
+        <p>${w.desc}</p>
       </div>
-      <div class="relative">
-        <i class="fa-solid fa-envelope absolute left-4 top-3.5 text-zinc-500"></i>
-        <input type="email" placeholder="Email aktif" class="w-full pl-11 pr-5 py-3.5 rounded-xl bg-white/5 border border-white/10 focus:border-white/30 outline-none text-white placeholder-zinc-500 transition-all focus:bg-white/10" />
-      </div>
-      <div class="relative">
-        <i class="fa-solid fa-message absolute left-4 top-3.5 text-zinc-500"></i>
-        <textarea rows="4" placeholder="Tulis pesan Anda..." class="w-full pl-11 pr-5 py-3.5 rounded-xl bg-white/5 border border-white/10 focus:border-white/30 outline-none text-white placeholder-zinc-500 transition-all focus:bg-white/10 resize-none"></textarea>
-      </div>
-      <button type="submit" class="w-full py-3.5 rounded-xl bg-white text-black font-semibold hover:bg-zinc-200 transition-all btn-glow">
-        Kirim Pesan <i class="fa-solid fa-paper-plane ml-2"></i>
-      </button>
-    </form>
+    `)
+    .join('');
 
-    <div class="flex justify-center gap-8 mt-14 text-zinc-400 fade-up delay-2">
-      <a href="#" class="hover:text-white transition-all text-2xl hover:scale-110"><i class="fa-brands fa-github"></i></a>
-      <a href="#" class="hover:text-white transition-all text-2xl hover:scale-110"><i class="fa-brands fa-linkedin-in"></i></a>
-      <a href="#" class="hover:text-white transition-all text-2xl hover:scale-110"><i class="fa-brands fa-instagram"></i></a>
-      <a href="#" class="hover:text-white transition-all text-2xl hover:scale-110"><i class="fa-brands fa-youtube"></i></a>
+  document.getElementById('orgTimeline').innerHTML = e.organization
+    .map((o, i) => `
+      <div class="tl-item ${i % 2 === 1 ? 'alt' : ''} reveal">
+        <div class="tl-dot"></div>
+        <span class="tl-period">${o.period}</span>
+        <h4>${o.title}</h4>
+        <div class="org">${o.org}</div>
+        <p>${o.desc}</p>
+      </div>
+    `)
+    .join('');
+
+  // Achievements grid
+  document.getElementById('achievementsGrid').innerHTML = a
+    .map(ach => `
+      <div class="card achieve-card reveal">
+        <div class="achieve-icon"><i class="fa-solid fa-${ach.icon}"></i></div>
+        <div>
+          <h4>${ach.title}</h4>
+          <div class="meta">${ach.meta}</div>
+          <p>${ach.desc}</p>
+        </div>
+      </div>
+    `)
+    .join('');
+
+  // Events grid
+  document.getElementById('eventsGrid').innerHTML = ev
+    .map(event => `
+      <div class="card news-card reveal">
+        <div class="news-thumb"><i class="fa-solid fa-${event.icon}"></i></div>
+        <div class="news-body">
+          <div class="news-date">${event.date}</div>
+          <h4>${event.title}</h4>
+          <p>${event.desc}</p>
+        </div>
+      </div>
+    `)
+    .join('');
+
+  // Skills
+  document.getElementById('technicalSkills').innerHTML = `
+    <h4><i class="fa-solid fa-code"></i> Technical Skills</h4>
+    ${s.technical.map(sk => `
+      <div class="skill-bar-row">
+        <div class="top"><span>${sk.name}</span><span>${sk.percent}%</span></div>
+        <div class="skill-track"><div class="skill-fill" style="width: ${sk.percent}%;"></div></div>
+      </div>
+    `).join('')}
+  `;
+
+  document.getElementById('softSkills').innerHTML = `
+    <h4><i class="fa-solid fa-people-arrows"></i> Soft Skills</h4>
+    <div class="soft-tags">
+      ${s.soft.map(sk => `<div class="soft-tag"><i class="fa-solid fa-${softIconMap(sk)}"></i> ${sk}</div>`).join('')}
     </div>
-  </section>
+  `;
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="border-t border-white/5 px-6 py-8 text-center text-xs text-zinc-600 z-10 relative">
-    <p>&copy; 2026 Enzo Fahrezi. Built with <i class="fa-solid fa-heart text-zinc-500"></i> &amp; Tailwind CSS</p>
-  </footer>
+  document.getElementById('toolsSkills').innerHTML = `
+    <h4><i class="fa-solid fa-toolbox"></i> Tools & Platform</h4>
+    <div class="soft-tags">
+      ${s.tools.map(tk => `<div class="soft-tag"><i class="fa-brands fa-${toolIconMap(tk)}"></i> ${tk}</div>`).join('')}
+    </div>
+  `;
 
-  <!-- ===== JAVASCRIPT ===== -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
+  // CV section
+  document.getElementById('cvName').textContent = p.name;
+  document.getElementById('cvTitle').textContent = p.title;
+  document.getElementById('cvLocation').textContent = p.location;
+  document.getElementById('cvSummary').textContent = `Mahasiswa aktif ${p.university.split(' ').slice(-1)[0]} dengan minat besar pada pengembangan web dan teknologi AI. Terbiasa bekerja mandiri maupun tim, cepat beradaptasi dengan tools baru, dan berorientasi pada hasil.`;
+  
+  document.getElementById('cvEducation').innerHTML = `
+    <li>${p.university} — Informatika (2025–Sekarang)</li>
+    <li>SMAN 1 Namang — Lulusan 2024</li>
+  `;
 
-      // ---------- 1. SCROLL FADE-UP / FADE-OUT (Intersection Observer, dua arah) ----------
-      const fadeElements = document.querySelectorAll('.fade-up');
+  document.getElementById('cvExperience').innerHTML = e.work
+    .map(w => `<li>${w.title} (${w.period})</li>`)
+    .join('');
 
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          } else {
-            entry.target.classList.remove('visible');
-          }
-        });
-      }, {
-        threshold: 0.15,
-        rootMargin: '0px 0px -10% 0px'
-      });
+  document.getElementById('cvOrganization').innerHTML = e.organization
+    .map(o => `<li>${o.title} (${o.period})</li>`)
+    .join('');
 
-      fadeElements.forEach(el => observer.observe(el));
+  document.getElementById('cvSkills').innerHTML = `
+    <li>${s.technical.slice(0, 3).map(t => t.name).join(', ')}</li>
+    <li>${s.tools.slice(0, 4).join(', ')}</li>
+    <li>${s.soft.slice(0, 3).join(', ')}</li>
+  `;
 
-      // ---------- 2. MOBILE MENU TOGGLE ----------
-      const toggleBtn = document.getElementById('menu-toggle');
-      const navMenu = document.querySelector('nav.hidden.md\\:flex');
-      if (toggleBtn && navMenu) {
-        toggleBtn.addEventListener('click', function() {
-          const isHidden = navMenu.classList.contains('hidden');
-          navMenu.classList.toggle('hidden');
-          navMenu.classList.toggle('flex');
-          navMenu.classList.toggle('flex-col');
-          navMenu.classList.toggle('absolute');
-          navMenu.classList.toggle('top-full');
-          navMenu.classList.toggle('left-0');
-          navMenu.classList.toggle('right-0');
-          navMenu.classList.toggle('bg-black/80');
-          navMenu.classList.toggle('backdrop-blur-xl');
-          navMenu.classList.toggle('p-6');
-          navMenu.classList.toggle('gap-4');
-          navMenu.classList.toggle('border-b');
-          navMenu.classList.toggle('border-white/5');
-          // change icon
-          const icon = toggleBtn.querySelector('i');
-          if (icon) {
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-xmark');
-          }
-        });
+  // Contact info
+  document.getElementById('contactEmail').textContent = p.email;
+  document.getElementById('contactPhone').textContent = p.phone;
+  document.getElementById('contactLocation').textContent = p.location;
+  document.getElementById('contactLinkedin').textContent = portfolioData.social.linkedin;
+  document.getElementById('contactGithub').textContent = portfolioData.social.github;
+
+  observeElements();
+}
+
+function softIconMap(name) {
+  const map = {
+    'Komunikasi': 'comments', 'Kerja Tim': 'people-group', 'Manajemen Waktu': 'clock',
+    'Problem Solving': 'puzzle-piece', 'Kreativitas': 'lightbulb', 'Kepemimpinan': 'user-tie',
+    'Adaptasi Cepat': 'arrows-rotate', 'Detail Oriented': 'magnifying-glass'
+  };
+  return map[name] || 'star';
+}
+
+function toolIconMap(name) {
+  const map = {
+    'HTML5': 'html5', 'CSS3': 'css3-alt', 'JavaScript': 'js', 'Python': 'python',
+    'Figma': 'figma', 'Google Workspace': 'google', 'GitHub': 'github', 'AI Tools': 'robot'
+  };
+  return map[name] || 'star';
+}
+
+// ============ NAVIGATION & SIDEBAR ============
+const sidebar = document.getElementById('sidebar');
+const menuToggle = document.getElementById('menuToggle');
+const sidebarClose = document.getElementById('sidebarClose');
+const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+const navItems = document.querySelectorAll('.nav-item');
+
+function openSidebar() {
+  sidebar.classList.add('open');
+  sidebarBackdrop.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSidebar() {
+  sidebar.classList.remove('open');
+  sidebarBackdrop.classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+menuToggle.addEventListener('click', openSidebar);
+sidebarClose.addEventListener('click', closeSidebar);
+sidebarBackdrop.addEventListener('click', closeSidebar);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeSidebar();
+});
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 1080) closeSidebar();
+});
+
+navItems.forEach(item => {
+  item.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeSidebar();
+  });
+});
+
+document.querySelector('.header-pill').addEventListener('click', () => {
+  document.getElementById('beranda').scrollIntoView({ behavior: 'smooth' });
+});
+
+document.getElementById('avatarBtn').addEventListener('click', () => {
+  document.getElementById('tentangku').scrollIntoView({ behavior: 'smooth' });
+});
+
+document.getElementById('hubungiBtn').addEventListener('click', () => {
+  document.getElementById('cv').scrollIntoView({ behavior: 'smooth' });
+});
+
+// ============ THEME TOGGLE ============
+const themeToggle = document.getElementById('themeToggle');
+themeToggle.addEventListener('click', () => {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  themeToggle.innerHTML = isDark ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+});
+
+// ============ OBSERVER & ANIMATIONS ============
+function observeElements() {
+  const pageObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      entry.target.classList.toggle('in-view', entry.isIntersecting);
+      if (entry.isIntersecting && entry.target.id === 'skills') {
+        animateSkillBars();
       }
-
-      // ---------- 3. NAVBAR ACTIVE LINK (scroll spy) ----------
-      const sections = document.querySelectorAll('section[id]');
-      const navLinks = document.querySelectorAll('nav a[href^="#"]');
-
-      function updateActiveLink() {
-        let current = '';
-        sections.forEach(section => {
-          const top = section.offsetTop - 180;
-          if (window.scrollY >= top) {
-            current = section.getAttribute('id');
-          }
-        });
-        navLinks.forEach(link => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === '#' + current) {
-            link.classList.add('active');
-          }
-        });
-      }
-
-      window.addEventListener('scroll', updateActiveLink);
-      updateActiveLink();
-
     });
-  </script>
+  }, { threshold: 0.18 });
 
+  document.querySelectorAll('.page').forEach(p => pageObserver.observe(p));
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      entry.target.classList.toggle('in', entry.isIntersecting);
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+}
+
+function animateSkillBars() {
+  document.querySelectorAll('.skill-fill').forEach(bar => {
+    if (bar.style.width === '') bar.style.width = bar.parentElement.getAttribute('data-w') + '%';
+  });
+}
+
+// ============ PROGRESS BAR ============
+const progressBar = document.getElementById('scrollProgress');
+function updateProgress() {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  progressBar.style.width = pct + '%';
+}
+window.addEventListener('scroll', updateProgress, { passive: true });
+
+// ============ INIT ============
+window.addEventListener('load', loadPortfolioData);
+</script>
 </body>
 </html>
