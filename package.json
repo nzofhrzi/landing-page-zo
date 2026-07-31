@@ -1,0 +1,19 @@
+{
+  "name": "landing-page-zo",
+  "version": "1.0.0",
+  "description": "Interactive landing page with GitHub integration",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python -m http.server 3000",
+    "build": "echo 'No build required - static site'",
+    "start": "npm run dev"
+  },
+  "keywords": [
+    "landing-page",
+    "portfolio",
+    "github",
+    "vercel"
+  ],
+  "author": "Feronika",
+  "license": "MIT"
+}
