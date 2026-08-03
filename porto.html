@@ -84,18 +84,6 @@ ul{list-style:none;}
   font-style:italic;
   font-weight:600;
 }
-.header-pill{
-  display:flex; align-items:center; gap:10px;
-  padding:12px 22px;
-  border-radius:100px;
-  background:var(--ink);
-  border:1px solid var(--ink);
-  font-weight:600; font-size:14.5px;
-  color:#fff;
-  white-space:nowrap;
-  transition:transform .2s ease, box-shadow .2s ease;
-}
-.header-pill:hover{ transform:translateY(-2px); box-shadow:var(--shadow-md);}
 .header-search{
   flex:1; max-width:520px;
   display:flex; align-items:center; gap:12px;
@@ -124,16 +112,6 @@ ul{list-style:none;}
   transition:transform .25s ease, color .25s ease, border-color .25s ease;
 }
 .icon-btn:hover{ transform:translateY(-2px) rotate(-8deg); color:var(--ink); border-color:var(--ink);}
-.avatar-mini{
-  width:46px; height:46px; border-radius:50%;
-  background:var(--ink);
-  display:flex; align-items:center; justify-content:center;
-  color:#fff; font-weight:700; font-size:14px; letter-spacing:.02em;
-  border:2px solid var(--panel); outline:2px solid var(--ink);
-  cursor:pointer;
-  transition:transform .25s ease;
-}
-.avatar-mini:hover{ transform:scale(1.06);}
 
 /* ============ LAYOUT ============ */
 .layout{
@@ -254,7 +232,7 @@ ul{list-style:none;}
 .section-title{ font-size:clamp(26px, 4vw, 34px); font-weight:700; letter-spacing:-.01em; margin-bottom:14px;}
 .section-desc{ color:var(--text-soft); font-size:15.5px; max-width:640px; line-height:1.7; margin-bottom:36px;}
 
-/* ---- HERO ---- */
+/* ---- HERO (Beranda) ---- */
 .hero{
   display:grid; grid-template-columns:1.15fr .85fr;
   gap:40px; align-items:center;
@@ -325,7 +303,34 @@ ul{list-style:none;}
 }
 .dot-grid span{ width:5px; height:5px; border-radius:50%; background:var(--ink);}
 
-/* ---- CARDS ---- */
+/* ---- info strip cards ---- */
+.info-panel{
+  background:var(--panel); border:1px solid var(--border); border-radius:22px;
+  padding:34px; box-shadow:var(--shadow-sm);
+}
+.info-panel-title{
+  display:flex; align-items:center; gap:10px;
+  font-size:18px; font-weight:700; margin-bottom:26px;
+}
+.info-panel-title .bar{ width:5px; height:20px; border-radius:4px; background:var(--ink);}
+.info-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+.info-card{
+  display:flex; gap:14px; align-items:flex-start;
+  padding:6px;
+  transition:transform .25s ease;
+}
+.info-card:hover{ transform:translateY(-4px);}
+.info-card .ic{
+  width:52px; height:52px; border-radius:14px;
+  display:flex; align-items:center; justify-content:center; font-size:20px;
+  flex-shrink:0;
+  background:var(--grad-soft); color:var(--ink);
+  border:1px solid var(--border);
+}
+.info-card h5{ font-size:14.5px; font-weight:700; margin-bottom:4px;}
+.info-card p{ font-size:13px; color:var(--text-soft); line-height:1.5;}
+
+/* ---- generic cards / grids reused across sections ---- */
 .card{
   background:var(--panel); border:1px solid var(--border); border-radius:20px;
   padding:28px; box-shadow:var(--shadow-sm);
@@ -370,7 +375,7 @@ ul{list-style:none;}
 }
 .tag:hover{ transform:translateY(-3px); background:var(--ink); color:var(--bg); border-color:var(--ink);}
 
-/* ---- Timeline ---- */
+/* ---- Timeline (Pengalaman) ---- */
 .timeline{ position:relative; padding-left:36px;}
 .timeline::before{
   content:""; position:absolute; left:9px; top:6px; bottom:6px; width:1px;
@@ -392,7 +397,7 @@ ul{list-style:none;}
 .tl-item .org{ font-size:13.5px; color:var(--text-faint); font-weight:600; margin-bottom:10px;}
 .tl-item p{ color:var(--text-soft); font-size:14.5px; line-height:1.75;}
 
-/* ---- Achieve cards ---- */
+/* ---- Prestasi grid ---- */
 .achieve-card{ display:flex; flex-direction:column; gap:16px;}
 .achieve-icon{
   width:54px; height:54px; border-radius:16px;
@@ -419,7 +424,7 @@ ul{list-style:none;}
 /* ---- Skills ---- */
 .skill-cat{ margin-bottom:34px;}
 .skill-cat h4{ font-family:'Fraunces', serif; font-size:17px; font-weight:700; margin-bottom:18px; display:flex; align-items:center; gap:10px;}
-.skill-cat h4 i{ color:var(--ink);}
+.skill-cat h4 i{ color:var(--ink); font-family:'Font Awesome 6 Free';}
 .skill-bar-row{ margin-bottom:16px;}
 .skill-bar-row .top{ display:flex; justify-content:space-between; font-size:13.8px; font-weight:600; margin-bottom:8px;}
 .skill-bar-row .top span:last-child{ color:var(--text-faint); font-weight:700;}
@@ -478,17 +483,19 @@ ul{list-style:none;}
 .toast.show{ opacity:1; transform:translateX(-50%) translateY(0);}
 .toast i{ color:var(--bg);}
 
-/* ---- Reveal ---- */
+/* ---- reveal on scroll ---- */
 .reveal{ opacity:0; transform:translateY(28px); transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);}
 .reveal.in{ opacity:1; transform:translateY(0);}
 
-/* Progress bar */
+/* progress bar penanda posisi scroll */
 .scroll-progress{
   position:fixed; top:0; left:0; height:3px; width:0%;
   background:var(--ink); z-index:200; transition:width .1s linear;
 }
 
-/* RESPONSIVE */
+/* ============ RESPONSIVE ============ */
+
+/* Tablet & below: sidebar becomes an off-canvas drawer */
 @media (max-width:1080px){
   .layout{ grid-template-columns:1fr; }
   .menu-toggle{ display:flex; }
@@ -506,24 +513,25 @@ ul{list-style:none;}
   .sidebar-close{ display:flex; }
   .hero{ grid-template-columns:1fr; gap:32px;}
   .hero-photo-wrap{ height:340px; order:-1;}
+  .info-grid{ grid-template-columns:repeat(2,1fr);}
   .about-wrap, .cv-wrap{ grid-template-columns:1fr;}
   .grid-3{ grid-template-columns:repeat(2,1fr);}
   .header-search{ max-width:280px;}
 }
 
+/* Tablet portrait */
 @media (max-width:860px){
   .main{ padding-top:32px;}
   .page{ padding-top:40px; padding-bottom:40px;}
   .header-search{ display:none;}
-  .pill-text{ display:none;}
-  .header-pill{ padding:12px; }
+  .detail-table{ grid-template-columns:1fr;}
 }
 
+/* Mobile phones (Android/iOS) */
 @media (max-width:640px){
   .site-header{ padding:0 16px; gap:12px; height:74px;}
   :root{ --header-h:74px; }
   .brand span{ display:inline;}
-  .avatar-mini{ width:40px; height:40px; font-size:12.5px;}
   .icon-btn{ width:38px; height:38px;}
   .header-right{ gap:10px;}
 
@@ -538,6 +546,9 @@ ul{list-style:none;}
   .blob{ width:280px; height:280px;}
   .hero-text{ font-size:15px;}
 
+  .info-panel{ padding:22px;}
+  .info-grid{ grid-template-columns:1fr 1fr; gap:22px;}
+
   .grid-2, .grid-3{ grid-template-columns:1fr;}
   .card{ padding:22px;}
 
@@ -545,15 +556,24 @@ ul{list-style:none;}
   .about-stats{ flex-wrap:wrap;}
 
   .cv-doc{ padding:26px;}
+  .cv-doc-head{ flex-direction:column; gap:16px;}
+  .cv-doc-head h2{ font-size:23px;}
 
   .timeline{ padding-left:28px;}
   .tl-dot{ left:-28px; width:16px; height:16px;}
+
+  .section-desc{ margin-bottom:26px;}
 }
 
+/* Small phones */
 @media (max-width:380px){
   .brand{ font-size:16px;}
+  .info-grid{ grid-template-columns:1fr;}
   .photo-ring{ width:190px; height:190px;}
   .hero-photo-wrap{ height:230px;}
+}
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition:none !important;}
 }
 </style>
 </head>
@@ -561,24 +581,23 @@ ul{list-style:none;}
 
 <div class="scroll-progress" id="scrollProgress"></div>
 <header class="site-header">
-  <button class="menu-toggle" id="menuToggle" aria-label="Buka menu"><i class="fa-solid fa-bars"></i></button>
+  <button class="menu-toggle" id="menuToggle" aria-label="Buka menu navigasi"><i class="fa-solid fa-bars"></i></button>
   <div class="brand">Portofolio <span>nzofhrzi</span></div>
-  <div class="header-pill"><i class="fa-solid fa-house"></i> <span class="pill-text">Beranda Utama</span></div>
   <div class="header-search">
     <i class="fa-solid fa-magnifying-glass"></i>
     <input type="text" placeholder="Cari disini....">
   </div>
   <div class="header-right">
     <button class="icon-btn" id="themeToggle" title="Ganti tema"><i class="fa-solid fa-moon"></i></button>
-    <div class="avatar-mini" id="avatarBtn" title="Lihat profil">EF</div>
   </div>
 </header>
 
 <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
 <div class="layout">
+  <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
-    <button class="sidebar-close" id="sidebarClose"><i class="fa-solid fa-xmark"></i></button>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Tutup menu"><i class="fa-solid fa-xmark"></i></button>
     <a class="nav-item active" href="#beranda" data-page="beranda"><i class="fa-solid fa-house"></i> Beranda Utama</a>
     <a class="nav-item" href="#tentangku" data-page="tentangku"><i class="fa-solid fa-user"></i> Tentangku</a>
     <a class="nav-item" href="#pengalaman-kerja" data-page="pengalaman-kerja"><i class="fa-solid fa-briefcase"></i> Pengalaman Kerja</a>
@@ -595,15 +614,17 @@ ul{list-style:none;}
     </div>
   </aside>
 
+  <!-- MAIN -->
   <main class="main">
-    <!-- BERANDA SECTION -->
+
+    <!-- ================= BERANDA ================= -->
     <section class="page" id="beranda">
       <div class="hero">
         <div>
-          <div class="hero-greet script-text" id="heroGreet">Halo semua,</div>
-          <h1 class="hero-title">Saya <span class="accent" id="heroName">Enzo</span> Fahrezi</h1>
+          <div class="hero-greet script-text">Halo semua,</div>
+          <h1 class="hero-title">Saya <span class="accent">Enzo</span> Fahrezi</h1>
           <div class="underline-mark"></div>
-          <p class="hero-text" id="heroText"></p>
+          <p class="hero-text">Saya seorang mahasiswa Universitas Muhammadiyah Bangka Belitung Tahun Ajaran 2025/2026. Saya juga alumni dari SMAN 1 Namang lulusan tahun 2024. Saya senang mempelajari hal hal baru terutama dalam bidang teknologi seperti AI, tools, software dan sbg nya yang membantu dalam kehidupan sehari-hari.</p>
         </div>
         <div class="hero-photo-wrap">
           <div class="dot-grid">
@@ -622,9 +643,10 @@ ul{list-style:none;}
           <div class="dot-float dot2"></div>
         </div>
       </div>
+
     </section>
 
-    <!-- TENTANGKU SECTION -->
+    <!-- ================= TENTANGKU ================= -->
     <section class="page" id="tentangku">
       <div class="section-eyebrow"><i class="fa-solid fa-user"></i> Profil</div>
       <h2 class="section-title">Tentangku</h2>
@@ -633,55 +655,218 @@ ul{list-style:none;}
       <div class="about-wrap">
         <div class="reveal">
           <div class="about-photo"><span>EF</span></div>
-          <div class="about-stats" id="statsContainer"></div>
+          <div class="about-stats">
+            <div class="mini-stat"><b>2+</b><span>Tahun Belajar IT</span></div>
+            <div class="mini-stat"><b>6+</b><span>Sertifikasi</span></div>
+            <div class="mini-stat"><b>3+</b><span>Organisasi</span></div>
+          </div>
         </div>
         <div class="reveal">
           <div class="bio-block">
-            <p id="bioDetail1"></p>
-            <p id="bioDetail2"></p>
-            <p id="bioDetail3"></p>
+            <p>Perkenalkan, nama saya <strong>Enzo Fahrezi</strong>, biasa dipanggil Enzo. Saat ini saya berstatus sebagai mahasiswa aktif di Universitas Muhammadiyah Bangka Belitung, Tahun Ajaran 2025/2026. Sebelumnya saya menyelesaikan pendidikan menengah atas di SMAN 1 Namang dan lulus pada tahun 2024.</p>
+            <p>Saya memiliki ketertarikan besar terhadap dunia teknologi, khususnya di bidang pengembangan web, kecerdasan buatan (AI), serta berbagai tools dan software yang dapat membantu produktivitas sehari-hari. Bagi saya, belajar hal baru adalah cara terbaik untuk terus berkembang.</p>
+            <p>Selain aktif di bidang akademik, saya juga senang mengikuti kegiatan organisasi dan pelatihan untuk mengasah soft skill seperti komunikasi, kerja sama tim, dan kepemimpinan.</p>
           </div>
 
-          <div class="detail-table" id="detailTable"></div>
+          <div class="detail-table">
+            <div class="detail-row"><i class="fa-solid fa-id-card"></i><div><b>Nama Lengkap</b><span>Enzo Fahrezi</span></div></div>
+            <div class="detail-row"><i class="fa-solid fa-cake-candles"></i><div><b>Tempat, Tgl Lahir</b><span>Bangka Belitung, 2006</span></div></div>
+            <div class="detail-row"><i class="fa-solid fa-location-dot"></i><div><b>Domisili</b><span>Bangka Belitung, Indonesia</span></div></div>
+            <div class="detail-row"><i class="fa-solid fa-envelope"></i><div><b>Email</b><span>enzo.fahrezi@email.com</span></div></div>
+            <div class="detail-row"><i class="fa-solid fa-phone"></i><div><b>No. Telepon</b><span>+62 812-3456-7890</span></div></div>
+            <div class="detail-row"><i class="fa-solid fa-graduation-cap"></i><div><b>Universitas</b><span>Univ. Muhammadiyah Babel</span></div></div>
+          </div>
 
-          <div class="tag-row" id="interestsTags"></div>
+          <div class="tag-row">
+            <span class="tag"><i class="fa-solid fa-code"></i> Web Development</span>
+            <span class="tag"><i class="fa-solid fa-robot"></i> Artificial Intelligence</span>
+            <span class="tag"><i class="fa-solid fa-palette"></i> UI/UX Design</span>
+            <span class="tag"><i class="fa-solid fa-camera"></i> Fotografi</span>
+            <span class="tag"><i class="fa-solid fa-book"></i> Membaca</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- PENGALAMAN KERJA SECTION -->
+    <!-- ================= PENGALAMAN KERJA ================= -->
     <section class="page" id="pengalaman-kerja">
       <div class="section-eyebrow"><i class="fa-solid fa-briefcase"></i> Riwayat</div>
       <h2 class="section-title">Pengalaman Kerja</h2>
       <p class="section-desc">Perjalanan profesional dan praktik kerja yang pernah saya jalani.</p>
-      <div class="timeline" id="workTimeline"></div>
+
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <span class="tl-period">2024 &ndash; Sekarang</span>
+          <h4>Freelance Web Developer</h4>
+          <div class="org">Mandiri / Remote</div>
+          <p>Membangun dan merancang website portofolio, landing page, dan aplikasi sederhana untuk klien perorangan menggunakan HTML, CSS, JavaScript, serta tools AI untuk mempercepat proses pengembangan.</p>
+        </div>
+        <div class="tl-item alt reveal">
+          <div class="tl-dot"></div>
+          <span class="tl-period">2023 &ndash; 2024</span>
+          <h4>Praktik Kerja Lapangan (PKL)</h4>
+          <div class="org">Instansi Teknologi Informasi, Bangka Belitung</div>
+          <p>Ditempatkan pada divisi IT support, membantu pengelolaan data, instalasi perangkat lunak, serta dokumentasi sistem operasional kantor selama masa praktik.</p>
+        </div>
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <span class="tl-period">2022 &ndash; 2023</span>
+          <h4>Content Creator &amp; Admin Media Sosial</h4>
+          <div class="org">Proyek Pribadi</div>
+          <p>Mengelola konten edukasi teknologi di media sosial, merancang desain visual menggunakan Canva, dan menyusun strategi konten sederhana untuk meningkatkan engagement.</p>
+        </div>
+      </div>
     </section>
 
-    <!-- PENGALAMAN ORGANISASI SECTION -->
+    <!-- ================= PENGALAMAN ORGANISASI ================= -->
     <section class="page" id="pengalaman-organisasi">
       <div class="section-eyebrow"><i class="fa-solid fa-users"></i> Kepemimpinan</div>
       <h2 class="section-title">Pengalaman Organisasi</h2>
       <p class="section-desc">Kontribusi saya dalam berbagai organisasi dan kepanitiaan.</p>
-      <div class="timeline" id="orgTimeline"></div>
+
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <span class="tl-period">2025 &ndash; Sekarang</span>
+          <h4>Anggota Himpunan Mahasiswa Informatika</h4>
+          <div class="org">Universitas Muhammadiyah Bangka Belitung</div>
+          <p>Aktif berpartisipasi dalam kegiatan himpunan, mulai dari seminar, pelatihan skill teknis, hingga kegiatan pengabdian masyarakat berbasis teknologi.</p>
+        </div>
+        <div class="tl-item alt reveal">
+          <div class="tl-dot"></div>
+          <span class="tl-period">2023 &ndash; 2024</span>
+          <h4>Ketua OSIS</h4>
+          <div class="org">SMAN 1 Namang</div>
+          <p>Memimpin organisasi siswa, mengoordinasikan program kerja tahunan, serta menjadi jembatan komunikasi antara siswa dan pihak sekolah.</p>
+        </div>
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <span class="tl-period">2021 &ndash; 2023</span>
+          <h4>Anggota Pramuka</h4>
+          <div class="org">SMAN 1 Namang</div>
+          <p>Mengikuti berbagai kegiatan kepramukaan yang melatih kedisiplinan, kerja sama tim, dan jiwa kepemimpinan.</p>
+        </div>
+      </div>
     </section>
 
-    <!-- PRESTASI SECTION -->
+    <!-- ================= PRESTASI & SERTIFIKASI ================= -->
     <section class="page" id="prestasi">
       <div class="section-eyebrow"><i class="fa-solid fa-trophy"></i> Pencapaian</div>
       <h2 class="section-title">Prestasi &amp; Sertifikasi</h2>
       <p class="section-desc">Beberapa penghargaan dan sertifikasi yang pernah saya raih.</p>
-      <div class="grid-3" id="achievementsGrid"></div>
+
+      <div class="grid-3">
+        <div class="card achieve-card reveal">
+          <div class="achieve-icon"><i class="fa-solid fa-medal"></i></div>
+          <div>
+            <h4>Juara 2 Lomba Web Design</h4>
+            <div class="meta">Tingkat Kabupaten &middot; 2024</div>
+            <p>Meraih juara 2 dalam kompetisi desain website tingkat kabupaten yang diikuti oleh pelajar SMA/SMK se-kabupaten.</p>
+          </div>
+        </div>
+        <div class="card achieve-card reveal">
+          <div class="achieve-icon"><i class="fa-solid fa-certificate"></i></div>
+          <div>
+            <h4>Belajar Dasar Pemrograman Web</h4>
+            <div class="meta">Dicoding Indonesia &middot; 2024</div>
+            <p>Menyelesaikan kelas dan lulus sertifikasi dasar pemrograman web meliputi HTML, CSS, dan JavaScript.</p>
+          </div>
+        </div>
+        <div class="card achieve-card reveal">
+          <div class="achieve-icon"><i class="fa-solid fa-award"></i></div>
+          <div>
+            <h4>Fundamentals of Digital Marketing</h4>
+            <div class="meta">Google Digital Garage &middot; 2023</div>
+            <p>Sertifikasi dasar digital marketing yang mencakup strategi pemasaran online dan branding digital.</p>
+          </div>
+        </div>
+        <div class="card achieve-card reveal">
+          <div class="achieve-icon"><i class="fa-solid fa-star"></i></div>
+          <div>
+            <h4>Peserta Terbaik Pelatihan UI/UX</h4>
+            <div class="meta">Workshop Kampus &middot; 2024</div>
+            <p>Dinobatkan sebagai peserta terbaik dalam pelatihan dasar UI/UX design selama program berlangsung.</p>
+          </div>
+        </div>
+        <div class="card achieve-card reveal">
+          <div class="achieve-icon"><i class="fa-solid fa-laptop-code"></i></div>
+          <div>
+            <h4>Basic Python Programming</h4>
+            <div class="meta">Sertifikasi Online &middot; 2023</div>
+            <p>Menguasai dasar-dasar bahasa pemrograman Python meliputi struktur data dan logika pemrograman.</p>
+          </div>
+        </div>
+        <div class="card achieve-card reveal">
+          <div class="achieve-icon"><i class="fa-solid fa-people-group"></i></div>
+          <div>
+            <h4>Peserta Aktif Organisasi Terbaik</h4>
+            <div class="meta">HMTI UMB Babel &middot; 2025</div>
+            <p>Penghargaan atas keaktifan dan kontribusi dalam kegiatan-kegiatan himpunan mahasiswa informatika.</p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- BERITA ACARA SECTION -->
+    <!-- ================= BERITA ACARA ================= -->
     <section class="page" id="berita-acara">
       <div class="section-eyebrow"><i class="fa-regular fa-calendar-days"></i> Dokumentasi</div>
       <h2 class="section-title">Berita Acara</h2>
       <p class="section-desc">Catatan kegiatan, seminar, dan acara yang pernah saya ikuti.</p>
-      <div class="grid-3" id="eventsGrid"></div>
+
+      <div class="grid-3">
+        <div class="card news-card reveal">
+          <div class="news-thumb"><i class="fa-solid fa-microphone"></i></div>
+          <div class="news-body">
+            <div class="news-date">15 Maret 2025</div>
+            <h4>Seminar Nasional Teknologi AI</h4>
+            <p>Mengikuti seminar nasional membahas perkembangan kecerdasan buatan dan dampaknya bagi dunia kerja.</p>
+          </div>
+        </div>
+        <div class="card news-card reveal">
+          <div class="news-thumb"><i class="fa-solid fa-laptop"></i></div>
+          <div class="news-body">
+            <div class="news-date">22 Mei 2025</div>
+            <h4>Workshop Pengembangan Aplikasi AI</h4>
+            <p>Berpartisipasi dalam workshop hands-on membangun aplikasi sederhana berbasis kecerdasan buatan.</p>
+          </div>
+        </div>
+        <div class="card news-card reveal">
+          <div class="news-thumb"><i class="fa-solid fa-building"></i></div>
+          <div class="news-body">
+            <div class="news-date">10 Oktober 2024</div>
+            <h4>Studi Banding Perusahaan Teknologi</h4>
+            <p>Kunjungan studi banding kampus ke perusahaan teknologi untuk melihat langsung praktik industri IT.</p>
+          </div>
+        </div>
+        <div class="card news-card reveal">
+          <div class="news-thumb"><i class="fa-solid fa-flag"></i></div>
+          <div class="news-body">
+            <div class="news-date">17 Agustus 2024</div>
+            <h4>Panitia Upacara &amp; Perlombaan HUT RI</h4>
+            <p>Menjadi bagian panitia pelaksana rangkaian perlombaan dan upacara peringatan kemerdekaan di lingkungan kampus.</p>
+          </div>
+        </div>
+        <div class="card news-card reveal">
+          <div class="news-thumb"><i class="fa-solid fa-people-roof"></i></div>
+          <div class="news-body">
+            <div class="news-date">5 Desember 2024</div>
+            <h4>Pengabdian Masyarakat Berbasis Digital</h4>
+            <p>Terlibat dalam program pengabdian masyarakat memberikan edukasi literasi digital kepada warga sekitar kampus.</p>
+          </div>
+        </div>
+        <div class="card news-card reveal">
+          <div class="news-thumb"><i class="fa-solid fa-graduation-cap"></i></div>
+          <div class="news-body">
+            <div class="news-date">20 Januari 2025</div>
+            <h4>Pelatihan Softskill Mahasiswa Baru</h4>
+            <p>Mengikuti rangkaian pelatihan pengembangan diri yang diadakan khusus untuk mahasiswa baru angkatan 2025.</p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- SKILLS SECTION -->
+    <!-- ================= SKILLS ================= -->
     <section class="page" id="skills">
       <div class="section-eyebrow"><i class="fa-regular fa-lightbulb"></i> Kemampuan</div>
       <h2 class="section-title">Skills</h2>
@@ -689,19 +874,50 @@ ul{list-style:none;}
 
       <div class="grid-2">
         <div class="card reveal">
-          <div class="skill-cat" id="technicalSkills"></div>
+          <div class="skill-cat">
+            <h4><i class="fa-solid fa-code"></i> Technical Skills</h4>
+            <div class="skill-bar-row"><div class="top"><span>HTML &amp; CSS</span><span>90%</span></div><div class="skill-track"><div class="skill-fill" data-w="90"></div></div></div>
+            <div class="skill-bar-row"><div class="top"><span>JavaScript</span><span>75%</span></div><div class="skill-track"><div class="skill-fill" data-w="75"></div></div></div>
+            <div class="skill-bar-row"><div class="top"><span>Python</span><span>65%</span></div><div class="skill-track"><div class="skill-fill" data-w="65"></div></div></div>
+            <div class="skill-bar-row"><div class="top"><span>Figma / Canva</span><span>85%</span></div><div class="skill-track"><div class="skill-fill" data-w="85"></div></div></div>
+            <div class="skill-bar-row"><div class="top"><span>Microsoft Office</span><span>88%</span></div><div class="skill-track"><div class="skill-fill" data-w="88"></div></div></div>
+          </div>
         </div>
         <div class="card reveal">
-          <div class="skill-cat" id="softSkills"></div>
+          <div class="skill-cat" style="margin-bottom:0;">
+            <h4><i class="fa-solid fa-people-arrows"></i> Soft Skills</h4>
+            <div class="soft-tags">
+              <div class="soft-tag"><i class="fa-solid fa-comments"></i> Komunikasi</div>
+              <div class="soft-tag"><i class="fa-solid fa-people-group"></i> Kerja Tim</div>
+              <div class="soft-tag"><i class="fa-solid fa-clock"></i> Manajemen Waktu</div>
+              <div class="soft-tag"><i class="fa-solid fa-puzzle-piece"></i> Problem Solving</div>
+              <div class="soft-tag"><i class="fa-solid fa-lightbulb"></i> Kreativitas</div>
+              <div class="soft-tag"><i class="fa-solid fa-user-tie"></i> Kepemimpinan</div>
+              <div class="soft-tag"><i class="fa-solid fa-arrows-rotate"></i> Adaptasi Cepat</div>
+              <div class="soft-tag"><i class="fa-solid fa-magnifying-glass"></i> Detail Oriented</div>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="card reveal" style="margin-top:24px;">
-        <div class="skill-cat" id="toolsSkills"></div>
+        <div class="skill-cat" style="margin-bottom:0;">
+          <h4><i class="fa-solid fa-toolbox"></i> Tools &amp; Platform</h4>
+          <div class="soft-tags">
+            <div class="soft-tag"><i class="fa-brands fa-html5"></i> HTML5</div>
+            <div class="soft-tag"><i class="fa-brands fa-css3-alt"></i> CSS3</div>
+            <div class="soft-tag"><i class="fa-brands fa-js"></i> JavaScript</div>
+            <div class="soft-tag"><i class="fa-brands fa-python"></i> Python</div>
+            <div class="soft-tag"><i class="fa-brands fa-figma"></i> Figma</div>
+            <div class="soft-tag"><i class="fa-brands fa-google"></i> Google Workspace</div>
+            <div class="soft-tag"><i class="fa-brands fa-github"></i> GitHub</div>
+            <div class="soft-tag"><i class="fa-solid fa-robot"></i> AI Tools</div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- CV SECTION -->
+    <!-- ================= CV RESUME ================= -->
     <section class="page" id="cv">
       <div class="section-eyebrow"><i class="fa-regular fa-file-lines"></i> Dokumen</div>
       <h2 class="section-title">CV Resume</h2>
@@ -711,36 +927,50 @@ ul{list-style:none;}
         <div class="cv-doc reveal">
           <div class="cv-doc-head">
             <div>
-              <h2 id="cvName">Enzo Fahrezi</h2>
-              <p class="role" id="cvTitle">Mahasiswa Informatika · Web Enthusiast</p>
-              <p id="cvLocation">Bangka Belitung, Indonesia</p>
+              <h2>Enzo Fahrezi</h2>
+              <p class="role">Mahasiswa Informatika &middot; Web Enthusiast</p>
+              <p>Bangka Belitung, Indonesia</p>
             </div>
             <div class="photo-avatar" style="width:74px;height:74px;font-size:26px;"><span>EF</span></div>
           </div>
 
           <div class="cv-section">
             <h5>Ringkasan</h5>
-            <p id="cvSummary" style="color:var(--text-soft); font-size:14.5px; line-height:1.8;"></p>
+            <p style="color:var(--text-soft); font-size:14.5px; line-height:1.8;">Mahasiswa aktif Informatika dengan minat besar pada pengembangan web dan teknologi AI. Terbiasa bekerja mandiri maupun tim, cepat beradaptasi dengan tools baru, dan berorientasi pada hasil.</p>
           </div>
 
           <div class="cv-section">
             <h5>Pendidikan</h5>
-            <ul id="cvEducation"></ul>
+            <ul>
+              <li>Universitas Muhammadiyah Bangka Belitung &mdash; Informatika (2025&ndash;Sekarang)</li>
+              <li>SMAN 1 Namang &mdash; Lulusan 2024</li>
+            </ul>
           </div>
 
           <div class="cv-section">
             <h5>Pengalaman</h5>
-            <ul id="cvExperience"></ul>
+            <ul>
+              <li>Freelance Web Developer (2024&ndash;Sekarang)</li>
+              <li>Praktik Kerja Lapangan &mdash; Divisi IT Support (2023&ndash;2024)</li>
+              <li>Content Creator &amp; Admin Media Sosial (2022&ndash;2023)</li>
+            </ul>
           </div>
 
           <div class="cv-section">
             <h5>Organisasi</h5>
-            <ul id="cvOrganization"></ul>
+            <ul>
+              <li>Anggota HMTI Universitas Muhammadiyah Babel (2025&ndash;Sekarang)</li>
+              <li>Ketua OSIS SMAN 1 Namang (2023&ndash;2024)</li>
+            </ul>
           </div>
 
           <div class="cv-section" style="margin-bottom:0;">
             <h5>Skills</h5>
-            <ul id="cvSkills"></ul>
+            <ul>
+              <li>HTML, CSS, JavaScript, Python</li>
+              <li>Figma, Canva, Microsoft Office</li>
+              <li>Komunikasi, Kerja Tim, Manajemen Waktu</li>
+            </ul>
           </div>
         </div>
 
@@ -752,11 +982,11 @@ ul{list-style:none;}
           </div>
           <div class="card">
             <h4>Kontak</h4>
-            <div class="contact-line"><i class="fa-solid fa-envelope"></i> <span id="contactEmail"></span></div>
-            <div class="contact-line"><i class="fa-solid fa-phone"></i> <span id="contactPhone"></span></div>
-            <div class="contact-line"><i class="fa-solid fa-location-dot"></i> <span id="contactLocation"></span></div>
-            <div class="contact-line"><i class="fa-brands fa-linkedin"></i> <span id="contactLinkedin"></span></div>
-            <div class="contact-line"><i class="fa-brands fa-github"></i> <span id="contactGithub"></span></div>
+            <div class="contact-line"><i class="fa-solid fa-envelope"></i> enzo.fahrezi@email.com</div>
+            <div class="contact-line"><i class="fa-solid fa-phone"></i> +62 812-3456-7890</div>
+            <div class="contact-line"><i class="fa-solid fa-location-dot"></i> Bangka Belitung, Indonesia</div>
+            <div class="contact-line"><i class="fa-brands fa-linkedin"></i> linkedin.com/in/enzofahrezi</div>
+            <div class="contact-line"><i class="fa-brands fa-github"></i> github.com/enzofahrezi</div>
           </div>
         </div>
       </div>
@@ -768,298 +998,128 @@ ul{list-style:none;}
 <div class="toast" id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toastMsg">Berhasil!</span></div>
 
 <script>
-// ============ LOAD DATA FROM GITHUB ============
-let portfolioData = null;
-
-async function loadPortfolioData() {
-  try {
-    // Update URL to point to GitHub raw content
-    const url = `https://raw.githubusercontent.com/nzofhrzi/landing-page-zo/main/data.json`;
-    const response = await fetch(url);
-    if (!response.ok) throw new Error('Failed to load data');
-    portfolioData = await response.json();
-    renderPortfolio();
-  } catch (error) {
-    console.error('Error loading data:', error);
-    // Fallback to local data.json if GitHub fetch fails
-    try {
-      const response = await fetch('/data.json');
-      portfolioData = await response.json();
-      renderPortfolio();
-    } catch (err) {
-      console.error('Error loading fallback data:', err);
-    }
-  }
-}
-
-// ============ RENDER DATA ============
-function renderPortfolio() {
-  if (!portfolioData) return;
-
-  const p = portfolioData.profile;
-  const e = portfolioData.experience;
-  const a = portfolioData.achievements;
-  const ev = portfolioData.events;
-  const s = portfolioData.skills;
-
-  // Hero section
-  document.getElementById('heroGreet').textContent = p.greet;
-  document.getElementById('heroName').textContent = p.name.split(' ')[0];
-  document.getElementById('heroText').textContent = p.bio;
-
-  // Stats
-  document.getElementById('statsContainer').innerHTML = p.stats
-    .map(st => `<div class="mini-stat"><b>${st.value}</b><span>${st.label}</span></div>`)
-    .join('');
-
-  // Bio detail
-  const bioDetail = p.bioDetail.split('. ').slice(0, 3);
-  document.getElementById('bioDetail1').textContent = (bioDetail[0] || '') + '.';
-  document.getElementById('bioDetail2').textContent = (bioDetail[1] || '') + '.';
-  document.getElementById('bioDetail3').textContent = (bioDetail[2] || '') + '.';
-
-  // Detail table
-  document.getElementById('detailTable').innerHTML = `
-    <div class="detail-row"><i class="fa-solid fa-id-card"></i><div><b>Nama Lengkap</b><span>${p.name}</span></div></div>
-    <div class="detail-row"><i class="fa-solid fa-cake-candles"></i><div><b>Tempat, Tgl Lahir</b><span>${p.birthplace}, ${p.birthyear}</span></div></div>
-    <div class="detail-row"><i class="fa-solid fa-location-dot"></i><div><b>Domisili</b><span>${p.location}</span></div></div>
-    <div class="detail-row"><i class="fa-solid fa-envelope"></i><div><b>Email</b><span>${p.email}</span></div></div>
-    <div class="detail-row"><i class="fa-solid fa-phone"></i><div><b>No. Telepon</b><span>${p.phone}</span></div></div>
-    <div class="detail-row"><i class="fa-solid fa-graduation-cap"></i><div><b>Universitas</b><span>${p.university}</span></div></div>
-  `;
-
-  // Interests tags
-  document.getElementById('interestsTags').innerHTML = p.interests
-    .map(int => `<span class="tag"><i class="fa-solid fa-${int.icon}"></i> ${int.name}</span>`)
-    .join('');
-
-  // Experience timelines
-  document.getElementById('workTimeline').innerHTML = e.work
-    .map((w, i) => `
-      <div class="tl-item ${i % 2 === 1 ? 'alt' : ''} reveal">
-        <div class="tl-dot"></div>
-        <span class="tl-period">${w.period}</span>
-        <h4>${w.title}</h4>
-        <div class="org">${w.org}</div>
-        <p>${w.desc}</p>
-      </div>
-    `)
-    .join('');
-
-  document.getElementById('orgTimeline').innerHTML = e.organization
-    .map((o, i) => `
-      <div class="tl-item ${i % 2 === 1 ? 'alt' : ''} reveal">
-        <div class="tl-dot"></div>
-        <span class="tl-period">${o.period}</span>
-        <h4>${o.title}</h4>
-        <div class="org">${o.org}</div>
-        <p>${o.desc}</p>
-      </div>
-    `)
-    .join('');
-
-  // Achievements grid
-  document.getElementById('achievementsGrid').innerHTML = a
-    .map(ach => `
-      <div class="card achieve-card reveal">
-        <div class="achieve-icon"><i class="fa-solid fa-${ach.icon}"></i></div>
-        <div>
-          <h4>${ach.title}</h4>
-          <div class="meta">${ach.meta}</div>
-          <p>${ach.desc}</p>
-        </div>
-      </div>
-    `)
-    .join('');
-
-  // Events grid
-  document.getElementById('eventsGrid').innerHTML = ev
-    .map(event => `
-      <div class="card news-card reveal">
-        <div class="news-thumb"><i class="fa-solid fa-${event.icon}"></i></div>
-        <div class="news-body">
-          <div class="news-date">${event.date}</div>
-          <h4>${event.title}</h4>
-          <p>${event.desc}</p>
-        </div>
-      </div>
-    `)
-    .join('');
-
-  // Skills
-  document.getElementById('technicalSkills').innerHTML = `
-    <h4><i class="fa-solid fa-code"></i> Technical Skills</h4>
-    ${s.technical.map(sk => `
-      <div class="skill-bar-row">
-        <div class="top"><span>${sk.name}</span><span>${sk.percent}%</span></div>
-        <div class="skill-track"><div class="skill-fill" style="width: ${sk.percent}%;"></div></div>
-      </div>
-    `).join('')}
-  `;
-
-  document.getElementById('softSkills').innerHTML = `
-    <h4><i class="fa-solid fa-people-arrows"></i> Soft Skills</h4>
-    <div class="soft-tags">
-      ${s.soft.map(sk => `<div class="soft-tag"><i class="fa-solid fa-${softIconMap(sk)}"></i> ${sk}</div>`).join('')}
-    </div>
-  `;
-
-  document.getElementById('toolsSkills').innerHTML = `
-    <h4><i class="fa-solid fa-toolbox"></i> Tools & Platform</h4>
-    <div class="soft-tags">
-      ${s.tools.map(tk => `<div class="soft-tag"><i class="fa-brands fa-${toolIconMap(tk)}"></i> ${tk}</div>`).join('')}
-    </div>
-  `;
-
-  // CV section
-  document.getElementById('cvName').textContent = p.name;
-  document.getElementById('cvTitle').textContent = p.title;
-  document.getElementById('cvLocation').textContent = p.location;
-  document.getElementById('cvSummary').textContent = `Mahasiswa aktif ${p.university.split(' ').slice(-1)[0]} dengan minat besar pada pengembangan web dan teknologi AI. Terbiasa bekerja mandiri maupun tim, cepat beradaptasi dengan tools baru, dan berorientasi pada hasil.`;
-  
-  document.getElementById('cvEducation').innerHTML = `
-    <li>${p.university} — Informatika (2025–Sekarang)</li>
-    <li>SMAN 1 Namang — Lulusan 2024</li>
-  `;
-
-  document.getElementById('cvExperience').innerHTML = e.work
-    .map(w => `<li>${w.title} (${w.period})</li>`)
-    .join('');
-
-  document.getElementById('cvOrganization').innerHTML = e.organization
-    .map(o => `<li>${o.title} (${o.period})</li>`)
-    .join('');
-
-  document.getElementById('cvSkills').innerHTML = `
-    <li>${s.technical.slice(0, 3).map(t => t.name).join(', ')}</li>
-    <li>${s.tools.slice(0, 4).join(', ')}</li>
-    <li>${s.soft.slice(0, 3).join(', ')}</li>
-  `;
-
-  // Contact info
-  document.getElementById('contactEmail').textContent = p.email;
-  document.getElementById('contactPhone').textContent = p.phone;
-  document.getElementById('contactLocation').textContent = p.location;
-  document.getElementById('contactLinkedin').textContent = portfolioData.social.linkedin;
-  document.getElementById('contactGithub').textContent = portfolioData.social.github;
-
-  observeElements();
-}
-
-function softIconMap(name) {
-  const map = {
-    'Komunikasi': 'comments', 'Kerja Tim': 'people-group', 'Manajemen Waktu': 'clock',
-    'Problem Solving': 'puzzle-piece', 'Kreativitas': 'lightbulb', 'Kepemimpinan': 'user-tie',
-    'Adaptasi Cepat': 'arrows-rotate', 'Detail Oriented': 'magnifying-glass'
-  };
-  return map[name] || 'star';
-}
-
-function toolIconMap(name) {
-  const map = {
-    'HTML5': 'html5', 'CSS3': 'css3-alt', 'JavaScript': 'js', 'Python': 'python',
-    'Figma': 'figma', 'Google Workspace': 'google', 'GitHub': 'github', 'AI Tools': 'robot'
-  };
-  return map[name] || 'star';
-}
-
-// ============ NAVIGATION & SIDEBAR ============
+// ---------- Mobile sidebar drawer ----------
 const sidebar = document.getElementById('sidebar');
 const menuToggle = document.getElementById('menuToggle');
 const sidebarClose = document.getElementById('sidebarClose');
 const sidebarBackdrop = document.getElementById('sidebarBackdrop');
-const navItems = document.querySelectorAll('.nav-item');
 
-function openSidebar() {
+function openSidebar(){
   sidebar.classList.add('open');
   sidebarBackdrop.classList.add('show');
   document.body.style.overflow = 'hidden';
 }
-
-function closeSidebar() {
+function closeSidebar(){
   sidebar.classList.remove('open');
   sidebarBackdrop.classList.remove('show');
   document.body.style.overflow = '';
 }
+if(menuToggle){ menuToggle.addEventListener('click', openSidebar); }
+if(sidebarClose){ sidebarClose.addEventListener('click', closeSidebar); }
+if(sidebarBackdrop){ sidebarBackdrop.addEventListener('click', closeSidebar); }
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape'){ closeSidebar(); } });
+window.addEventListener('resize', () => { if(window.innerWidth > 1080){ closeSidebar(); } });
 
-menuToggle.addEventListener('click', openSidebar);
-sidebarClose.addEventListener('click', closeSidebar);
-sidebarBackdrop.addEventListener('click', closeSidebar);
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeSidebar();
-});
-window.addEventListener('resize', () => {
-  if (window.innerWidth > 1080) closeSidebar();
-});
+// ---------- Navigation (single scrollable page) ----------
+const navItems = document.querySelectorAll('.nav-item');
+const pages = document.querySelectorAll('.page');
+
+function goToPage(id){
+  const target = document.getElementById(id);
+  if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
+  closeSidebar();
+}
 
 navItems.forEach(item => {
   item.addEventListener('click', (e) => {
     e.preventDefault();
-    closeSidebar();
+    goToPage(item.dataset.page);
   });
 });
 
-document.querySelector('.header-pill').addEventListener('click', () => {
-  document.getElementById('beranda').scrollIntoView({ behavior: 'smooth' });
-});
+function setActiveNav(id){
+  navItems.forEach(n => n.classList.toggle('active', n.dataset.page === id));
+}
 
-document.getElementById('avatarBtn').addEventListener('click', () => {
-  document.getElementById('tentangku').scrollIntoView({ behavior: 'smooth' });
-});
-
-document.getElementById('hubungiBtn').addEventListener('click', () => {
-  document.getElementById('cv').scrollIntoView({ behavior: 'smooth' });
-});
-
-// ============ THEME TOGGLE ============
+// ---------- Theme toggle ----------
 const themeToggle = document.getElementById('themeToggle');
-themeToggle.addEventListener('click', () => {
-  const html = document.documentElement;
-  const isDark = html.getAttribute('data-theme') === 'dark';
-  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-  themeToggle.innerHTML = isDark ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
-});
-
-// ============ OBSERVER & ANIMATIONS ============
-function observeElements() {
-  const pageObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      entry.target.classList.toggle('in-view', entry.isIntersecting);
-      if (entry.isIntersecting && entry.target.id === 'skills') {
-        animateSkillBars();
-      }
-    });
-  }, { threshold: 0.18 });
-
-  document.querySelectorAll('.page').forEach(p => pageObserver.observe(p));
-
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      entry.target.classList.toggle('in', entry.isIntersecting);
-    });
-  }, { threshold: 0.15 });
-
-  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-}
-
-function animateSkillBars() {
-  document.querySelectorAll('.skill-fill').forEach(bar => {
-    if (bar.style.width === '') bar.style.width = bar.parentElement.getAttribute('data-w') + '%';
+if(themeToggle){
+  themeToggle.addEventListener('click', () => {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    themeToggle.innerHTML = isDark ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
   });
 }
 
-// ============ PROGRESS BAR ============
+// ---------- Toast ----------
+function showToast(msg){
+  const toast = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2600);
+}
+const hubungiBtn = document.getElementById('hubungiBtn');
+if(hubungiBtn){
+  hubungiBtn.addEventListener('click', () => {
+    showToast('Terima kasih! Silakan hubungi via email di CV Resume.');
+    goToPage('cv');
+  });
+}
+const downloadCvBtn = document.getElementById('downloadCvBtn');
+if(downloadCvBtn){
+  downloadCvBtn.addEventListener('click', () => {
+    showToast('CV sedang disiapkan untuk diunduh...');
+  });
+}
+
+// ---------- Fade in/out per section (dua arah: scroll turun & naik) ----------
+const pageObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    entry.target.classList.toggle('in-view', entry.isIntersecting);
+    if(entry.isIntersecting){
+      setActiveNav(entry.target.id);
+      if(entry.target.id === 'skills'){ animateSkillBars(); }
+    }
+  });
+}, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+pages.forEach(p => pageObserver.observe(p));
+
+// ---------- Reveal kartu/konten di dalam section (fade in/out reversible) ----------
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    entry.target.classList.toggle('in', entry.isIntersecting);
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ---------- Skill bars ----------
+function animateSkillBars(){
+  document.querySelectorAll('.skill-fill').forEach(bar => {
+    bar.style.width = bar.dataset.w + '%';
+  });
+}
+
+// ---------- Scroll progress bar ----------
 const progressBar = document.getElementById('scrollProgress');
-function updateProgress() {
+function updateProgress(){
   const scrollTop = window.scrollY;
   const docHeight = document.documentElement.scrollHeight - window.innerHeight;
   const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-  progressBar.style.width = pct + '%';
+  if(progressBar){ progressBar.style.width = pct + '%'; }
 }
-window.addEventListener('scroll', updateProgress, { passive: true });
+window.addEventListener('scroll', updateProgress, { passive:true });
+updateProgress();
 
-// ============ INIT ============
-window.addEventListener('load', loadPortfolioData);
+// ---------- Search filter (simple highlight/scroll on Enter) ----------
+const searchInput = document.querySelector('.header-search input');
+if(searchInput){
+  searchInput.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' && this.value.trim() !== ''){
+      showToast('Mencari: "' + this.value.trim() + '"');
+    }
+  });
+}
 </script>
 </body>
 </html>
