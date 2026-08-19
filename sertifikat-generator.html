@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificate Studio — Generator Sertifikat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Great+Vibes&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+  :root{
+    --bg-ivory:#FAF6EC;
+    --panel:#FFFFFF;
+    --navy:#132038;
+    --navy-deep:#0B1526;
+    --gold:#B8912F;
+    --gold-light:#DFC077;
+    --ink:#242220;
+    --muted:#7A7368;
+    --rule:rgba(184,145,47,0.4);
+    --app-bg:#EFE9DC;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Jost',sans-serif;
+    background:
+      radial-gradient(circle at 15% 10%, #f5efe0 0%, transparent 45%),
+      var(--app-bg);
+    color:var(--ink);
+    min-height:100vh;
+  }
+
+  /* ---------- App shell ---------- */
+  .app-header{
+    padding:28px 40px 18px;
+    border-bottom:1px solid #ddd3ba;
+    background:var(--panel);
+  }
+  .app-header .eyebrow{
+    font-size:11px;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:600;
+    margin:0 0 6px;
+  }
+  .app-header h1{
+    margin:0;
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:26px;
+    color:var(--navy);
+  }
+  .app-header p{
+    margin:6px 0 0;
+    color:var(--muted);
+    font-size:14px;
+  }
+
+  .layout{
+    display:grid;
+    grid-template-columns:380px 1fr;
+    gap:0;
+    align-items:start;
+  }
+
+  /* ---------- Form panel ---------- */
+  .panel{
+    background:var(--panel);
+    padding:28px 30px 40px;
+    min-height:calc(100vh - 96px);
+    border-right:1px solid #ddd3ba;
+  }
+  .field-group{margin-bottom:20px;}
+  .field-group label{
+    display:block;
+    font-size:11px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    font-weight:600;
+    margin-bottom:7px;
+  }
+  .field-group input[type=text],
+  .field-group input[type=date],
+  .field-group textarea,
+  .field-group select{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid #d9d2c2;
+    border-radius:6px;
+    background:#FCFAF4;
+    font-family:'Jost',sans-serif;
+    font-size:14.5px;
+    color:var(--ink);
+    outline:none;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .field-group input:focus,
+  .field-group textarea:focus,
+  .field-group select:focus{
+    border-color:var(--gold);
+    box-shadow:0 0 0 3px rgba(184,145,47,.15);
+  }
+  .field-group textarea{resize:vertical; min-height:64px; line-height:1.5;}
+
+  .row-2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+
+  .theme-swatches{display:flex; gap:10px;}
+  .swatch{
+    width:36px; height:36px; border-radius:50%;
+    cursor:pointer; border:2px solid transparent;
+    position:relative;
+    box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);
+  }
+  .swatch.active{border-color:var(--ink);}
+  .swatch[data-theme="navy"]{background:linear-gradient(135deg,#132038,#B8912F);}
+  .swatch[data-theme="emerald"]{background:linear-gradient(135deg,#0E3B2B,#C9A227);}
+  .swatch[data-theme="burgundy"]{background:linear-gradient(135deg,#511A26,#C9A227);}
+  .swatch[data-theme="charcoal"]{background:linear-gradient(135deg,#26282B,#B0A98F);}
+
+  .divider{
+    border:none; border-top:1px solid #e6ddc8; margin:24px 0;
+  }
+
+  .section-label{
+    font-family:'Playfair Display',serif;
+    font-size:14px;
+    color:var(--navy);
+    font-weight:600;
+    margin:0 0 14px;
+  }
+
+  .export-btn{
+    width:100%;
+    padding:14px 18px;
+    background:var(--navy);
+    color:#F3EEDD;
+    border:none;
+    border-radius:8px;
+    font-family:'Jost',sans-serif;
+    font-size:14px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    font-weight:600;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    transition:background .15s ease, transform .1s ease;
+  }
+  .export-btn:hover{background:#1c2c4a;}
+  .export-btn:active{transform:scale(.98);}
+  .export-hint{
+    font-size:12px; color:var(--muted); margin-top:10px; text-align:center;
+  }
+
+  /* ---------- Preview stage ---------- */
+  .stage{
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding:48px 32px;
+    overflow:auto;
+  }
+  .stage-inner{
+    position:relative;
+  }
+
+  /* ---------- Certificate ---------- */
+  .certificate{
+    width:1200px;
+    height:849px;
+    position:relative;
+    background:var(--bg-ivory);
+    overflow:hidden;
+    font-family:'Jost',sans-serif;
+    box-shadow:0 30px 70px -20px rgba(19,32,56,.35);
+    flex:none;
+  }
+  .certificate::before{
+    content:"";
+    position:absolute; inset:22px;
+    border:1.5px solid var(--gold);
+  }
+  .certificate::after{
+    content:"";
+    position:absolute; inset:30px;
+    border:1px solid var(--rule);
+  }
+
+  .watermark{
+    position:absolute;
+    left:50%; top:50%;
+    width:640px; height:640px;
+    transform:translate(-50%,-50%);
+    opacity:.05;
+    pointer-events:none;
+  }
+
+  .corner{
+    position:absolute;
+    width:110px; height:110px;
+    opacity:.9;
+  }
+  .corner svg{width:100%; height:100%;}
+  .corner.tl{top:34px; left:34px;}
+  .corner.tr{top:34px; right:34px; transform:scaleX(-1);}
+  .corner.bl{bottom:34px; left:34px; transform:scaleY(-1);}
+  .corner.br{bottom:34px; right:34px; transform:scale(-1,-1);}
+
+  .cert-inner{
+    position:relative;
+    z-index:2;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:78px 130px 56px;
+    text-align:center;
+  }
+
+  .cert-mark{
+    width:54px; height:54px; margin-bottom:18px;
+  }
+
+  .cert-eyebrow{
+    font-size:13px;
+    letter-spacing:.42em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:600;
+    margin:0 0 10px;
+  }
+  .cert-title{
+    font-family:'Playfair Display',serif;
+    font-weight:700;
+    font-size:44px;
+    color:var(--navy);
+    margin:0 0 22px;
+    letter-spacing:.01em;
+  }
+  .cert-rule{
+    width:120px; height:1px;
+    background:var(--gold);
+    margin:0 0 26px;
+    position:relative;
+  }
+  .cert-rule::before{
+    content:"◆";
+    position:absolute; left:50%; top:50%;
+    transform:translate(-50%,-50%);
+    background:var(--bg-ivory);
+    color:var(--gold);
+    font-size:11px;
+    padding:0 8px;
+  }
+
+  .cert-lead{
+    font-size:16px;
+    color:var(--muted);
+    margin:0 0 6px;
+    font-style:italic;
+    font-family:'Playfair Display',serif;
+  }
+  .cert-name{
+    font-family:'Great Vibes', cursive;
+    font-size:74px;
+    color:var(--navy);
+    margin:6px 0 14px;
+    line-height:1;
+    max-width:820px;
+  }
+  .cert-name-rule{
+    width:380px;
+    height:1px;
+    background:var(--rule);
+    margin:0 0 24px;
+  }
+
+  .cert-body{
+    font-size:15.5px;
+    line-height:1.75;
+    color:var(--ink);
+    max-width:660px;
+    margin:0 0 8px;
+  }
+  .cert-course{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:21px;
+    color:var(--navy);
+    margin:10px 0 0;
+  }
+
+  .cert-footer{
+    margin-top:auto;
+    width:100%;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    padding-top:36px;
+  }
+  .footer-block{
+    width:230px;
+    text-align:center;
+  }
+  .footer-line{
+    border-top:1px solid var(--ink);
+    padding-top:8px;
+  }
+  .footer-name{
+    font-family:'Playfair Display',serif;
+    font-size:15px;
+    font-weight:600;
+    color:var(--navy);
+  }
+  .footer-role{
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-top:3px;
+  }
+  .footer-date .footer-name{font-family:'Jost',sans-serif; font-weight:500;}
+
+  .seal{
+    width:96px; height:96px;
+    flex:none;
+  }
+
+  .cert-id{
+    position:absolute;
+    bottom:20px; left:50%;
+    transform:translateX(-50%);
+    font-size:10px;
+    letter-spacing:.15em;
+    color:var(--muted);
+    z-index:2;
+  }
+
+  /* theme color overrides applied via inline CSS vars per theme */
+</style>
+</head>
+<body>
+
+<div class="app-header">
+  <p class="eyebrow">Certificate Studio</p>
+  <h1>Generator Sertifikat Profesional</h1>
+  <p>Isi data di panel kiri, pratinjau langsung diperbarui di kanan, lalu unduh sebagai PNG resolusi tinggi.</p>
+</div>
+
+<div class="layout">
+  <!-- ============ FORM PANEL ============ -->
+  <div class="panel">
+    <p class="section-label">Data Penerima</p>
+
+    <div class="field-group">
+      <label for="inRecipient">Nama Anggota / Peserta</label>
+      <input type="text" id="inRecipient" value="Andi Wijaya Kusuma" maxlength="60">
+    </div>
+
+    <div class="field-group">
+      <label for="inLead">Kalimat Pengantar</label>
+      <input type="text" id="inLead" value="Dengan ini menyatakan bahwa">
+    </div>
+
+    <div class="field-group">
+      <label for="inBody">Deskripsi Keanggotaan / Partisipasi</label>
+      <textarea id="inBody">telah resmi terdaftar sebagai anggota dan berpartisipasi aktif dalam seluruh rangkaian kegiatan yang diselenggarakan oleh organisasi kami.</textarea>
+    </div>
+
+    <div class="field-group">
+      <label for="inCourse">Nama Organisasi / Kegiatan</label>
+      <input type="text" id="inCourse" value="Komunitas Web Developer Indonesia">
+    </div>
+
+    <hr class="divider">
+    <p class="section-label">Judul & Identitas</p>
+
+    <div class="field-group">
+      <label for="inEyebrow">Label Kecil (atas judul)</label>
+      <input type="text" id="inEyebrow" value="Sertifikat Keanggotaan">
+    </div>
+
+    <div class="field-group">
+      <label for="inTitle">Judul Sertifikat</label>
+      <input type="text" id="inTitle" value="Certificate of Membership">
+    </div>
+
+    <div class="field-group">
+      <label for="inId">Nomor Sertifikat</label>
+      <input type="text" id="inId" value="CERT-2026-00147">
+    </div>
+
+    <hr class="divider">
+    <p class="section-label">Tanda Tangan & Tanggal</p>
+
+    <div class="row-2">
+      <div class="field-group">
+        <label for="inSigner1">Nama Penandatangan 1</label>
+        <input type="text" id="inSigner1" value="Dr. Ratna Puspitasari">
+      </div>
+      <div class="field-group">
+        <label for="inRole1">Jabatan</label>
+        <input type="text" id="inRole1" value="Direktur Program">
+      </div>
+    </div>
+
+    <div class="row-2">
+      <div class="field-group">
+        <label for="inSigner2">Nama Penandatangan 2</label>
+        <input type="text" id="inSigner2" value="Bimo Aditya Nugraha">
+      </div>
+      <div class="field-group">
+        <label for="inRole2">Jabatan</label>
+        <input type="text" id="inRole2" value="Ketua Panitia">
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label for="inDate">Tanggal Penerbitan</label>
+      <input type="date" id="inDate" value="2026-08-19">
+    </div>
+
+    <hr class="divider">
+    <p class="section-label">Tema Warna</p>
+    <div class="theme-swatches" id="themeSwatches">
+      <div class="swatch active" data-theme="navy" title="Navy & Gold"></div>
+      <div class="swatch" data-theme="emerald" title="Emerald & Gold"></div>
+      <div class="swatch" data-theme="burgundy" title="Burgundy & Gold"></div>
+      <div class="swatch" data-theme="charcoal" title="Charcoal & Bronze"></div>
+    </div>
+
+    <hr class="divider">
+
+    <button class="export-btn" id="exportBtn">
+      ⬇ Unduh sebagai PNG
+    </button>
+    <p class="export-hint">Diekspor dalam resolusi tinggi (2400×1698px)</p>
+  </div>
+
+  <!-- ============ PREVIEW STAGE ============ -->
+  <div class="stage">
+    <div class="stage-inner" id="stageInner">
+      <div class="certificate" id="certificate" data-theme="navy">
+
+        <svg class="watermark" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="95" fill="none" stroke="currentColor" stroke-width="0.4"/>
+          <circle cx="100" cy="100" r="80" fill="none" stroke="currentColor" stroke-width="0.4"/>
+          <circle cx="100" cy="100" r="65" fill="none" stroke="currentColor" stroke-width="0.4"/>
+          <g id="guillocheG"></g>
+        </svg>
+
+        <div class="corner tl"><svg viewBox="0 0 110 110" fill="none"><path d="M4 4 L4 60 M4 4 L60 4" stroke="var(--gold)" stroke-width="1.4"/><path d="M4 4 Q4 40 40 40 Q76 40 76 4" stroke="var(--gold)" stroke-width="1" opacity="0.55"/><circle cx="4" cy="4" r="3" fill="var(--gold)"/></svg></div>
+        <div class="corner tr"><svg viewBox="0 0 110 110" fill="none"><path d="M4 4 L4 60 M4 4 L60 4" stroke="var(--gold)" stroke-width="1.4"/><path d="M4 4 Q4 40 40 40 Q76 40 76 4" stroke="var(--gold)" stroke-width="1" opacity="0.55"/><circle cx="4" cy="4" r="3" fill="var(--gold)"/></svg></div>
+        <div class="corner bl"><svg viewBox="0 0 110 110" fill="none"><path d="M4 4 L4 60 M4 4 L60 4" stroke="var(--gold)" stroke-width="1.4"/><path d="M4 4 Q4 40 40 40 Q76 40 76 4" stroke="var(--gold)" stroke-width="1" opacity="0.55"/><circle cx="4" cy="4" r="3" fill="var(--gold)"/></svg></div>
+        <div class="corner br"><svg viewBox="0 0 110 110" fill="none"><path d="M4 4 L4 60 M4 4 L60 4" stroke="var(--gold)" stroke-width="1.4"/><path d="M4 4 Q4 40 40 40 Q76 40 76 4" stroke="var(--gold)" stroke-width="1" opacity="0.55"/><circle cx="4" cy="4" r="3" fill="var(--gold)"/></svg></div>
+
+        <div class="cert-inner">
+          <svg class="cert-mark" viewBox="0 0 64 64" fill="none">
+            <polygon points="32,4 38,22 57,22 41,33 47,52 32,41 17,52 23,33 7,22 26,22" fill="var(--gold)"/>
+          </svg>
+
+          <p class="cert-eyebrow" id="outEyebrow">Sertifikat Keanggotaan</p>
+          <h1 class="cert-title" id="outTitle">Certificate of Membership</h1>
+          <div class="cert-rule"></div>
+
+          <p class="cert-lead" id="outLead">Dengan ini menyatakan bahwa</p>
+          <h2 class="cert-name" id="outRecipient">Andi Wijaya Kusuma</h2>
+          <div class="cert-name-rule"></div>
+
+          <p class="cert-body" id="outBody">telah resmi terdaftar sebagai anggota dan berpartisipasi aktif dalam seluruh rangkaian kegiatan yang diselenggarakan oleh organisasi kami.</p>
+          <p class="cert-course" id="outCourse">Komunitas Web Developer Indonesia</p>
+
+          <div class="cert-footer">
+            <div class="footer-block">
+              <div class="footer-line">
+                <div class="footer-name" id="outSigner1">Dr. Ratna Puspitasari</div>
+                <div class="footer-role" id="outRole1">Direktur Program</div>
+              </div>
+            </div>
+
+            <svg class="seal" viewBox="0 0 100 100" fill="none">
+              <circle cx="50" cy="50" r="46" fill="none" stroke="var(--gold)" stroke-width="1.4"/>
+              <circle cx="50" cy="50" r="38" fill="none" stroke="var(--gold)" stroke-width="0.8"/>
+              <path d="M50 16 L54 40 L50 62 L46 40 Z" fill="var(--gold)" opacity="0"/>
+              <g stroke="var(--gold)" stroke-width="1">
+                <path d="M50 20 Q30 30 30 50 Q30 68 50 78" fill="none"/>
+                <path d="M50 20 Q70 30 70 50 Q70 68 50 78" fill="none"/>
+                <path d="M32 28 l-4 -3 M31 36 l-5 -1 M31 44 l-5 1 M33 52 l-5 3 M37 60 l-4 4" stroke-width="0.9"/>
+                <path d="M68 28 l4 -3 M69 36 l5 -1 M69 44 l5 1 M67 52 l5 3 M63 60 l4 4" stroke-width="0.9"/>
+              </g>
+              <polygon points="50,38 53,47 62,47 55,53 57,62 50,57 43,62 45,53 38,47 47,47" fill="var(--gold)"/>
+            </svg>
+
+            <div class="footer-block footer-date">
+              <div class="footer-line">
+                <div class="footer-name" id="outDate">19 Agustus 2026</div>
+                <div class="footer-role">Tanggal Penerbitan</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="cert-id" id="outId">No. CERT-2026-00147</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const themes = {
+    navy:      { navy:'#132038', navyDeep:'#0B1526', gold:'#B8912F', goldLight:'#DFC077', ivory:'#FAF6EC' },
+    emerald:   { navy:'#0E3B2B', navyDeep:'#082A1E', gold:'#C9A227', goldLight:'#E3C878', ivory:'#F8F6EC' },
+    burgundy:  { navy:'#511A26', navyDeep:'#3B1119', gold:'#C9A227', goldLight:'#E3C878', ivory:'#FAF3EC' },
+    charcoal:  { navy:'#26282B', navyDeep:'#18191B', gold:'#A9915F', goldLight:'#C9B78C', ivory:'#F6F4EE' },
+  };
+
+  const cert = document.getElementById('certificate');
+
+  function applyTheme(name){
+    const t = themes[name];
+    cert.style.setProperty('--navy', t.navy);
+    cert.style.setProperty('--navy-deep', t.navyDeep);
+    cert.style.setProperty('--gold', t.gold);
+    cert.style.setProperty('--gold-light', t.goldLight);
+    cert.style.setProperty('--bg-ivory', t.ivory);
+    cert.style.color = t.navy;
+    document.querySelectorAll('.watermark').forEach(w => w.style.color = t.navy);
+    cert.dataset.theme = name;
+  }
+
+  document.querySelectorAll('.swatch').forEach(sw=>{
+    sw.addEventListener('click', ()=>{
+      document.querySelectorAll('.swatch').forEach(s=>s.classList.remove('active'));
+      sw.classList.add('active');
+      applyTheme(sw.dataset.theme);
+    });
+  });
+  applyTheme('navy');
+
+  // ---- guilloché watermark pattern ----
+  const g = document.getElementById('guillocheG');
+  let paths = '';
+  for(let i=0;i<24;i++){
+    const r1 = 20 + (i%6)*10;
+    paths += `<circle cx="100" cy="100" r="${r1}" fill="none" stroke="currentColor" stroke-width="0.25" transform="rotate(${i*15} 100 100)"/>`;
+  }
+  g.innerHTML = paths;
+
+  // ---- live binding ----
+  const bind = (inputId, outId, fallback) =>{
+    const inp = document.getElementById(inputId);
+    const out = document.getElementById(outId);
+    const update = ()=> out.textContent = inp.value.trim() || fallback;
+    inp.addEventListener('input', update);
+    update();
+  };
+
+  bind('inRecipient','outRecipient','Nama Penerima');
+  bind('inLead','outLead','Dengan bangga diberikan kepada');
+  bind('inBody','outBody','');
+  bind('inCourse','outCourse','');
+  bind('inEyebrow','outEyebrow','Sertifikat Penghargaan');
+  bind('inTitle','outTitle','Certificate of Achievement');
+  bind('inSigner1','outSigner1','');
+  bind('inRole1','outRole1','');
+
+  document.getElementById('inId').addEventListener('input', function(){
+    document.getElementById('outId').textContent = 'No. ' + (this.value.trim() || '-');
+  });
+  document.getElementById('outId').textContent = 'No. ' + document.getElementById('inId').value;
+
+  // second signer swap: replace date block's usage is fixed; instead let's add second signer into footer date? 
+  // Simpler: keep two signer fields but only show first + date footer as designed; second signer field
+  // can be used to replace the date block label if user wants two signatories. We'll wire signer2 into footer-date block optionally.
+  const signer2Input = document.getElementById('inSigner2');
+  const role2Input = document.getElementById('inRole2');
+  const footerDateBlock = document.querySelector('.footer-date .footer-name');
+  const footerDateRole = document.querySelector('.footer-date .footer-role');
+  const dateInput = document.getElementById('inDate');
+
+  function formatIndoDate(dateStr){
+    if(!dateStr) return '';
+    const months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+    const [y,m,d] = dateStr.split('-').map(Number);
+    return `${d} ${months[m-1]} ${y}`;
+  }
+
+  let useSecondSigner = false;
+  function renderFooterRight(){
+    if(useSecondSigner && signer2Input.value.trim()){
+      footerDateBlock.textContent = signer2Input.value.trim();
+      footerDateRole.textContent = (role2Input.value.trim() || 'Penandatangan') ;
+      footerDateBlock.style.fontFamily = "'Playfair Display', serif";
+      footerDateBlock.style.fontWeight = '600';
+    } else {
+      footerDateBlock.textContent = formatIndoDate(dateInput.value);
+      footerDateRole.textContent = 'Tanggal Penerbitan';
+      footerDateBlock.style.fontFamily = "'Jost', sans-serif";
+      footerDateBlock.style.fontWeight = '500';
+    }
+  }
+  dateInput.addEventListener('input', renderFooterRight);
+  signer2Input.addEventListener('input', ()=>{ useSecondSigner = true; renderFooterRight(); });
+  role2Input.addEventListener('input', ()=>{ useSecondSigner = true; renderFooterRight(); });
+  renderFooterRight();
+
+  // ---- responsive preview scaling ----
+  function fitStage(){
+    const stage = document.querySelector('.stage');
+    const inner = document.getElementById('stageInner');
+    const availW = stage.clientWidth - 64;
+    const scale = Math.min(1, availW / 1200);
+    inner.style.transform = `scale(${scale})`;
+    inner.style.transformOrigin = 'top center';
+    inner.style.width = 1200 + 'px';
+    inner.style.height = (849*scale) + 'px';
+  }
+  window.addEventListener('resize', fitStage);
+  window.addEventListener('load', fitStage);
+  fitStage();
+
+  // ---- export to PNG ----
+  document.getElementById('exportBtn').addEventListener('click', async function(){
+    const btn = this;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '⏳ Menyiapkan…';
+    btn.disabled = true;
+
+    try{
+      const original = document.getElementById('certificate');
+      const clone = original.cloneNode(true);
+      clone.style.position = 'fixed';
+      clone.style.top = '-99999px';
+      clone.style.left = '-99999px';
+      clone.style.transform = 'none';
+      clone.style.boxShadow = 'none';
+      document.body.appendChild(clone);
+
+      // ensure fonts are ready
+      if(document.fonts && document.fonts.ready){
+        await document.fonts.ready;
+      }
+      await new Promise(r=>setTimeout(r,80));
+
+      const canvas = await html2canvas(clone, {
+        backgroundColor:null,
+        scale:2,
+        useCORS:true,
+        width:1200,
+        height:849
+      });
+
+      document.body.removeChild(clone);
+
+      const link = document.createElement('a');
+      const recipient = document.getElementById('inRecipient').value.trim() || 'sertifikat';
+      const fname = 'Sertifikat-' + recipient.replace(/[^a-z0-9]+/gi,'-') + '.png';
+      link.download = fname;
+      link.href = canvas.toDataURL('image/png', 1.0);
+      link.click();
+    }catch(err){
+      alert('Gagal mengekspor PNG: ' + err.message);
+    }finally{
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    }
+  });
+</script>
+
+</body>
+</html>
